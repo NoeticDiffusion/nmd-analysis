@@ -1,0 +1,47 @@
+dataset: ds000228
+description: "Dataset config for NDT analysis pipeline"
+
+input:
+  # Optional explicit input root for this dataset.
+  # Leave null to provide via CLI/runtime.
+  h5_root: null
+
+output:
+  directory: "nmd-analysis/outputs"
+  # Final filename: [datasetname]_[analysisType]_YYYYMMDD_HHMMSS.parquet
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  skip_disabled_analyses: true
+  continue_on_analysis_error: false
+
+flags:
+  sleep_data_contrast: false
+
+modality_rules:
+  fmri:
+    # Regional analyses are currently disabled for fMRI in this refactor.
+    force_disable:
+      - regional_3d
+      - regional_9d
+
+analyses:
+  # Within-subject global analyses
+  global_mnps_3d: true
+  global_mnps_jacobian_3d: true
+  global_mnps_9d: true
+  global_mnps_jacobian_9d: true
+  global_mnps_9d_block_jacobian: true
+  global_mnps_jacobian_9d_block_jacobian: true
+
+  # Regional analyses
+  regional_3d: true
+  regional_9d: false
+
+  # Reachability
+  reachability_cones: true

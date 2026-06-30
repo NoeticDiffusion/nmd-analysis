@@ -1,0 +1,125 @@
+dataset: ds004511
+description: "Cleaned -> analysis MVP config for ds004511"
+
+input:
+  cleaned_root: "data/cleaned"
+
+output:
+  directory: "data/analysis"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  continue_on_error: false
+
+qc:
+  require_finite_ok: true
+  exclude_not_testable: true
+  exclude_validity_limited: false
+
+design:
+  pairing_keys:
+    - subject_id
+    - session
+    - run
+  condition_column: task
+  group_column: group
+
+statistics:
+  permutation_n: 2000
+  bootstrap_n: 1000
+  random_seed: 13
+  min_group_n: 3
+  min_pairs: 3
+  fdr_group_by:
+    - contrast_name
+    - analysis_type
+
+blocks:
+  global_mnps_jacobian_3d:
+    enabled: true
+    validity:
+      min:
+        n_windows: 50
+      max:
+        jacobian_near_singular_rate: 0.1
+      require_true:
+        - eig_ok
+  global_mnps_9d:
+    enabled: true
+  global_mnps_jacobian_9d:
+    enabled: true
+    validity:
+      min:
+        n_windows: 50
+      max:
+        jacobian_near_singular_rate: 0.1
+      require_true:
+        - eig_ok
+  global_mnps_9d_block_jacobian:
+    enabled: true
+  global_mnps_jacobian_9d_block_jacobian:
+    enabled: true
+  regional_3d:
+    enabled: true
+  regional_9d:
+    enabled: true
+  reachability_cones:
+    enabled: true
+    validity:
+      min:
+        tube_log_det_split_half_rho: 0.5
+        tube_d_eff_split_half_rho: 0.5
+        tube_log_det_split_half_n: 50
+        tube_d_eff_split_half_n: 50
+      max:
+        pred_err_h1: 1.0
+        near_singular_rate: 0.1
+  tier2_emmi:
+    enabled: true
+  trajectory_dynamics:
+    enabled: true
+  dist_summary:
+    enabled: true
+  tier2_jacobian:
+    enabled: true
+  tau_summary:
+    enabled: true
+  robust_summary:
+    enabled: true
+  features_raw:
+    enabled: true
+  features_robust_z:
+    enabled: true
+
+contrasts:
+  - name: Rest_vs_CC
+    type: paired
+    left:
+      task: Rest
+    right:
+      task: CC
+    subset:
+      task: [Rest, CC]
+
+  - name: Rest_vs_GG
+    type: paired
+    left:
+      task: Rest
+    right:
+      task: GG
+    subset:
+      task: [Rest, GG]
+
+  - name: GG_vs_CC
+    type: paired
+    left:
+      task: GG
+    right:
+      task: CC
+    subset:
+      task: [GG, CC]

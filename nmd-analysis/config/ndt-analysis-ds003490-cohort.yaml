@@ -1,0 +1,44 @@
+dataset: ds003490
+description: "Dataset config for ds003490 Parkinson ON/OFF exploratory trajectory refresh (cohort anchor)"
+
+input:
+  h5_root: "../data/raw/neuralmanifolddynamics_ds003490_20260602_144145"
+
+coordinate_contract: cohort_anchored
+
+output:
+  directory: "../data/cleaned"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  skip_disabled_analyses: true
+  continue_on_analysis_error: false
+  workers: 4
+
+flags:
+  sleep_data_contrast: false
+  stage_code_map:
+    10: eyes_closed
+    11: eyes_open
+  min_stage_timepoints: 5
+
+modality_rules: {}
+
+analyses:
+  global_mnps_3d: true
+  global_mnps_jacobian_3d: true
+  global_mnps_9d: true
+  global_mnps_jacobian_9d: true
+  global_mnps_9d_block_jacobian: true
+  global_mnps_jacobian_9d_block_jacobian: true
+  regional_mnps_jacobian_3d: true
+  regional_mnps_jacobian_9d: true
+  regional_3d: true
+  regional_9d: true
+  reachability_cones: true
+  regional_reachability_cones_3d: true

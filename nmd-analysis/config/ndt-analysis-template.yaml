@@ -1,0 +1,74 @@
+dataset: example_dataset
+description: "Template config for NDT analysis pipeline"
+
+input:
+  # Optional explicit input root for this dataset.
+  # Leave null to provide via CLI/runtime.
+  h5_root: null
+
+# MNDM 2.1 default: use cohort-anchored coordinates when available.
+# Set to subject_anchored or legacy to override.
+coordinate_contract: cohort_anchored
+
+output:
+  directory: "data/cleaned"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  skip_disabled_analyses: true
+  continue_on_analysis_error: false
+  # workers: 4
+
+flags:
+  # Set true for datasets where stage-labeled sleep contrasts
+  # are expected downstream (e.g. Wake/N2/N3/REM).
+  sleep_data_contrast: false
+
+modality_rules:
+  fmri:
+    force_disable:
+      - regional_3d
+      - regional_9d
+
+analyses:
+  global_mnps_3d: true
+  global_mnps_jacobian_3d: true
+  global_mnps_9d: true
+  global_mnps_jacobian_9d: true
+  global_mnps_9d_block_jacobian: true
+  global_mnps_jacobian_9d_block_jacobian: true
+  regional_mnps_jacobian_3d: true
+  regional_mnps_jacobian_9d: true
+  regional_3d: true
+  regional_9d: true
+  reachability_cones: true
+  regional_reachability_cones_3d: true
+
+# ---------------------------------------------------------------------------
+# block_native: configuration for block-native sidecar analysis.
+#
+# stage_code_map maps integer stage codes (as produced by the MNDM ingest
+# pipeline) to human-readable labels used in plots and summaries.
+# Leave empty ({}) to fall back to numeric codes as labels.
+#
+# anchor_state_cols / anchor_quality_cols: override the default column lists
+# from block_native.py. Leave empty ([]) to use module defaults.
+#
+# qc: thresholds applied by combined_qc_mask / qc_mask_from_config.
+# ---------------------------------------------------------------------------
+block_native:
+  stage_code_map: {}
+  anchor_state_cols: []
+  anchor_dot_cols: []
+  anchor_quality_cols: []
+  hrv_cols: []
+  prefer_parquet: true
+  qc:
+    require_mnps_finite: true
+    min_anchor_support: 0.3
+    min_anchor_state_finite: 1

@@ -1,0 +1,103 @@
+dataset: ds003474
+description: "Cleaned -> analysis config for ds003474 BDI-bin and paired task exports"
+
+input:
+  cleaned_root: "../data/cleaned"
+
+output:
+  directory: "../data/analysis"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  continue_on_error: false
+
+qc:
+  require_finite_ok: true
+  exclude_not_testable: true
+  exclude_validity_limited: false
+
+design:
+  pairing_keys:
+    - subject_id
+    - run
+  condition_column: condition
+  group_column: group
+
+statistics:
+  permutation_n: 2000
+  bootstrap_n: 1000
+  random_seed: 3474
+  min_group_n: 3
+  min_pairs: 3
+  fdr_group_by:
+    - contrast_name
+    - analysis_type
+
+blocks:
+  global_mnps_3d:
+    enabled: true
+  global_mnps_jacobian_3d:
+    enabled: true
+    validity:
+      min:
+        n_windows: 50
+      max:
+        jacobian_near_singular_rate: 0.1
+      require_true:
+        - eig_ok
+  global_mnps_9d:
+    enabled: true
+  global_mnps_jacobian_9d:
+    enabled: true
+    validity:
+      min:
+        n_windows: 50
+      max:
+        jacobian_near_singular_rate: 0.1
+      require_true:
+        - eig_ok
+  global_mnps_jacobian_9d_block_jacobian:
+    enabled: true
+  regional_3d:
+    enabled: true
+  regional_9d:
+    enabled: true
+  reachability_cones:
+    enabled: true
+    validity:
+      min:
+        tube_log_det_split_half_rho: 0.5
+        tube_d_eff_split_half_rho: 0.5
+        tube_log_det_split_half_n: 50
+        tube_d_eff_split_half_n: 50
+      max:
+        pred_err_h1: 1.0
+        near_singular_rate: 0.1
+  tier2_emmi:
+    enabled: true
+  dist_summary:
+    enabled: true
+  tier2_jacobian:
+    enabled: true
+  tau_summary:
+    enabled: true
+  robust_summary:
+    enabled: true
+  features_raw:
+    enabled: true
+  features_robust_z:
+    enabled: true
+
+contrasts:
+  - name: BDI_0_13_vs_BDI_20_63
+    left:
+      group: ["0.0", "1.0", "2.0", "3.0", "4.0", "5.0", "6.0", "7.0", "8.0", "9.0", "10.0", "11.0", "12.0", "13.0"]
+    right:
+      group: ["20.0", "21.0", "22.0", "23.0", "24.0", "25.0", "26.0", "27.0", "28.0", "29.0", "30.0", "31.0", "32.0", "33.0", "34.0", "35.0", "36.0", "37.0", "38.0", "39.0", "40.0", "41.0", "42.0", "43.0", "44.0", "45.0", "46.0", "47.0", "48.0", "49.0", "50.0", "51.0", "52.0", "53.0", "54.0", "55.0", "56.0", "57.0", "58.0", "59.0", "60.0", "61.0", "62.0", "63.0"]
+    subset:
+      group: ["0.0", "1.0", "2.0", "3.0", "4.0", "5.0", "6.0", "7.0", "8.0", "9.0", "10.0", "11.0", "12.0", "13.0", "20.0", "21.0", "22.0", "23.0", "24.0", "25.0", "26.0", "27.0", "28.0", "29.0", "30.0", "31.0", "32.0", "33.0", "34.0", "35.0", "36.0", "37.0", "38.0", "39.0", "40.0", "41.0", "42.0", "43.0", "44.0", "45.0", "46.0", "47.0", "48.0", "49.0", "50.0", "51.0", "52.0", "53.0", "54.0", "55.0", "56.0", "57.0", "58.0", "59.0", "60.0", "61.0", "62.0", "63.0"]

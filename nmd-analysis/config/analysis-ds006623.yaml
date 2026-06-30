@@ -1,0 +1,105 @@
+dataset: ds006623
+description: "Cleaned -> analysis config for ds006623 LOR/ROR contrasts"
+
+input:
+  cleaned_root: "../data/cleaned"
+
+output:
+  directory: "../data/analysis"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  continue_on_error: false
+
+qc:
+  require_finite_ok: true
+  exclude_not_testable: true
+  exclude_validity_limited: false
+
+design:
+  pairing_keys:
+    - subject_id
+  condition_column: condition
+  group_column: group
+
+statistics:
+  permutation_n: 2000
+  bootstrap_n: 1000
+  random_seed: 6623
+  min_group_n: 3
+  min_pairs: 3
+  fdr_group_by:
+    - contrast_name
+    - analysis_type
+
+blocks:
+  global_mnps_3d:
+    enabled: true
+  global_mnps_jacobian_3d:
+    enabled: true
+    validity:
+      min:
+        n_windows: 5
+      require_true:
+        - eig_ok
+  reachability_cones:
+    enabled: true
+  trajectory_dynamics:
+    enabled: true
+
+contrasts:
+  - name: Healthy_awake_vs_Healthy_unresponsive
+    type: paired
+    left:
+      group: Healthy
+      condition: awake
+    right:
+      group: Healthy
+      condition: unresponsive
+    subset:
+      group: [Healthy]
+      condition: [awake, unresponsive]
+    analyses:
+      - global_mnps_3d
+      - global_mnps_jacobian_3d
+      - trajectory_dynamics
+      - reachability_cones
+
+  - name: Healthy_unresponsive_vs_Healthy_recovery
+    type: paired
+    left:
+      group: Healthy
+      condition: unresponsive
+    right:
+      group: Healthy
+      condition: recovery
+    subset:
+      group: [Healthy]
+      condition: [unresponsive, recovery]
+    analyses:
+      - global_mnps_3d
+      - global_mnps_jacobian_3d
+      - trajectory_dynamics
+      - reachability_cones
+
+  - name: Healthy_awake_vs_Healthy_recovery
+    type: paired
+    left:
+      group: Healthy
+      condition: awake
+    right:
+      group: Healthy
+      condition: recovery
+    subset:
+      group: [Healthy]
+      condition: [awake, recovery]
+    analyses:
+      - global_mnps_3d
+      - global_mnps_jacobian_3d
+      - trajectory_dynamics
+      - reachability_cones

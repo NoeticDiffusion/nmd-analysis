@@ -1,0 +1,35 @@
+dataset: ds003947
+description: "Dataset config for ds003947 v2 psychosis pipeline"
+
+input:
+  h5_root: "../data/raw/neuralmanifolddynamics_ds003947_20260520_114135"
+
+coordinate_contract: cohort_anchored
+
+output:
+  directory: "../data/cleaned"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  skip_disabled_analyses: true
+  continue_on_analysis_error: false
+
+flags:
+  sleep_data_contrast: false
+
+modality_rules: {}
+
+analyses:
+  global_mnps_3d: true
+  global_mnps_jacobian_3d: true
+  global_mnps_9d: true
+  global_mnps_jacobian_9d: true
+  global_mnps_jacobian_9d_block_jacobian: true
+  regional_3d: false
+  regional_9d: false
+  reachability_cones: false

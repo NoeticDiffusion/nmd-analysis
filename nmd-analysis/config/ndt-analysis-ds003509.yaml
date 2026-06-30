@@ -1,0 +1,58 @@
+dataset: ds003509
+description: "Dataset config for ds003509 Parkinson Simon conflict cognitive workload analysis"
+
+input:
+  h5_root: "../data/raw/neuralmanifolddynamics_ds003509_20260605_071616"
+
+coordinate_contract: subject_anchored
+
+output:
+  directory: "../data/cleaned"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  skip_disabled_analyses: true
+  continue_on_analysis_error: false
+  workers: 4
+
+flags:
+  sleep_data_contrast: false
+  stage_code_map:
+    10: training_stimulus_congruent
+    11: training_stimulus_incongruent
+    12: training_response_correct
+    13: training_response_incorrect
+    14: training_no_response
+    15: training_feedback_reward
+    16: training_feedback_punishment
+    17: training_feedback_timeout
+    18: training_feedback_error
+    20: test_stimulus_easy
+    21: test_stimulus_direct_conflict
+    22: test_stimulus_relative_conflict
+    23: test_stimulus_other
+    24: test_response_correct
+    25: test_response_incorrect
+    26: test_no_response
+  min_stage_timepoints: 5
+
+modality_rules: {}
+
+analyses:
+  global_mnps_3d: true
+  global_mnps_jacobian_3d: true
+  global_mnps_9d: true
+  global_mnps_jacobian_9d: true
+  global_mnps_9d_block_jacobian: true
+  global_mnps_jacobian_9d_block_jacobian: true
+  regional_mnps_jacobian_3d: true
+  regional_mnps_jacobian_9d: true
+  regional_3d: true
+  regional_9d: true
+  reachability_cones: true
+  regional_reachability_cones_3d: true

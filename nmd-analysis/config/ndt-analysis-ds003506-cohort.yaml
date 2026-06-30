@@ -1,0 +1,58 @@
+dataset: ds003506
+description: "Dataset config for ds003506 Parkinson reinforcement learning cognitive workload analysis (cohort anchor)"
+
+input:
+  h5_root: "../data/raw/neuralmanifolddynamics_ds003506_20260605_064641"
+
+coordinate_contract: cohort_anchored
+
+output:
+  directory: "../data/cleaned"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  skip_disabled_analyses: true
+  continue_on_analysis_error: false
+  workers: 4
+
+flags:
+  sleep_data_contrast: false
+  stage_code_map:
+    40: choose_instruction
+    41: choose_stimulus
+    42: choose_response_left
+    43: choose_response_right
+    44: choose_feedback_reward
+    45: choose_feedback_punishment
+    46: choose_feedback_timeout
+    47: choose_feedback_error
+    50: match_instruction
+    51: match_stimulus
+    52: match_response_left
+    53: match_response_right
+    54: match_feedback_reward
+    55: match_feedback_punishment
+    56: match_feedback_timeout
+    57: match_feedback_error
+  min_stage_timepoints: 5
+
+modality_rules: {}
+
+analyses:
+  global_mnps_3d: true
+  global_mnps_jacobian_3d: true
+  global_mnps_9d: true
+  global_mnps_jacobian_9d: true
+  global_mnps_9d_block_jacobian: true
+  global_mnps_jacobian_9d_block_jacobian: true
+  regional_mnps_jacobian_3d: true
+  regional_mnps_jacobian_9d: true
+  regional_3d: true
+  regional_9d: true
+  reachability_cones: true
+  regional_reachability_cones_3d: true

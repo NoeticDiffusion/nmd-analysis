@@ -1,0 +1,87 @@
+dataset: ds003838
+description: >
+  NDT analysis config for ds003838 (EEG digit-span / rest dataset).
+  Multimodal: EEG, ECG, pupillometry, PPG.
+  Embodied anchor surface available for all subjects.
+
+input:
+  cleaned_root: null   # set via CLI or environment
+
+coordinate_contract: subject_anchored
+
+output:
+  directory: "data/analysis/ds003838"
+  filename_pattern: "ds003838_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: false
+  continue_on_error: true
+
+qc:
+  require_finite_ok: true
+  exclude_not_testable: true
+  exclude_validity_limited: false
+
+statistics:
+  permutation_n: 2000
+  bootstrap_n: 1000
+  random_seed: 13
+  min_group_n: 5
+  min_pairs: 5
+  fdr_group_by: [contrast_name, analysis_type]
+
+design:
+  pairing_keys: [subject_id]
+  condition_column: task_state_label
+  group_column: group
+
+# ---------------------------------------------------------------------------
+# block_native: ds003838-specific stage labels and anchor QC
+# ---------------------------------------------------------------------------
+block_native:
+  stage_code_map:
+    0: rest
+    1: listen
+    5: mem5
+    9: mem9
+    13: mem13
+  anchor_state_cols:
+    - sympathetic_index
+    - vagal_index
+    - vascular_index
+    - pupil_arousal_index
+    - anchor_index
+  anchor_dot_cols:
+    - sympathetic_index_dot
+    - vagal_index_dot
+    - vascular_index_dot
+    - pupil_arousal_index_dot
+    - anchor_index_dot
+  anchor_quality_cols:
+    - ecg_quality_quality
+    - ppg_quality_quality
+    - pupil_quality_quality
+    - anchor_support_fraction_quality
+  hrv_cols:
+    - ecg_hrv_hr_mean_bpm
+    - ecg_hrv_ibi_mean_ms
+    - ecg_hrv_sdnn_ms
+    - ecg_hrv_rmssd_ms
+    - ecg_hrv_pnn50
+    - ecg_hrv_nn_count
+    - ecg_hrv_artifact_fraction
+    - ecg_hrv_coverage_fraction
+    - ecg_hrv_quality_score
+  prefer_parquet: true
+  qc:
+    require_mnps_finite: true
+    min_anchor_support: 0.3
+    min_anchor_state_finite: 1
+
+contrasts: []
+negative_controls: []
+blocks: {}

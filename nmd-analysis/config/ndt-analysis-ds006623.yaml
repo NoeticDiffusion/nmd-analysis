@@ -1,0 +1,49 @@
+dataset: ds006623
+description: "Dataset config for ds006623 propofol LOR/ROR stage-split pipeline"
+
+input:
+  h5_root: "../data/raw/neuralmanifolddynamics_ds006623_20260324_095247"
+
+output:
+  directory: "../data/cleaned"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  skip_disabled_analyses: true
+  continue_on_analysis_error: false
+
+flags:
+  sleep_data_contrast: true
+  stage_code_map:
+    1: awake
+    2: unresponsive
+    3: recovery
+  min_stage_timepoints: 20
+
+modality_rules:
+  fmri:
+    force_disable:
+      - regional_3d
+      - regional_9d
+      - regional_mnps_jacobian_3d
+      - regional_mnps_jacobian_9d
+      - regional_reachability_cones_3d
+
+analyses:
+  global_mnps_3d: true
+  global_mnps_jacobian_3d: true
+  global_mnps_9d: false
+  global_mnps_jacobian_9d: false
+  global_mnps_9d_block_jacobian: false
+  global_mnps_jacobian_9d_block_jacobian: false
+  regional_mnps_jacobian_3d: false
+  regional_mnps_jacobian_9d: false
+  regional_3d: false
+  regional_9d: false
+  reachability_cones: true
+  regional_reachability_cones_3d: false

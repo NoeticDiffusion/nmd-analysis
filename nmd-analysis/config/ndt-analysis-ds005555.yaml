@@ -1,0 +1,35 @@
+dataset: ds005555
+description: "Dataset config for ds005555 v2 sleep EEG pipeline"
+
+input:
+  h5_root: "../data/raw/neuralmanifolddynamics_ds005555_20260319_063748"
+
+output:
+  directory: "../data/cleaned"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  skip_disabled_analyses: true
+  continue_on_analysis_error: false
+
+flags:
+  sleep_data_contrast: true
+
+modality_rules: {}
+
+analyses:
+  global_mnps_3d: true
+  global_mnps_jacobian_3d: true
+  global_mnps_9d: true
+  global_mnps_jacobian_9d: true
+  regional_mnps_jacobian_3d: true
+  regional_mnps_jacobian_9d: true
+  regional_3d: true
+  regional_9d: true
+  reachability_cones: true
+  regional_reachability_cones_3d: true

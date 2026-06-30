@@ -1,0 +1,97 @@
+dataset: ds006036
+description: >
+  NDT analysis config for ds006036 (Alzheimer / FTD photic stress dataset).
+  EEG-only. No embodied anchor surface (ECG not present in this dataset).
+  Stage codes correspond to photic frequency and eye-state conditions.
+
+input:
+  cleaned_root: null   # set via CLI or environment
+
+coordinate_contract: cohort_anchored
+
+output:
+  directory: "data/analysis/ds006036"
+  filename_pattern: "ds006036_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: false
+  continue_on_error: true
+
+qc:
+  require_finite_ok: true
+  exclude_not_testable: true
+  exclude_validity_limited: false
+
+statistics:
+  permutation_n: 2000
+  bootstrap_n: 1000
+  random_seed: 13
+  min_group_n: 5
+  min_pairs: 5
+  fdr_group_by: [contrast_name, analysis_type]
+
+design:
+  pairing_keys: [subject_id]
+  condition_column: condition_label
+  group_column: group
+
+# ---------------------------------------------------------------------------
+# block_native: ds006036-specific stage labels.
+# No anchor surface in this dataset — anchor QC thresholds are permissive.
+# ---------------------------------------------------------------------------
+block_native:
+  stage_code_map:
+    50: photic_5hz
+    51: photic_10hz
+    52: photic_15hz
+    53: photic_20hz
+    60: open_eyes
+    61: closed_eyes
+    62: eye_movement
+  anchor_state_cols: []   # no embodied anchor surface in ds006036
+  anchor_dot_cols: []
+  anchor_quality_cols: []
+  hrv_cols: []
+  prefer_parquet: true
+  qc:
+    require_mnps_finite: true
+    min_anchor_support: 0.0    # permissive: anchor not expected
+    min_anchor_state_finite: 0
+
+contrasts:
+  - name: AD_vs_Healthy
+    type: between_subject
+    left:
+      group: A
+    right:
+      group: C
+    subset: {}
+    analyses: null
+    metrics: null
+
+  - name: FTD_vs_Healthy
+    type: between_subject
+    left:
+      group: F
+    right:
+      group: C
+    subset: {}
+    analyses: null
+    metrics: null
+
+  - name: AD_vs_FTD
+    type: between_subject
+    left:
+      group: A
+    right:
+      group: F
+    subset: {}
+    analyses: null
+    metrics: null
+
+negative_controls: []
+blocks: {}

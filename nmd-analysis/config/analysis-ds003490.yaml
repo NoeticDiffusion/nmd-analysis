@@ -1,0 +1,144 @@
+dataset: ds003490
+description: "Cleaned -> analysis config for ds003490 Parkinson ON/OFF exploratory contrasts"
+
+input:
+  cleaned_root: "../data/cleaned"
+
+coordinate_contract: subject_anchored
+
+output:
+  directory: "../data/analysis"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  continue_on_error: false
+
+qc:
+  require_finite_ok: true
+  exclude_not_testable: true
+  exclude_validity_limited: false
+
+design:
+  pairing_keys:
+    - subject_id
+  condition_column: condition
+  group_column: group
+
+statistics:
+  permutation_n: 2000
+  bootstrap_n: 1000
+  random_seed: 3490
+  min_group_n: 3
+  min_pairs: 3
+  fdr_group_by:
+    - contrast_name
+    - analysis_type
+
+blocks:
+  global_mnps_3d:
+    enabled: true
+  trajectory_dynamics:
+    enabled: true
+  global_mnps_jacobian_3d:
+    enabled: true
+    validity:
+      min:
+        n_windows: 50
+      max:
+        jacobian_near_singular_rate: 0.1
+      require_true:
+        - eig_ok
+  global_mnps_9d:
+    enabled: true
+  global_mnps_jacobian_9d:
+    enabled: true
+    validity:
+      min:
+        n_windows: 50
+      max:
+        jacobian_near_singular_rate: 0.1
+      require_true:
+        - eig_ok
+  global_mnps_9d_block_jacobian:
+    enabled: true
+  global_mnps_jacobian_9d_block_jacobian:
+    enabled: true
+  regional_mnps_jacobian_3d:
+    enabled: true
+  regional_mnps_jacobian_9d:
+    enabled: true
+  regional_3d:
+    enabled: true
+  regional_9d:
+    enabled: true
+  reachability_cones:
+    enabled: true
+    validity:
+      min:
+        tube_log_det_split_half_rho: 0.5
+        tube_d_eff_split_half_rho: 0.5
+        tube_log_det_split_half_n: 50
+        tube_d_eff_split_half_n: 50
+      max:
+        pred_err_h1: 1.0
+        near_singular_rate: 0.1
+  regional_reachability_cones_3d:
+    enabled: true
+  tier2_emmi:
+    enabled: false
+  dist_summary:
+    enabled: false
+  tier2_jacobian:
+    enabled: true
+  eeg_classical_comparators:
+    enabled: true
+  tau_summary:
+    enabled: true
+  robust_summary:
+    enabled: false
+  features_raw:
+    enabled: false
+  features_robust_z:
+    enabled: false
+
+contrasts:
+  - name: Parkinson_OFF_vs_ON
+    type: paired
+    left:
+      group: Parkinson
+      condition: "OFF"
+    right:
+      group: Parkinson
+      condition: "ON"
+    subset:
+      group: [Parkinson]
+      condition: ["OFF", "ON"]
+    pairing_keys:
+      - subject_id
+
+  - name: Control_vs_Parkinson_OFF
+    left:
+      group: Control
+      condition: not_applicable
+    right:
+      group: Parkinson
+      condition: "OFF"
+    subset:
+      group: [Control, Parkinson]
+      condition: [not_applicable, "OFF"]
+
+  - name: Control_vs_Parkinson_ON
+    left:
+      group: Control
+      condition: not_applicable
+    right:
+      group: Parkinson
+      condition: "ON"
+    subset:
+      group: [Control, Parkinson]
+      condition: [not_applicable, "ON"]

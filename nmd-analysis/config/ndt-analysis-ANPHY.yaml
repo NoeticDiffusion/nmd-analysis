@@ -1,0 +1,39 @@
+dataset: ANPHY
+description: "Dataset config for ANPHY sleep EEG pipeline"
+
+input:
+  h5_root: "data/raw/neuralmanifolddynamics_ANPHY_20260309_122440"
+
+output:
+  directory: "data/cleaned"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  skip_disabled_analyses: true
+  continue_on_analysis_error: false
+
+flags:
+  # Sleep-stage labels live in /labels/stage and should be
+  # reusable for Wake/N2/N3/REM stage-aware contrasts downstream.
+  sleep_data_contrast: true
+
+modality_rules: {}
+
+analyses:
+  global_mnps_3d: true
+  global_mnps_jacobian_3d: true
+  global_mnps_9d: true
+  global_mnps_jacobian_9d: true
+  global_mnps_9d_block_jacobian: true
+  global_mnps_jacobian_9d_block_jacobian: true
+  regional_mnps_jacobian_3d: true
+  regional_mnps_jacobian_9d: true
+  regional_3d: true
+  regional_9d: true
+  reachability_cones: true
+  regional_reachability_cones_3d: true

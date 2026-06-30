@@ -1,0 +1,42 @@
+dataset: ds004574
+description: "Dataset config for ds004574 Parkinson auditory oddball trajectory analysis"
+
+input:
+  h5_root: "../data/raw/neuralmanifolddynamics_ds004574_20260602_062756"
+
+coordinate_contract: subject_anchored
+
+output:
+  directory: "../data/cleaned"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  skip_disabled_analyses: true
+  continue_on_analysis_error: false
+  workers: 4
+
+flags:
+  sleep_data_contrast: false
+  stage_code_map: {}
+  min_stage_timepoints: 5
+
+modality_rules: {}
+
+analyses:
+  global_mnps_3d: true
+  global_mnps_jacobian_3d: true
+  global_mnps_9d: true
+  global_mnps_jacobian_9d: true
+  global_mnps_9d_block_jacobian: false
+  global_mnps_jacobian_9d_block_jacobian: false
+  regional_mnps_jacobian_3d: false
+  regional_mnps_jacobian_9d: false
+  regional_3d: false
+  regional_9d: false
+  reachability_cones: true
+  regional_reachability_cones_3d: false
