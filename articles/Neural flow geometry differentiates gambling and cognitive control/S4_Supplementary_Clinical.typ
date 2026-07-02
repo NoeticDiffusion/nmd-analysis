@@ -1,0 +1,154 @@
+#import "template_eLife.typ": *
+
+#show: netn-template.with(
+  title: "S4 Supplementary Clinical Summary",
+  short-title: "S4 Clinical Summary — MNJ Task Geometry (ds004511)",
+  subtitle: "A cautious clinician-facing interpretation of the gambling vs. cognitive control MNJ article",
+  authors: (
+    (name: "Robin Langell", affil: 1),
+  ),
+  affiliations: (
+    "Langell Konsult AB, Vallentuna, Sweden",
+  ),
+  corresponding-author: "Robin Langell, hello@noeticdiffusion.com",
+  article-type: "Supplement",
+)
+
+= Scope and intent
+
+#netn-box(title: [Important: observational study — no intervention tested])[
+  This study tested *no* clinical intervention. Participants played a computerized gambling game, performed a cognitive control task, and rested with eyes closed — three ordinary laboratory conditions, none of which manipulated their physiology or brain state directly. All reported findings are *observational, cross-sectional, and group-level* in healthy young adults. No individual-level predictions are supported. No causal inference from task type to neural dynamics beyond the tested associations is warranted.
+]
+
+This supplement is written for clinicians and clinically oriented readers — psychiatrists, addiction specialists, neurologists, cognitive neuroscientists — who want to understand what this article found and what it cautiously implies, without needing to work through the full mathematical language of Noetic Diffusion Theory (NDT) or the NeuralManifoldDynamics pipeline.
+
+The goal is translation, not amplification. Nothing here makes the findings sound more certain or more clinically ready than they are.
+
+Three important limitations frame everything that follows:
+
+1. *This is a healthy adult sample.* The 44 (per the dataset's official participants table) to 45 (per the ingested data release; see §What was studied) participants are neurologically intact adults performing a laboratory gambling task, a cognitive control task, and resting. No patient populations (e.g., gambling disorder, impulse-control disorder, ADHD), no disease conditions, no clinical outcomes are measured.
+2. *All relationships are correlational and observational.* No experimental manipulation of the participants' physiology, arousal, or brain state was performed beyond assigning them to perform different tasks. Causality cannot be established from this design.
+3. *None of these measures are validated clinical biomarkers.* The MNPS coordinates and Jacobian (MNJ) metrics are research-grade constructs that have not been tested for clinical predictive validity, sensitivity, or specificity in any patient group.
+
+With those constraints in place: what did this article actually find?
+
+= What is Noetic Diffusion Theory, and why does it matter here?
+
+*The basic idea.* From an NDT perspective, the brain continuously navigates a high-dimensional landscape of possible neural states rather than simply "computing" a fixed representation. At any moment, the current neural state sits somewhere in that landscape, and it moves through the landscape over time — the *trajectory*.
+
+Most prior neuroscience analyses of this kind of trajectory ask *where* the system is (which region of the landscape). NDT additionally asks *how the system is moving* at each point — is it expanding, contracting, rotating, or holding steady? That local motion structure is captured by the *Meta-Noetic Jacobian* (MNJ), the mathematical object this article focuses on.
+
+*Why compare a gambling game to a cognitive control task?* Gambling and cognitive control can look similar from the outside — both involve attention, decision-making, and engaged prefrontal circuitry — but they are very different *processes*. The gambling task used here involves unpredictable outcomes, risk, betting, and a spontaneous-deception cover story (see below); cognitive control involves holding a rule in mind and resisting an automatic but wrong response. This article asks whether the *local flow geometry* of neural dynamics (MNJ) can tell these processes apart even when a standard measure of "which brain state you're in" (MNPS) cannot — and whether any observed difference is simply due to the gambling task being more physiologically arousing.
+
+= What was studied
+
+*Participants.* 44 (per the dataset's official participants table) to 45 (per the ingested data release, which includes one additional subject who is missing gambling-task EEG but has valid cognitive-control and rest data) healthy adults (`ds004511`, an openly available dataset) with simultaneous 128-channel EEG, ECG, respiration, EMG, and electrodermal activity (EDA, a measure of sweat-gland-driven skin conductance reflecting sympathetic arousal) recorded in one session.
+
+*Tasks.* Three within-subject conditions:
+
+- *Gambling (GG)* — officially the "Spontaneous Deception Task." Participants privately observed the outcome of a dice roll, placed a bet on their own prediction, and self-reported to the system whether their prediction was correct, over 144 rounds. There is no computer opponent, no cooperate/defect choice, and no social-interaction element; the task was designed to give participants an unmonitored opportunity to misreport their prediction, which the paper's neural analysis cannot currently detect at the level of individual rounds (see limitations below).
+- *Cognitive control (CC)* — a four-part task battery requiring participants to inhibit an automatic response or resolve conflicting response tendencies across processing-speed, response-selection, response-inhibition, and conflict-resolution sub-tasks.
+- *Rest* — several minutes of eyes-closed quiet rest, no task.
+
+*What was measured on the body side.* Continuous ECG (heart rate, heart-rate variability), respiration (breathing rate and regularity, and how well breathing rhythm aligns with the neural trajectory — the "respiratory anchor index"), and EDA (tonic skin conductance level, a standard index of sustained sympathetic arousal, plus phasic skin-conductance responses to discrete events).
+
+*What was measured on the brain side.* EEG was processed by the NeuralManifoldDynamics pipeline to produce MNPS coordinates ($m$, $d$, $e$ — position in the state-space "landscape") and the Meta-Noetic Jacobian (six scalar summaries of local flow structure, described below).
+
+= What the coordinates mean in plain language
+
+*MNPS coordinates ($m$, $d$, $e$).* A three-number summary of *where* the brain's activity currently sits in its overall state-space landscape — roughly analogous to a GPS position. In this study, this position turned out to be very similar across gambling, cognitive control, and rest (see finding 1 below) — the tasks did not move the brain to different "locations."
+
+*MNJ Frobenius norm.* A single number summarizing the total amount of local deformation — how much the neural trajectory is being stretched, compressed, or redirected at each moment, regardless of direction. Higher values mean more turbulent, higher-magnitude local dynamics; lower values mean calmer, more contained local dynamics.
+
+*MNJ spectral radius.* Related to the Frobenius norm; captures the single strongest direction of local growth or decay in the neural trajectory.
+
+*MNJ rotational power / anisotropic compression index (ACI).* These capture *how* the deformation is organized — whether it is more like a structured, cyclical rotation (as seen in organized oscillatory brain rhythms) or more like an unstructured, one-directional expansion/contraction.
+
+*Tonic EDA (skin conductance level).* A well-established, non-invasive index of overall sympathetic nervous system arousal — the same physiological signal that underlies a traditional polygraph "lie detector" test's skin-conductance channel, and closely related to what a fitness-tracker "stress score" attempts to approximate. Higher values mean the sweat glands are more active due to increased sympathetic drive, independent of conscious feeling.
+
+= The main findings, in order of clinical salience
+
+== 1. The gambling task produces a large, specific signature in local neural flow geometry — even though the brain's overall "location" does not change
+
+Global MNPS position ($m$, $d$, $e$) did *not* differ meaningfully between gambling, cognitive control, and rest (all comparisons non-significant after correction for multiple tests). If one only looked at "which region of the state-space landscape is the brain in," these three very different tasks would look almost the same.
+
+However, the *local flow geometry* (MNJ) told a completely different story. The Frobenius norm — overall local deformation magnitude — was substantially higher during gambling than during cognitive control (a large effect, further validated by five separate robustness checks and a completely independent re-computation pathway; see S3). Gambling also showed higher spectral radius (more extreme local expansion/contraction) but *lower* rotational power and anisotropic compression index — meaning gambling's deformation is more expansive and disorganized, while cognitive control (and rest) show relatively more structured, cyclical local motion.
+
+*Plain language.* When the brain is engaged in a fast-moving, uncertain, reward-driven task like gambling, its moment-to-moment local dynamics become more turbulent and less cyclically organized — even though the overall "region" of brain-state space it occupies does not change. This distinction — "same place, different way of moving through that place" — is the paper's central methodological point, and it would not have been visible using conventional state-space location measures alone.
+
+== 2. This effect is not explained by higher physiological arousal during gambling
+
+A natural alternative explanation is that gambling is simply more exciting or stressful, and the neural effect is just a byproduct of higher generic arousal. This article tested that alternative directly and found it does not hold.
+
+Tonic EDA (sympathetic arousal) was statistically indistinguishable between gambling and cognitive control — both were significantly higher than rest, but not different from each other. In other words, participants' bodies were equally "keyed up" in both active tasks. Yet the neural flow-geometry difference between the two tasks (finding 1) was large. A dedicated statistical check (comparing each subject's individual difference in arousal against their individual difference in neural deformation) also found no relationship.
+
+The same conclusion held after testing five additional candidate physiological explanations — heart rate, respiration rate, a respiratory-neural coupling index, eye-blink rate, and corrugator (frowning-muscle) EMG activity — none of which could account for the effect. A further check comparing the effect against simple, conventional EEG summary measures (band power, complexity indices) also found every such measure to be substantially smaller than the neural flow-geometry effect, though this is an effect-size comparison rather than proof that the two are fully independent. A final check tested whether the sheer *timing* of task events/button-presses (rather than their physiological or affective content) could explain the effect: it does not — if anything, the fast cognitive-control task had a slightly higher moment-to-moment event rate than gambling, the opposite of what a "gambling is event-dense" explanation would require, and the effect held up essentially unchanged when only the quietest, lowest-event-rate moments of each task were compared. This narrows, though does not entirely rule out, a purely timing-based explanation.
+
+*Cautious clinical reading.* This is the paper's strongest and most clinically interesting message: a neural signature can differentiate two cognitively and motivationally distinct task states even when standard peripheral arousal measures (the kind used in polygraphs, stress-monitoring wearables, or basic autonomic assessments) cannot. If this generalizes, it would suggest that MNJ-type measures capture information about *what kind* of cognitive process is occurring, not merely *how aroused* someone is — a distinction of potential interest for research on gambling disorder, impulse control, and decision-making under risk, though this remains speculative pending clinical validation (see below). One further caveat specific to this dataset: because the gambling task is a spontaneous-deception paradigm and the underlying data do not record which rounds involved a misreported prediction, this article cannot say whether any part of the neural effect is specifically related to deception (as opposed to dice-prediction, betting, or self-report more generally) — this is an open question, not a settled negative.
+
+== 3. A secondary, weaker signal links breathing regularity to neural geometry — but only in cognitive control, not gambling
+
+During the cognitive control task, participants whose breathing was more regularly phase-locked to their ongoing neural trajectory (measured by the "respiratory anchor index") tended to show *lower* global mobility ($m$) — a moderate association that held up after statistically accounting for heart-rate variability. This mirrors a similar but weaker trend in gambling, linking respiratory regularity to lower deformation magnitude.
+
+*Cautious clinical reading.* This is consistent with the broader Embodied Anchoring Principle within NDT — the idea that steady, well-organized breathing may be associated with more contained, more organized neural dynamics — but the effect here is modest, task-specific, and does not survive the strictest multiple-comparison correction across all tests performed. It should be read as a suggestive secondary observation, not a confirmed finding.
+
+= What was NOT found — equally important
+
+*No meaningful difference in global brain-state position (MNPS) across any of the three tasks.* This null result is itself informative: it shows that "where the brain is" in a generic state-space sense is not sufficient to detect this kind of task specificity, motivating the more detailed local-geometry (MNJ) analysis.
+
+*No confound from any of six tested physiological measures* (heart rate, respiration rate, respiratory-neural coupling, eye-blink rate, tonic EDA, corrugator EMG), *nor from event/response timing.* None of these peripheral signals, nor the moment-to-moment rate of task events/button-presses, could statistically account for the gambling-vs-cognitive-control neural geometry effect. A conventional-EEG baseline comparison also confirmed the effect is not a simple restatement of band-power or complexity differences (see the technical article, §R5a–R5b).
+
+*No difference between cognitive control and rest in the primary Frobenius-norm metric.* The gambling task is the outlier condition; cognitive control and quiet rest resemble each other much more closely in overall deformation magnitude, even though they differ from each other in more specific structural measures (rotation, spectral radius).
+
+These nulls sharpen the interpretation: the finding is specific to gambling's flow geometry, not a generic "any task differs from rest" effect, and it is not reducible to any of the tested bodily arousal signals.
+
+= How to read the technical terminology clinically
+
+#figure(
+  clean-table(
+    columns: (1fr, 2fr),
+    table.header([*Technical term*], [*Plain-language translation*]),
+    [`MNPS` ($m$, $d$, $e$)], [A three-coordinate map of the brain's overall state-space "location," derived from EEG; did not differ across gambling, cognitive control, or rest in this study],
+    [`MNJ` / Jacobian],       [How the neural trajectory is locally moving — expanding, contracting, or rotating — at each moment, independent of overall location],
+    [Frobenius norm],          [Overall magnitude of local neural deformation; markedly higher during gambling than cognitive control or rest],
+    [Spectral radius],         [The single strongest direction of local growth/decay in the neural trajectory],
+    [Rotational power / ACI],  [How structured/cyclical (vs. disorganized/expansive) the local deformation is; lower during gambling, higher during cognitive control and rest],
+    [Tonic EDA (skin conductance)], [Standard non-invasive index of sustained sympathetic arousal; equal between gambling and cognitive control, ruling out simple arousal as the explanation],
+    [Respiratory anchor index], [How regularly breathing is phase-locked to the ongoing neural trajectory; weakly associated with lower neural mobility during cognitive control],
+    [Cohen's $d$],             [Effect size: ~0.2 small, ~0.5 medium, ~0.8 large; the primary gambling-vs-cognitive-control effect here is very large ($d approx 1.6$)],
+    [BH-FDR correction],       [Statistical adjustment applied when many tests are run at once, to control the rate of false-positive findings],
+  ),
+  caption: [Clinical translation of key technical terms used in the MNJ task-geometry article.]
+)
+
+= What clinicians should not conclude
+
+The following conclusions are *not* supported by this article:
+
+1. *"This is a diagnostic test for gambling disorder or problem gambling."* — Not tested. All participants were healthy adults with no reported gambling-disorder diagnosis. No patient comparison group was studied.
+2. *"MNJ Frobenius norm is a biomarker of risk-taking or impulsivity."* — MNJ metrics are research constructs, not validated clinical measures. No individual-difference or trait-level claim is supported; the findings are group-level, condition-level effects.
+3. *"This proves that gambling is neurally 'more stressful' than cognitive control."* — The opposite point is made: peripheral arousal (EDA) was equal between the two tasks. The neural effect is dissociated from arousal, not a marker of greater stress.
+4. *"Breathing exercises will change how someone's brain responds to gambling cues."* — No intervention was tested. The respiratory-anchoring association (finding 3) is a modest, observational, task-specific correlation, not evidence for a breathing-based intervention.
+5. *"This validates NDT as a theory of decision-making or addiction."* — This article tests one specific technical claim (that local flow geometry, MNJ, differentiates cognitive contexts beyond global state position and beyond peripheral arousal) in one dataset. It does not validate the broader NDT framework or make claims about the neuroscience of addiction.
+
+= What would increase clinical confidence
+
+1. *Replication in independent datasets and by independent research groups*, since the current analysis was conducted by the team that also developed the analysis pipeline.
+2. *Extension to clinical populations* — gambling disorder, other impulse-control or substance-use disorders, ADHD — to test whether the MNJ signature differs in ways relevant to disease severity or treatment response.
+3. *Direct comparison to established clinical/behavioral measures* of impulsivity, risk-taking, and reward sensitivity, to determine whether MNJ adds information beyond existing validated instruments.
+4. *Trial-level and outcome-linked analyses* (e.g., relating MNJ fluctuations to individual gambling decisions, wins/losses, or risk-taking choices within the task) rather than only session-level, task-averaged comparisons.
+5. *Perturbation or intervention studies*, since all current evidence here is purely observational and correlational.
+
+= Summary for clinical readers
+
+This article provides evidence that the local geometry of neural state-space flow (the Meta-Noetic Jacobian) can distinguish a gambling task from a cognitive control task — two conditions that look similar in overall brain-state position and in peripheral sympathetic arousal — using a healthy adult, openly available EEG-physiology dataset.
+
+*First*, global brain-state position (MNPS) does not differentiate gambling, cognitive control, or rest; this null result motivated the more sensitive local-flow-geometry (MNJ) analysis.
+
+*Second*, MNJ Frobenius norm and related metrics show a large, highly robust difference between gambling and cognitive control (surviving intersection-sample, epoch-matching, leave-one-subject-out, bootstrap, and permutation-based robustness checks, plus an entirely independent block-level re-computation).
+
+*Third*, this difference is not explained by peripheral physiological arousal: tonic skin conductance (EDA), heart rate, respiration rate, respiratory-neural coupling, eye-blink rate, and corrugator (frowning-muscle) EMG activity were all tested and excluded as confounds. A remaining, partially narrowed alternative explanation is that the two tasks differ in temporal event/response structure. This was tested using Sync(1) pulse density: cognitive control showed a higher per-second pulse rate than gambling, event-rate differences did not track the MNJ Frobenius difference, and the gambling-vs-cognitive-control effect survived restriction to low-event-density epochs. However, because Sync pulses do not distinguish stimulus, response, and feedback events, this alternative is narrowed rather than fully closed (see the full technical article, §R5b, for detail).
+
+The cautious interpretation is that local neural flow geometry captures information about the *kind* of cognitive process underway — reward-driven decision-making under uncertainty versus effortful inhibitory control — that is not visible either from coarse brain-state position or from standard peripheral arousal measures. Whether this distinction has any diagnostic, prognostic, or therapeutic relevance in clinical populations (e.g., gambling disorder) is an open question that this healthy-adult, observational study cannot answer, and would require the replication and validation steps outlined above.
+
+#bibliography("references.bib")

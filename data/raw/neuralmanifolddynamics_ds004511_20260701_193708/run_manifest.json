@@ -1,0 +1,737 @@
+{
+  "schema": "mndm.run_manifest.v2",
+  "created_at": "2026-07-01T20:42:36+00:00",
+  "dataset_id": "ds004511",
+  "run_dir": "J:\\processed\\openneuro\\ds004511\\neuralmanifolddynamics_ds004511_20260701_193708",
+  "run_name": "neuralmanifolddynamics_ds004511_20260701_193708",
+  "h5_mode": "subject",
+  "environment": {
+    "python": "3.12.0",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "git_rev": "ba91e65bf809b087f02b601b10404a13cdde4f52"
+  },
+  "paths": {
+    "received_dir": "M:\\datasets\\received\\openneuro",
+    "processed_dir": "J:\\processed\\openneuro",
+    "dataset_received_root": "M:\\datasets\\received\\openneuro\\ds004511",
+    "dataset_processed_root": "J:\\processed\\openneuro\\ds004511"
+  },
+  "counts": {
+    "h5": 134,
+    "summary_json": 134,
+    "qc_summary_json": 134,
+    "qc_reliability_json": 134,
+    "regional_csv": 2,
+    "block_csv": 2
+  },
+  "capabilities": {
+    "probed": 134,
+    "bad_files": [],
+    "mnps_3d_dims_counts": {
+      "3": 134
+    },
+    "jacobian_dims_counts": {
+      "3": 134
+    },
+    "coords_9d_dims_counts": {
+      "9": 134
+    },
+    "jacobian_9D_dims_counts": {
+      "9": 134
+    },
+    "mnps3d": true,
+    "mnps9d": true,
+    "mnj": true,
+    "mnj_3d": true,
+    "mnj_9d": true,
+    "regional_outputs": true,
+    "regional_outputs_path": "/regional_mnps",
+    "raw_region_signals": false,
+    "raw_features": true,
+    "raw_features_path": "/features_raw",
+    "robust_z_features": true,
+    "robust_z_features_path": "/features_robust_z",
+    "feature_anchors": false,
+    "feature_anchors_path": "/feature_anchors",
+    "anchor_state": false,
+    "anchor_state_path": "/anchor_state",
+    "anchor_quality": false,
+    "anchor_quality_path": "/anchor_quality",
+    "anchor_coupling": false,
+    "anchor_coupling_path": "/anchor_coupling",
+    "coords_3d_subject_anchored": true,
+    "coords_3d_cohort_anchored": false,
+    "coords_9d_subject_anchored": true,
+    "coords_9d_cohort_anchored": false,
+    "time_reference": false,
+    "time_reference_path": "/extensions/time_reference",
+    "labels_stage": false,
+    "v2_like_artifacts": true,
+    "has_block_native_windows": false,
+    "block_native_windows_path": "/block_windows",
+    "counts": {
+      "h5_with_regional_outputs": 134,
+      "h5_with_raw_region_signals": 0,
+      "h5_with_raw_features": 134,
+      "h5_with_robust_z_features": 134,
+      "h5_with_feature_anchors": 0,
+      "h5_with_anchor_state": 0,
+      "h5_with_anchor_quality": 0,
+      "h5_with_anchor_coupling": 0,
+      "h5_with_coords_3d_subject_anchored": 134,
+      "h5_with_coords_3d_cohort_anchored": 0,
+      "h5_with_coords_9d_subject_anchored": 134,
+      "h5_with_coords_9d_cohort_anchored": 0,
+      "h5_with_time_reference": 0,
+      "h5_with_stage": 0,
+      "h5_with_v2_like": 268,
+      "h5_with_block_native_windows": 0
+    },
+    "coordinate_contracts": {
+      "requested_contracts": [
+        "subject_anchored"
+      ],
+      "realized_contracts": [
+        "subject_anchored"
+      ],
+      "skipped_contracts_with_reason": []
+    },
+    "block_jacobians": {
+      "any": true,
+      "regional_any": true,
+      "stratified_any": true,
+      "regional_csv_paths": [
+        "regional_block_jacobians_subjects_193708.csv"
+      ],
+      "stratified_csv_paths": [
+        "stratified_block_jacobians_subjects_193708.csv"
+      ]
+    },
+    "regional_exports": {
+      "any": true,
+      "csv_paths": [
+        "regional_block_jacobians_subjects_193708.csv",
+        "regional_mnps_subjects_193708.csv"
+      ]
+    }
+  },
+  "subjects_index": {
+    "subjects": {
+      "count": 45,
+      "unique": [
+        "sub-S200116",
+        "sub-S200120",
+        "sub-S200121",
+        "sub-S200122",
+        "sub-S200131",
+        "sub-S200203",
+        "sub-S200205",
+        "sub-S200207",
+        "sub-S200211",
+        "sub-S200212",
+        "sub-S200214",
+        "sub-S200217",
+        "sub-S200221",
+        "sub-S200225",
+        "sub-S200228",
+        "sub-S200302",
+        "sub-S200303",
+        "sub-S200306",
+        "sub-S200309",
+        "sub-S200310",
+        "sub-S200311",
+        "sub-S200313",
+        "sub-S201105",
+        "sub-S201118",
+        "sub-S201120",
+        "sub-S201126",
+        "sub-S201210",
+        "sub-S201222",
+        "sub-S201223",
+        "sub-S210118",
+        "sub-S210120",
+        "sub-S210127",
+        "sub-S210128",
+        "sub-S210202",
+        "sub-S210203",
+        "sub-S210204",
+        "sub-S210208",
+        "sub-S210209",
+        "sub-S210215",
+        "sub-S210217",
+        "sub-S210224",
+        "sub-S210225",
+        "sub-S210315",
+        "sub-S210316",
+        "sub-S210317"
+      ]
+    },
+    "tasks": {
+      "count": 3,
+      "unique": [
+        "cognitive_control",
+        "gambling",
+        "rest"
+      ]
+    },
+    "conditions": {
+      "count": 0,
+      "unique": []
+    },
+    "groups": {
+      "count": 1,
+      "unique": [
+        "Healthy"
+      ]
+    },
+    "labels_keys": [],
+    "summary_presence_counts": {
+      "mnps": 134,
+      "jacobian": 134,
+      "tier2_jacobian": 134,
+      "meta_indices": 134,
+      "meta_indices_v2": 134,
+      "jacobian_9D": 134,
+      "coords_9d": 134
+    }
+  },
+  "config": {
+    "digest_sha256": "7467cee346f1722137427ac455412d248b283cbac870e6521fe45e9c3acb21af",
+    "excerpt_digest_sha256": "bf01271e3fa1957d0a3f58c6e80712c647477fad8bdb56cdb8dde7825bc4ab7d",
+    "excerpt": {
+      "mnps": {
+        "fs_out": 4.0,
+        "window_sec": 8.0,
+        "overlap": 0.5,
+        "derivative": {
+          "method": "sav_gol",
+          "window": 7,
+          "polyorder": 3
+        },
+        "jacobian": {
+          "enabled": true
+        },
+        "derivative_robust": {
+          "enabled": true,
+          "max_jump": 5.0,
+          "min_seg": 9
+        },
+        "knn": {
+          "k": 20,
+          "metric": "euclidean"
+        },
+        "ridge": {
+          "alpha": 1.0,
+          "cv_folds": 5,
+          "distance_weighted": true
+        },
+        "whiten": true,
+        "super_window": 3,
+        "stage_codebook": {
+          "W": 0,
+          "Wake": 0,
+          "N1": 1,
+          "N2": 2,
+          "N3": 3,
+          "REM": 4,
+          "R": 4,
+          "L": -1
+        }
+      },
+      "reproducibility": {},
+      "mnps_9d": {
+        "enabled": true,
+        "jacobian": {},
+        "subcoords_keys": [
+          "d_l",
+          "d_n",
+          "d_s",
+          "e_e",
+          "e_m",
+          "e_s",
+          "m_a",
+          "m_e",
+          "m_o"
+        ],
+        "dataset_override": null
+      },
+      "mnps_projection": {
+        "normalize": "robust_z",
+        "clip_threshold": 6.0,
+        "v1_mapping": {
+          "m": {
+            "m_a": 0.62,
+            "m_e": 0.55,
+            "m_o": 0.45
+          },
+          "d": {
+            "d_n": 0.5,
+            "d_l": 0.82,
+            "d_s": 0.28
+          },
+          "e": {
+            "e_e": 0.85,
+            "e_s": 0.62,
+            "e_m": 0.03
+          }
+        },
+        "feature_standardization": {
+          "default": [
+            "robust_z",
+            "clip"
+          ],
+          "eeg_delta": [
+            "log10",
+            "robust_z",
+            "clip"
+          ],
+          "eeg_theta": [
+            "log10",
+            "robust_z",
+            "clip"
+          ],
+          "eeg_alpha": [
+            "log10",
+            "robust_z",
+            "clip"
+          ],
+          "eeg_beta": [
+            "log10",
+            "robust_z",
+            "clip"
+          ],
+          "eeg_gamma": [
+            "log10",
+            "robust_z",
+            "clip"
+          ],
+          "eeg_alpha_theta": [
+            "robust_z",
+            "clip"
+          ],
+          "eeg_beta_alpha": [
+            "robust_z",
+            "clip"
+          ],
+          "eeg_sample_entropy": [
+            "robust_z",
+            "clip"
+          ],
+          "eeg_permutation_entropy": [
+            "robust_z",
+            "clip"
+          ],
+          "eeg_spectral_entropy": [
+            "robust_z",
+            "clip"
+          ],
+          "eeg_hjorth_complexity": [
+            "robust_z",
+            "clip"
+          ],
+          "eeg_hjorth_mobility": [
+            "robust_z",
+            "clip"
+          ]
+        },
+        "min_axis_coverage": 0.3,
+        "weights": {
+          "m": {
+            "eeg_theta": 0.35,
+            "eeg_delta": 0.25,
+            "eeg_alpha": 0.2,
+            "eeg_beta": 0.2
+          },
+          "d": {
+            "eeg_sample_entropy": 0.4,
+            "eeg_beta_alpha": 0.3,
+            "eeg_gamma": 0.3
+          },
+          "e": {
+            "eeg_alpha": 0.4,
+            "eeg_beta": 0.3,
+            "eeg_alpha_theta": 0.3
+          }
+        }
+      },
+      "meg_mapping": {},
+      "block_native": {
+        "dataset_override": null
+      },
+      "mnps_extensions": {
+        "keys": []
+      },
+      "time_reference": {
+        "enabled": false,
+        "schema_version": null,
+        "parser": null,
+        "anchor": null,
+        "bins_hours": null,
+        "dataset_override": null
+      },
+      "robustness": {
+        "coverage": {
+          "default": {
+            "min_seconds": 60,
+            "min_epochs": 20
+          },
+          "dataset_override": null
+        }
+      },
+      "dataset_cfg": {
+        "download": null,
+        "preprocess": {
+          "patch_invalid_edf_startdate": true,
+          "channel_rename": "truescan_128_numeric_to_10_5",
+          "physio_tsv_inject": {
+            "enabled": true,
+            "path_strategy": "beh_sibling",
+            "sampling_frequency": 4000.0,
+            "channels": [
+              {
+                "column": "ECG A, X, ECG2-R",
+                "name": "ECG",
+                "type": "ecg",
+                "unit": "V"
+              },
+              {
+                "column": "RSP A, X, RSP2-R",
+                "name": "RESP",
+                "type": "resp",
+                "unit": "AU"
+              },
+              {
+                "column": "EDA, Y, PPGED-R",
+                "name": "EDA",
+                "type": "gsr",
+                "unit": "uS"
+              },
+              {
+                "column": "EMG A, X, EMG2-R",
+                "name": "EMGA",
+                "type": "emg",
+                "unit": "V"
+              },
+              {
+                "column": "EMG B, X, EMG2-R",
+                "name": "EMGB",
+                "type": "emg",
+                "unit": "V"
+              }
+            ]
+          }
+        },
+        "preprocess_fmri": null,
+        "epoching": null,
+        "metadata_extraction": {
+          "group": {
+            "default": "Healthy"
+          },
+          "task": {
+            "from_filename": true,
+            "normalize": {
+              "gg": "gambling",
+              "GG": "gambling",
+              "cc": "cognitive_control",
+              "CC": "cognitive_control",
+              "rest": "rest",
+              "Rest": "rest"
+            }
+          }
+        },
+        "within_run_labels": null
+      },
+      "source": {
+        "name": "OpenNeuro",
+        "platform": "OpenNeuro",
+        "format": "BIDS",
+        "dataset_id": null,
+        "dataset_name": null,
+        "dataset_version": null,
+        "doi": "10.18112/openneuro.ds004511.v1.0.0",
+        "url": "https://openneuro.org/datasets/ds004511",
+        "acknowledgement": null
+      }
+    },
+    "top_level_keys": [
+      "conventional_eeg",
+      "datasets",
+      "epoching",
+      "feature_storage",
+      "features",
+      "indexing",
+      "metadata_extraction",
+      "mnps",
+      "mnps_3d",
+      "mnps_9d",
+      "mnps_projection",
+      "modality",
+      "normalization",
+      "paths",
+      "preprocess",
+      "regional_mnps",
+      "robustness",
+      "sleep_annotations",
+      "source",
+      "summarize",
+      "version"
+    ],
+    "yaml_source": {
+      "provided_path": "mndm\\config\\config_ingest_ds004511.yaml",
+      "copied_filename": "config_ingest_ds004511.yaml",
+      "copied_path": "J:\\processed\\openneuro\\ds004511\\neuralmanifolddynamics_ds004511_20260701_193708\\config_ingest_ds004511.yaml",
+      "status": "copied"
+    }
+  },
+  "source": {
+    "name": "OpenNeuro",
+    "platform": "OpenNeuro",
+    "format": "BIDS",
+    "dataset_id": "ds004511",
+    "dataset_name": null,
+    "dataset_version": null,
+    "doi": "10.18112/openneuro.ds004511.v1.0.0",
+    "url": "https://openneuro.org/datasets/ds004511",
+    "acknowledgement": null
+  },
+  "doi": "10.18112/openneuro.ds004511.v1.0.0",
+  "reproducibility": {
+    "seed": 42,
+    "seed_source": "robustness.seed",
+    "stochastic_components": [
+      "feature_worker_rng",
+      "robustness_bootstrap",
+      "null_sanity_tests",
+      "epoch_stage_stratified_sampling",
+      "preprocess_ica",
+      "fmri_louvain_modularity"
+    ],
+    "deterministic_outputs": [
+      "mnps_3d",
+      "mnps_3d_dot",
+      "coords_9d",
+      "nn_indices",
+      "jacobian.J_hat",
+      "jacobian.J_dot",
+      "jacobian_9D.J_hat",
+      "jacobian_9D.J_dot"
+    ]
+  },
+  "field_guide": {
+    "mnps_axes": {
+      "order": [
+        "m",
+        "d",
+        "e"
+      ],
+      "definitions": {
+        "m": "metastability / mobility",
+        "d": "deviation from optimal integration-segregation balance",
+        "e": "entropy / entropic energy"
+      }
+    },
+    "h5_paths": {
+      "time": "Per-epoch time index [T] in seconds.",
+      "mnps_3d": "Canonical 3D MNPS trajectory [T,3] in axis order [m,d,e].",
+      "mnps_3d_dot": "Temporal derivative of mnps_3d [T,3].",
+      "window_start": "Per-epoch window start times [T] in seconds.",
+      "window_end": "Per-epoch window end times [T] in seconds.",
+      "nn/indices": "k-nearest-neighbor indices used for local Jacobian estimation.",
+      "jacobian/J_hat": "Windowed Jacobian tensor [W,3,3] on primary MNPS.",
+      "jacobian/J_dot": "Temporal derivative of Jacobian [W,3,3].",
+      "jacobian/centers": "Center indices of Jacobian windows [W].",
+      "jacobian_9D/J_hat": "Windowed Jacobian on stratified coordinates (dimension depends on config).",
+      "jacobian_9D/J_dot": "Temporal derivative of jacobian_9D.",
+      "jacobian_9D/cross_partials/*": "Named cross-partial timeseries extracted from jacobian_9D.",
+      "coords_9d/values": "Stratified MNPS trajectory matrix [T,K] (often K=9).",
+      "coords_9d/names": "Column names for coords_9d/values.",
+      "coords_3d_subject_anchored/values": "MNDM 2.1 subject/session-anchored 3D coordinates [T,3].",
+      "coords_3d_cohort_anchored/values": "MNDM 2.1 cohort/external-anchored 3D coordinates [T,3].",
+      "coords_9d_subject_anchored/values": "MNDM 2.1 subject/session-anchored stratified coordinates [T,K].",
+      "coords_9d_cohort_anchored/values": "MNDM 2.1 cohort/external-anchored stratified coordinates [T,K].",
+      "feature_anchors/spec attrs": "MNDM 2.1 feature-anchor identity, source policy, and hash.",
+      "feature_anchors/per_feature/*": "Per-feature anchor center/scale statistics aligned by feature_name.",
+      "anchor_state/values": "Noetic Anchoring Dynamics aligned anchor-state matrix [T,Q]. Separate from cohort feature_anchors.",
+      "anchor_state/names": "Column names for anchor_state/values.",
+      "anchor_state_dot/values": "Time-derivative or finite-difference anchor-state matrix [T,Q].",
+      "anchor_quality/values": "Aligned anchor signal-quality matrix [T,Qq].",
+      "anchor_quality/names": "Column names for anchor_quality/values.",
+      "anchor_coupling/*": "Optional additive body-brain coupling diagnostics (for example J_xa/J_ax blocks and metrics).",
+      "features_raw/values": "Per-epoch raw feature matrix [T,K] in original scale.",
+      "features_raw/names": "Column names for features_raw/values.",
+      "features_raw/metadata/*": "Machine-readable per-feature metadata aligned to features_raw/names.",
+      "features_robust_z/values": "Per-epoch strict robust-z feature matrix [T,K] (no log10/clip baked in).",
+      "features_robust_z/names": "Column names for features_robust_z/values.",
+      "features_robust_z/metadata/*": "Machine-readable per-feature metadata aligned to features_robust_z/names.",
+      "participant/row_json": "Serialized participant-table row for this subject, copied from the resolved participants file.",
+      "participant/mapped_json": "Canonical mapped metadata derived from participant fields and YAML rules (e.g. group, condition, task).",
+      "participant/source_json": "Provenance for the participant-table lookup, including source path/format and subject-id column used.",
+      "participant attrs field_*": "Scalar participant fields mirrored as H5 attrs for fast access without parsing JSON.",
+      "participant attrs mapped_*": "Scalar mapped metadata mirrored as H5 attrs, e.g. mapped_group, mapped_condition, mapped_task.",
+      "participant attrs source_*": "Scalar provenance attrs for the participant table source.",
+      "regional_mnps/<network>/mnps": "Per-network MNPS trajectory [T,3].",
+      "regional_mnps/<network>/mnps_dot": "Derivative of regional MNPS trajectory [T,3].",
+      "regional_mnps/<network>/jacobian": "Per-network Jacobian tensor [W,3,3].",
+      "regional_mnps/<network>/stratified": "Per-network stratified trajectory [T,K] when enabled.",
+      "extensions/time_reference/run/*": "Run-level clock provenance and anchor-relative offsets (schema_version, status, parser, run start/end).",
+      "extensions/time_reference/windows/*": "Window-level aligned timelines relative to run and anchor (start/end arrays, bin id/labels).",
+      "extensions/tabular_exports/*": "Columnar exports of CSV-style summary tables embedded into H5.",
+      "labels/stage": "Optional stage labels aligned to time.",
+      "events/*": "Optional event arrays (indices or timestamps).",
+      "event_windows/*": "Additive row-per-pair event-to-window alignment table for exact event-locked joins.",
+      "codebooks/stage/*": "Explicit stage codebook arrays (codes, labels, label_keys).",
+      "participant/clinical_json": "Additive richer participant/session metadata embedded as JSON.",
+      "coverage/*": "Explicit coverage contract for axes, coordinate layers, and Jacobian center mappings.",
+      "provenance/*": "Structured export-contract, anchoring, normalization, and event/stage provenance.",
+      "provenance/geometry_contract/*": "Always-on mathematical invalidity contract for canonical MNPS/coords_9d/Jacobian export.",
+      "qc/windows/*": "Light-weight per-window QC contract aligned to /time.",
+      "regions/bold": "Optional regional signals (e.g., fMRI ROI x time).",
+      "regions/names": "Names corresponding to rows in regions/bold.",
+      "blocks/block_id": "Block-native: integer block identifiers [B].",
+      "blocks/stage_code": "Block-native: stage/condition code for each block [B].",
+      "blocks/start_sec": "Block-native: block start times in seconds [B].",
+      "blocks/end_sec": "Block-native: block end times in seconds [B].",
+      "blocks/duration_sec": "Block-native: block durations in seconds [B].",
+      "blocks/frequency_hz": "Block-native: inferred block parameter/frequency when available [B].",
+      "blocks/source_event_idx": "Block-native: source event row index used to seed each block [B].",
+      "blocks/support_event_count": "Block-native: number of supporting in-block events [B].",
+      "blocks/derived_from": "Block-native: block source kind (stage_blocking, duration_events, task_phase).",
+      "blocks/end_reason": "Block-native: reason used to terminate each inferred block [B].",
+      "blocks/membership_mode": "Block-native: membership mode policy used by stage_blocking when available.",
+      "blocks/is_inferred": "Block-native: 1 when block boundaries are inferred (0 for explicit-duration events).",
+      "block_windows/block_id": "Block-native: block identifier for each window [N].",
+      "block_windows/window_id_within_block": "Block-native: sequential index within block [N].",
+      "block_windows/stage_code": "Block-native: stage code inherited from parent block [N].",
+      "block_windows/block_start_sec": "Block-native: parent block start time [N].",
+      "block_windows/block_end_sec": "Block-native: parent block end time [N].",
+      "block_windows/block_duration_sec": "Block-native: parent block duration [N].",
+      "block_windows/window_start_sec": "Block-native: window start times [N].",
+      "block_windows/window_end_sec": "Block-native: window end times [N].",
+      "block_windows/window_center_sec": "Block-native: window center times [N].",
+      "block_windows/relative_time_in_block_sec": "Block-native: window center minus block start [N].",
+      "block_windows/distance_to_block_end_sec": "Block-native: block end minus window center [N].",
+      "block_windows/relative_pos_0_1": "Block-native: normalized position 0-1 within block [N].",
+      "block_windows/source_window_index": "Block-native: nearest source MNPS window index for exact joins [N].",
+      "block_windows/partition_label": "Block-native: partition/bin label string per window [N].",
+      "block_windows/is_post_offset": "Block-native: 1 if window falls after block_end [N]."
+    },
+    "naming_notes": {
+      "jacobian": "MNJ estimate from primary 3D MNPS.",
+      "coords_9d": "Stratified MNPS coordinate group (often 9D).",
+      "coordinate_layers": "MNDM 2.1 explicit coordinate contracts; subject-anchored is for within-subject dynamics, cohort-anchored is for clinical group contrasts.",
+      "feature_anchors": "Frozen feature-scaling reference used to construct cohort/external-anchored coordinate layers.",
+      "anchor_state": "Embodied/interoceptive state export aligned to the canonical MNPS time grid; not the same concept as feature_anchors.",
+      "mnps_9d": "Configuration/runtime term for stratified MNPS coordinate system.",
+      "capabilities.regional_outputs": "True when H5 files embed derived `/regional_mnps/*` network-level outputs.",
+      "capabilities.raw_region_signals": "True when H5 files embed raw `/regions/*` signals (typically fMRI ROI x time).",
+      "capabilities.regional_outputs_path": "Canonical regional output path for all modalities.",
+      "capabilities.raw_features": "True when H5 files embed `/features_raw/*` feature exports.",
+      "capabilities.robust_z_features": "True when H5 files embed `/features_robust_z/*` feature exports.",
+      "capabilities.anchor_state": "True when H5 files embed `/anchor_state/*` aligned anchor-state exports.",
+      "capabilities.anchor_quality": "True when H5 files embed `/anchor_quality/*` aligned anchor signal-quality exports.",
+      "capabilities.anchor_coupling": "True when H5 files embed `/anchor_coupling/*` additive coupling diagnostics.",
+      "capabilities.time_reference": "True when H5 files embed `/extensions/time_reference/*` timeline provenance.",
+      "capabilities.has_block_native_windows": "True when H5 files embed `/block_windows/*` block-native window tables.",
+      "capabilities.coordinate_contracts": "Requested vs realized coordinate contracts inferred from config and emitted H5 layers.",
+      "participant": "Subject-level participant metadata export group embedded into each H5.",
+      "participant_mapped_meta": "Canonical metadata derived from participant rows plus YAML extraction rules.",
+      "geometry_contract": "Always-on canonical validity contract. Use this, not review_qc, to decide whether exported geometry is mathematically usable downstream."
+    },
+    "source": {
+      "source": "Dataset provenance metadata declared in the active YAML config.",
+      "doi": "Dataset DOI copied from config when available for acknowledgements and traceability."
+    }
+  },
+  "extra": {
+    "summarize_policy": {
+      "allow_group_collisions": false,
+      "qc_policy": "eeg_only",
+      "n_jobs": 2,
+      "fit_anchor": false
+    },
+    "reproducibility": {
+      "seed": 42,
+      "seed_source": "robustness.seed",
+      "stochastic_components": [
+        "feature_worker_rng",
+        "robustness_bootstrap",
+        "null_sanity_tests",
+        "epoch_stage_stratified_sampling",
+        "preprocess_ica",
+        "fmri_louvain_modularity"
+      ],
+      "deterministic_outputs": [
+        "mnps_3d",
+        "mnps_3d_dot",
+        "coords_9d",
+        "nn_indices",
+        "jacobian.J_hat",
+        "jacobian.J_dot",
+        "jacobian_9D.J_hat",
+        "jacobian_9D.J_dot"
+      ]
+    },
+    "grouping_collisions": {
+      "count": 0,
+      "merged_extra_files": 0,
+      "examples": []
+    },
+    "normalization": {
+      "enabled": false,
+      "status": "disabled",
+      "method": "combat",
+      "scope": "post_features",
+      "strict": false,
+      "validation": {
+        "enabled": false,
+        "status": "disabled"
+      },
+      "report_file": {
+        "schema": "mndm.normalization_report.v1",
+        "status": "written",
+        "path": "normalization_report.json"
+      }
+    },
+    "normalization_report": {
+      "schema": "mndm.normalization_report.v1",
+      "status": "written",
+      "path": "normalization_report.json"
+    },
+    "stage_mapping_qc": {
+      "schema": "mndm.stage_mapping_qc.v1",
+      "status": "none",
+      "path": null,
+      "subjects": 0
+    },
+    "block_native_qc": {
+      "schema": "mndm.block_native_qc.v1",
+      "status": "none",
+      "path": null,
+      "subjects": 0
+    },
+    "run_status": "completed",
+    "run_errors": {
+      "schema": "mndm.run_errors.v1",
+      "status": "none",
+      "path": null,
+      "count": 0,
+      "groupings_total": 134
+    },
+    "fatal_error": null
+  },
+  "command_used": {
+    "path": "command_used.txt",
+    "argv": [
+      "H:\\SourceRepo2\\NeuralManifoldDynamics\\mndm\\src\\mndm\\cli.py",
+      "all",
+      "--dataset",
+      "ds004511",
+      "--config",
+      "mndm/config/config_ingest_ds004511.yaml",
+      "--n-jobs",
+      "2",
+      "--mem-budget-gb",
+      "1200"
+    ]
+  }
+}
