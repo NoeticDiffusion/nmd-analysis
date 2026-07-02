@@ -14,6 +14,9 @@
   article-type: "Supplement",
 )
 
+// Tables in this appendix are numbered S4.1, S4.2, …
+#set figure(numbering: (..num) => "S4." + str(num.at(-1)))
+
 = Scope and intent
 
 #netn-box(title: [Important: observational study — no intervention tested])[
@@ -68,7 +71,7 @@ Most prior neuroscience analyses of this kind of trajectory ask *where* the syst
 
 = The main findings, in order of clinical salience
 
-== 1. The gambling task produces a large, specific signature in local neural flow geometry — even though the brain's overall "location" does not change
+== The gambling task produces a large, specific signature in local neural flow geometry — even though the brain's overall "location" does not change
 
 Global MNPS position ($m$, $d$, $e$) did *not* differ meaningfully between gambling, cognitive control, and rest (all comparisons non-significant after correction for multiple tests). If one only looked at "which region of the state-space landscape is the brain in," these three very different tasks would look almost the same.
 
@@ -76,7 +79,7 @@ However, the *local flow geometry* (MNJ) told a completely different story. The 
 
 *Plain language.* When the brain is engaged in a fast-moving, uncertain, reward-driven task like gambling, its moment-to-moment local dynamics become more turbulent and less cyclically organized — even though the overall "region" of brain-state space it occupies does not change. This distinction — "same place, different way of moving through that place" — is the paper's central methodological point, and it would not have been visible using conventional state-space location measures alone.
 
-== 2. This effect is not explained by higher physiological arousal during gambling
+== This effect is not explained by higher physiological arousal during gambling
 
 A natural alternative explanation is that gambling is simply more exciting or stressful, and the neural effect is just a byproduct of higher generic arousal. This article tested that alternative directly and found it does not hold.
 
@@ -86,7 +89,7 @@ The same conclusion held after testing five additional candidate physiological e
 
 *Cautious clinical reading.* This is the paper's strongest and most clinically interesting message: a neural signature can differentiate two cognitively and motivationally distinct task states even when standard peripheral arousal measures (the kind used in polygraphs, stress-monitoring wearables, or basic autonomic assessments) cannot. If this generalizes, it would suggest that MNJ-type measures capture information about *what kind* of cognitive process is occurring, not merely *how aroused* someone is — a distinction of potential interest for research on gambling disorder, impulse control, and decision-making under risk, though this remains speculative pending clinical validation (see below). One further caveat specific to this dataset: because the gambling task is a spontaneous-deception paradigm and the underlying data do not record which rounds involved a misreported prediction, this article cannot say whether any part of the neural effect is specifically related to deception (as opposed to dice-prediction, betting, or self-report more generally) — this is an open question, not a settled negative.
 
-== 3. A secondary, weaker signal links breathing regularity to neural geometry — but only in cognitive control, not gambling
+== A secondary, weaker signal links breathing regularity to neural geometry — but only in cognitive control, not gambling
 
 During the cognitive control task, participants whose breathing was more regularly phase-locked to their ongoing neural trajectory (measured by the "respiratory anchor index") tended to show *lower* global mobility ($m$) — a moderate association that held up after statistically accounting for heart-rate variability. This mirrors a similar but weaker trend in gambling, linking respiratory regularity to lower deformation magnitude.
 

@@ -14,7 +14,10 @@
   article-type: "Supplement",
 )
 
-= S2.0 Complete global MNPS contrast table
+// Tables in this appendix are numbered S4.1, S4.2, …
+#set figure(numbering: (..num) => "S2." + str(num.at(-1)))
+
+= Complete global MNPS contrast table
 
 All nine pre-specified pairwise contrasts (3 MNPS coordinates × 3 task pairs), Wilcoxon signed-rank test on session medians, BH-FDR applied across all nine simultaneously. Group medians (median of subject-level session medians) are shown per task. None survive correction — the global MNPS null reported as R2 in the main text.
 
@@ -40,7 +43,7 @@ All nine pre-specified pairwise contrasts (3 MNPS coordinates × 3 task pairs), 
   caption: [Complete global MNPS pairwise contrast table (Wilcoxon signed-rank, session medians, BH-FDR over all 9 rows). $N = 44$ for GG-involving pairs, $N = 45$ for CC vs. Rest. Group medians are the median across subjects of each subject's session-median coordinate value. No coordinate differentiates any task pair after correction. Friedman omnibus (3-condition): `m` $chi^2 = 1.41$, $p = 0.49$; `d` $chi^2 = 1.14$, $p = 0.57$; `e` $chi^2 = 2.91$, $p = 0.23$. Source: `01_cross_task_mnps/mnps_pairwise.csv`, `mnps_cross_task_global.csv`, `mnps_friedman.csv`.]
 ) <tab-mnps-full>
 
-= S2.1 Complete MNJ contrast table
+= Complete MNJ contrast table
 
 All 21 pre-specified pairwise contrasts (7 MNJ metrics × 3 task pairs), Wilcoxon signed-rank on session medians, BH-FDR across all 21 simultaneously. This is the source table for the summary shown in the main text (R3); note that the main-text statistical-design paragraph (§Methods) describes an 18-test primary family (6 metrics, excluding `trace`) for the headline FDR claim, while this supplementary table reports the full 21-test family including `trace` for completeness.
 
@@ -78,7 +81,7 @@ All 21 pre-specified pairwise contrasts (7 MNJ metrics × 3 task pairs), Wilcoxo
   caption: [Complete MNJ pairwise contrast table (Wilcoxon signed-rank, session medians, BH-FDR over all 21 rows). $N = 44$ for GG-involving pairs, $N = 45$ for CC vs. Rest. 15/21 contrasts survive FDR 5%; all 6 non-significant contrasts involve `trace`, `rotation_norm` (GG vs. Rest), or `frobenius_norm`/`spectral_radius` (CC vs. Rest), consistent with the interpretation that CC and Rest resemble each other in absolute deformation magnitude while GG is the outlier condition. Source: `03_mnj_reachability/mnj_cross_task_wilcoxon.csv`, `subject_mnj_summary.csv`.]
 ) <tab-mnj-full>
 
-= S2.2 Regional MNPS contrasts (network-stratified)
+= Regional MNPS contrasts (network-stratified)
 
 MNPS coordinates were also tested within each of four cortical networks (frontal, central, parietal-occipital, temporal), applying BH-FDR separately within the 36-row family (4 networks × 3 coordinates × 3 task pairs). Full detail in `mnps_network_pairwise.csv`; the two rows surviving correction are shown below alongside the next-largest (uncorrected) effects for context.
 
@@ -103,7 +106,7 @@ MNPS coordinates were also tested within each of four cortical networks (frontal
 
 The presence of two significant regional rows out of 36 (5.6%) is close to the false-positive rate expected under BH-FDR at $alpha = 0.05$ applied to a family with a true null rate near 1; they should be interpreted as weak, localized signals rather than a confirmed regional MNPS effect, and are not treated as primary findings in the main text.
 
-= S2.3 Block-level Jacobian contrasts (independent aggregation pathway)
+= Block-level Jacobian contrasts (independent aggregation pathway)
 
 Block-level Jacobian summaries are computed from task-segment aggregation rather than epoch-level medians (S1.2), providing an independent cross-check of the epoch-level MNJ result.
 
@@ -132,7 +135,7 @@ Block-level Jacobian summaries are computed from task-segment aggregation rather
   caption: [Block-level Jacobian contrasts ($N = 44$/$45$, Wilcoxon signed-rank, BH-FDR within the 12-row block family). Friedman omnibus: `block_frobenius_mean` $chi^2 = 47.8$, $p < 10^{-10}$; `c_rot_mean` $chi^2 = 34.4$, $p < 10^{-7}$; `block_trace_mean` $chi^2 = 11.1$, $p = 0.004$; `block_anisotropy_mean` $chi^2 = 7.8$, $p = 0.021$. The GG $>$ CC Frobenius effect ($d = 1.70$) closely replicates the epoch-level result ($d = 1.62$, S2.1) using an entirely independent aggregation pathway. Source: `01_cross_task_mnps/block_jacobian_pairwise.csv`, `block_jacobian_friedman.csv`.]
 ) <tab-block-jacobian>
 
-= S2.4 EAP-compatible respiratory-anchoring coupling (full table)
+= EAP-compatible respiratory-anchoring coupling (full table)
 
 Session-level Spearman correlations between `resp_anchor_index` and MNJ metrics, computed separately within each task, with HRV (`ecg_hrv_rmssd_ms`) and cardiorespiratory RSA amplitude as additional physiological covariates for reference. BH-FDR applied within each task's 6-metric family.
 
@@ -167,7 +170,7 @@ Session-level Spearman correlations between `resp_anchor_index` and MNJ metrics,
   caption: [Respiratory-anchoring × MNJ coupling by task (Spearman $r$, session medians, $N = 44$–45, BH-FDR within the 18-row full family used in the text). †: the rest-condition `rotational_power`/`aci`/`mdr` associations are the largest in the table (uncorrected $p < 0.05$) and are directionally consistent with the CC `resp_anchor × m` result reported in the main text (R6), but do not survive family-wise FDR ($q approx 0.18$) and are reported as suggestive only. `resp_anchor_index × m` for cognitive control (the primary EAP-compatible finding, $r = -0.415$, $p = 0.0046$) is reported separately in S2.5 because it uses the MNPS rather than MNJ metric family. Source: `03_mnj_reachability/mnj_resp_coupling.csv`.]
 ) <tab-eap-mnj-full>
 
-= S2.5 EAP physio-MNPS coupling (global and per-network)
+= EAP physio-MNPS coupling (global and per-network)
 
 The `02_eap_physio_coupling` pipeline additionally tested `resp_anchor_index`, `ecg_hrv_rmssd_ms`, and `cardioresp_rsa_amplitude` against all three global MNPS coordinates and the two block-Jacobian summaries, per task. The strongest cell in this larger family is the one highlighted in the main text:
 
@@ -189,7 +192,7 @@ The `02_eap_physio_coupling` pipeline additionally tested `resp_anchor_index`, `
   caption: [Top-5 physio-MNPS coupling cells by uncorrected $p$ out of 45 tested (3 physiological measures × 5 geometry summaries × 3 tasks, BH-FDR across all 45). Only the cognitive-control `resp_anchor_index × m` cell approaches significance (uncorrected $p = 0.0046$) but does not survive the full 45-cell correction ($q = 0.206$); a targeted partial-correlation follow-up controlling for HRV (main text R6) was used to test this cell specifically rather than relying on the omnibus-corrected result. Full 45-row table: `02_eap_physio_coupling/coupling_per_task.csv`, `coupling_global.csv`, `coupling_per_network.csv`.]
 ) <tab-eap-mnps-full>
 
-= S2.6 Physiological and temporal-structure confound partial-correlation table (combined)
+= Physiological and temporal-structure confound partial-correlation table (combined)
 
 Combined output of Script 05 (HR, respiration rate, respiratory anchor index, EOG blink rate), Script 07 (tonic EDA), Script 10 (corrugator EMG), and Script 11 (Sync-pulse event rate), testing whether GG$-$CC differences in each candidate confound track the GG$-$CC difference in MNJ Frobenius norm.
 
@@ -213,7 +216,7 @@ Combined output of Script 05 (HR, respiration rate, respiratory anchor index, EO
   caption: [Physiological/temporal-structure confound audit for the primary GG$>$CC Frobenius-norm effect ($N = 44$ intersection sample, Spearman correlation of GG−CC difference series, BH-FDR over 7 rows; `eog_artifact_fraction` excluded for zero variance). No candidate confound survives correction. Source: `05_mnj_confound_audit/mnj_physio_confound_partial.csv`, `07_eda_confound_control/full_confound_table.csv`, `10_corrugator_emg_confound/full_confound_table_with_emg.csv`, `11_event_density_sensitivity/full_confound_table_with_event_rate.csv`.]
 ) <tab-confound-full>
 
-= S2.7 EDA descriptive summary by task
+= EDA descriptive summary by task
 
 Session-level EDA extraction summary (Script 06), 129 of the 134 valid EEG sessions had usable EDA data (five sessions across three subjects failed the session-level EDA quality gate; see S1.3).
 

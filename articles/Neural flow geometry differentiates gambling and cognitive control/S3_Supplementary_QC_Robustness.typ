@@ -14,7 +14,10 @@
   article-type: "Supplement",
 )
 
-= S3.0 Sample and epoch coverage overview
+// Tables in this appendix are numbered S4.1, S4.2, …
+#set figure(numbering: (..num) => "S3." + str(num.at(-1)))
+
+= Sample and epoch coverage overview
 
 Of 45 subjects, 44 contributed valid GG data. One subject (`sub-S200203`) had zero valid GG epochs and was excluded from GG analyses only (no GG EEG acquisition exists for this subject; dataset README documents a recording-time technical error). This subject contributed valid CC and Rest data, so 45 subjects contributed CC data and 45 contributed Rest data. The intersection sample used for the confound audit (S3.3) requires valid Jacobian data in all three tasks and comprises $N = 44$ subjects.
 
@@ -29,7 +32,7 @@ Of 45 subjects, 44 contributed valid GG data. One subject (`sub-S200203`) had ze
   caption: [Epoch coverage by task ($N = 45$ subjects total). One gambling session (`sub-S200203`) has zero valid epochs, due to a genuinely missing GG EEG acquisition (see S1.0, S3.0), and is excluded from GG-specific analyses; its row is included in the mean/median/range above as 0 to reflect true coverage across all 45 subjects. Gambling's much longer task duration is the motivation for the epoch-count-matched sensitivity analysis (S3.3, part B). Source: `00_sanity_check/epoch_coverage.csv`.]
 ) <tab-epoch-coverage>
 
-= S3.1 Physiological QC pass rates
+= Physiological QC pass rates
 
 #figure(
   image("figures/fig6_qc_coverage.svg", width: 62%),
@@ -49,7 +52,7 @@ Of 45 subjects, 44 contributed valid GG data. One subject (`sub-S200203`) had ze
 
 Five EDA sessions across three subjects were rejected outright at the session-quality gate (flat/saturated signal): `sub-S201222` Rest; `sub-S200303` Rest; and `sub-S201210` Rest, CC, and GG. Separately, one GG session (`sub-S200203`) produced zero valid epochs and was excluded from GG analyses across all modalities, not only EDA (see S3.0 for the per-subject reason).
 
-= S3.2 EEG/EOG artifact balance across tasks
+= EEG/EOG artifact balance across tasks
 
 To rule out differential artifact contamination as an alternative explanation for the MNJ task effect (audit part F, S1.6), EEG/EOG quality flags and artifact-proxy features were tabulated by task across the intersection sample.
 
@@ -71,7 +74,7 @@ To rule out differential artifact contamination as an alternative explanation fo
   caption: [EEG/EOG artifact-proxy features by task, intersection sample ($N = 44$). Both `qc_ok_eeg` and `qc_ok_eog` are at or near 1.0 for all tasks (no differential quality gate failure). Blink rate is markedly lower at Rest (eyes closed, fewer voluntary blinks) — the opposite direction from what would be needed to explain higher GG deformation via blink artifact. High-frequency (30–45 Hz, EMG-contamination proxy) power is *higher* at Rest, not GG, ruling out muscle-artifact contamination as an explanation for the GG-selective Frobenius effect. Hjorth complexity and permutation entropy are closely matched across all three tasks. Source: `05_mnj_confound_audit/artifact_balance.csv`.]
 ) <tab-artifact-balance>
 
-= S3.3 Ten-part robustness and confound audit (full results)
+= Ten-part robustness and confound audit (full results)
 
 This section reports the complete numerical results underlying the audit protocol described in S1.6, run in response to the science-lead review (`sciencelead/001.md`, `sciencelead/002.md`).
 
@@ -172,9 +175,9 @@ This section reports the complete numerical results underlying the audit protoco
 
 *(J) Event/response-rate sensitivity*: see S3.4d. Session-level Sync(1) pulse rate is higher in CC than GG (opposite of a naive event-density account), the GG−CC event-rate difference is uncorrelated with the GG−CC Frobenius difference ($r_s = -0.05$, $p = 0.77$), and the effect is undiminished ($d = 1.70$ vs. $d = 1.62$) when restricted to below-median-event-density epochs in both tasks.
 
-= S3.4 EDA, corrugator-EMG, conventional-EEG, and event-rate follow-ups
+= EDA, corrugator-EMG, conventional-EEG, and event-rate follow-ups
 
-== S3.4a EDA confound follow-up (Script 07 detail)
+== EDA confound follow-up (Script 07 detail)
 
 The EDA confound test was run as a dedicated follow-up (`07_eda_confound_control.py`) once the standalone EDA extraction (Script 06) was complete, extending the four-confound table from Script 05 to five confounds.
 
@@ -187,7 +190,7 @@ The EDA confound test was run as a dedicated follow-up (`07_eda_confound_control
   caption: [EDA-specific confound test: Spearman correlation between the subject-level GG−CC difference in tonic EDA (SCL) and the GG−CC difference in MNJ Frobenius norm. The null result ($r_s = -0.10$, $p = 0.51$) is consistent with, and independently corroborates, the direct EDA GG-vs-CC comparison reported in the main text R5 ($d = -0.07$, $p = 0.55$): tonic sympathetic arousal is statistically indistinguishable between gambling and cognitive control both in absolute level and in its subject-level covariation with the neural flow-geometry effect. Source: `07_eda_confound_control/eda_confound_partial.csv`.]
 ) <tab-eda-confound-detail>
 
-== S3.4b Corrugator-EMG confound follow-up (Script 10 detail)
+== Corrugator-EMG confound follow-up (Script 10 detail)
 
 Once the BioPac `EMGA`/`EMGB` corrugator-supercilii channels were added to the NMD ingestion config (`config_ingest_ds004511.yaml`, `physio_tsv_inject`) and the pipeline was re-run, `10_corrugator_emg_confound.py` computed the direct GG/CC/Rest contrast on tonic `emg_rms` and its confound-partial test against the Frobenius difference, extending the five-confound table to six.
 
@@ -203,7 +206,7 @@ Once the BioPac `EMGA`/`EMGB` corrugator-supercilii channels were added to the N
   caption: [Corrugator-EMG confound test. Tonic corrugator EMG is matched between GG and CC (like EDA) but, unlike EDA, is elevated in both active tasks relative to rest — plausibly reflecting general facial/postural muscle tone during eyes-open tasks versus eyes-closed rest, rather than a task-specific affective signal. The confound-partial test ($r_s = -0.08$, $p = 0.60$) shows no relationship between the subject-level GG−CC EMG difference and the GG−CC Frobenius difference, closing the corrugator-EMG confound question raised for the primary effect. Source: `10_corrugator_emg_confound/emg_descriptive_wilcoxon.csv`, `emg_confound_partial.csv`.]
 ) <tab-emg-confound-detail>
 
-== S3.4c Conventional-EEG baseline comparison (Script 09 detail)
+== Conventional-EEG baseline comparison (Script 09 detail)
 
 #figure(
   clean-table(
@@ -218,7 +221,7 @@ Once the BioPac `EMGA`/`EMGB` corrugator-supercilii channels were added to the N
   caption: [Largest five (of 16) conventional-EEG GG-vs-CC effect sizes, $N = 44$ intersection sample. For comparison, the primary MNJ effects on the same sample are Frobenius norm $d = 1.62$ and spectral radius $d = 1.81$ — roughly $2.6$–$4.5 times$ larger than the strongest conventional-EEG metric. 31/48 conventional-EEG contrasts (all three task pairs) survive BH-FDR at 5%, confirming these are genuine, well-powered effects and not just power-law noise; they are simply much smaller than the MNJ geometric effect for the GG-vs-CC contrast specifically. Source: `09_conventional_eeg_baseline/conventional_eeg_wilcoxon.csv`, `conventional_vs_mnj_summary.csv`.]
 ) <tab-conventional-eeg-detail>
 
-== S3.4d Event/response-rate sensitivity follow-up (Script 11 detail)
+== Event/response-rate sensitivity follow-up (Script 11 detail)
 
 Raw BIDS `events.tsv` Sync(1) trigger-pulse onsets — dataset-native and independent of NMD ingest — were joined to the H5 epoch windows to test whether the two tasks' differing event/response-rate structure could explain the GG$>$CC Frobenius effect (`11_event_density_sensitivity.py`; see main-text §R5b and S1.6(J) for method).
 
@@ -241,7 +244,7 @@ This section narrows, but does not fully close, the event/response-rate question
 
 This completes the confound and baseline audit requested during science-lead review: all seven tested plausible peripheral-physiological/temporal-structure explanations for the GG$>$CC Frobenius effect (heart rate, respiration rate, respiratory anchoring, EOG blink rate, tonic EDA, corrugator EMG, event/response rate) have been tested; none accounts for the effect, and a matched conventional-EEG baseline comparison confirms the MNJ effect is not a simple restatement of band-power differences. The event/response-rate check narrows rather than fully eliminates this alternative (see main-text Limitations).
 
-= S3.5 Reviewer-facing robustness summary
+= Reviewer-facing robustness summary
 
 #figure(
   kind: table,
