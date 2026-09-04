@@ -1,0 +1,23 @@
+{
+  "dataset": "ds004587",
+  "script": "09_trial_level_event_locked_eap.py",
+  "generated_at": "2026-07-15T20:41:00.822287",
+  "source_artifact": "K:\\ExternalReceivedDatasets\\openneuro\\processed_ds004587_full\\ds004587\\neuralmanifolddynamics_ds004587_20260715_181452\\sub-FFE057_ses-01_illusion_game_run-01\\event_locked.parquet",
+  "source_exists_at_run": true,
+  "notes": "Outputs are computed from the discovered source artifact; no values are imputed.",
+  "n_source_parquets": 25,
+  "predictor_columns": [
+    "illusion_difference",
+    "illusion_strength",
+    "rt",
+    "correct_numeric"
+  ],
+  "geometry_columns": [
+    "m",
+    "d",
+    "e"
+  ],
+  "n_bootstrap": 1000,
+  "granularity_note": "Each row is one trial collapsed onto its single nearest MNPS window (8s window / 4s step); multiple trials commonly share a window. rmcorr/LOSO/bootstrap treat trials as repeated, subject-clustered measurements, not independent samples.",
+  "scope_note": "No rest-vs-illusion contrast is possible (no rest EEG in ds004587); no Jacobian/MNJ trial-locking is available."
+}

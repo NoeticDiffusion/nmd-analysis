@@ -81,11 +81,33 @@ Key sections:
 ``blocks``
    Mapping of analysis block → ``enabled`` plus optional ``validity`` gates
    with ``min`` / ``max`` / ``require_true`` thresholds.
+   Local-dynamics recording blocks additionally use ``grain:
+   subject_condition``, ``aggregation_keys``,
+   ``subject_aggregation_policy`` and optional ``horizon_steps``. Window,
+   sequence and transition tables are intentionally excluded from cohort
+   contrasts.
 
 ``contrasts``
    List of contrast definitions, each with ``name``, ``type`` (e.g.
    ``paired``), ``left`` / ``right`` (group + condition), optional
    ``subset`` and ``pairing_keys``.
+
+Local dynamics
+--------------
+
+Versioned local-dynamics HDF5 groups are exported as separate Parquet analysis
+types. Their table grain is explicit: ``recording``, ``recording_horizon``,
+``window``, ``sequence`` or ``transition``. Every identity includes
+``recording_uid``, coordinate dimension and a coordinate-contract digest; do
+not merge coordinate contracts.
+
+Only recording tables may be explicitly aggregated to
+``subject_condition`` before contrasts. The window, sequence and transition
+surfaces are within-recording QC/exploration data, not independent cohort
+observations. ``local_dynamics_availability`` is the denominator audit for
+capability and computation status. Transition residuals and Q-proxy tables
+are model-validity surfaces; they should not be interpreted as clinical
+stochasticity measures.
 
 Typical workflow
 ----------------

@@ -37,6 +37,11 @@ IDENTITY_COLUMNS = {
     "medication_group",
     "modality",
     "acq",
+    "recording_uid",
+    "coordinate_dimension",
+    "coordinate_contract",
+    "coordinate_contract_id",
+    "table_grain",
 }
 CONTEXT_COLUMNS = [
     "network",
@@ -86,6 +91,9 @@ PROVENANCE_COLUMNS = {
     "anchor_source",
     "schema_version",
     "mndm_version",
+    "computation_status",
+    "validation_level",
+    "failure_reason",
 }
 QC_FLAG_COLUMNS = {
     "finite_ok",
@@ -113,6 +121,11 @@ META_NUMERIC_COLUMNS = {
     "feature_robust_z_center",
     "feature_robust_z_scale",
     "cpz_at_scan",
+    "horizon_steps",
+    "n_sequences_valid",
+    "n_sequences_candidate",
+    "n_windows_metrics_valid",
+    "n_transitions_valid",
 }
 MANIFEST_BLOCKS = {
     "tier2_emmi",
@@ -1507,6 +1520,45 @@ def _apply_validity_rules(frame: pd.DataFrame, block_cfg: Optional[AnalysisBlock
     return out
 
 
+def _coerce_subject_condition_frame(
+    frame: pd.DataFrame, block_cfg: Optional[AnalysisBlockConfig]
+) -> pd.DataFrame:
+    """Aggregate recording rows explicitly; never treat series as subjects."""
+    if frame.empty or "table_grain" not in frame.columns:
+        return frame
+    grains = set(frame["table_grain"].dropna().astype(str))
+    if grains - {"recording", "recording_horizon"}:
+        return pd.DataFrame()
+    if block_cfg is not None and block_cfg.grain != "subject_condition":
+        return pd.DataFrame()
+    if "recording_horizon" in grains:
+        if block_cfg is None or block_cfg.horizon_steps is None:
+            return pd.DataFrame()
+        frame = frame[pd.to_numeric(frame.get("horizon_steps"), errors="coerce") == block_cfg.horizon_steps].copy()
+    keys = [key for key in (block_cfg.aggregation_keys if block_cfg else ["subject_id", "condition"]) if key in frame.columns]
+    if not keys:
+        raise ValueError("Recording analysis requires at least one subject_condition aggregation key.")
+    policy = block_cfg.aggregation_policy if block_cfg else "identity"
+    counts = frame.groupby(keys, dropna=False).size()
+    if policy == "identity":
+        if bool((counts > 1).any()):
+            raise ValueError("subject_aggregation_policy=identity received multiple recordings per subject_condition.")
+        out = frame.copy()
+    elif policy in {"mean_within_condition", "median_within_condition"}:
+        numeric = [column for column in frame.columns if pd.api.types.is_numeric_dtype(frame[column]) and column not in keys]
+        categorical = [column for column in frame.columns if column not in numeric and column not in keys]
+        aggregation = {column: ("mean" if policy.startswith("mean") else "median") for column in numeric}
+        aggregation.update({column: "first" for column in categorical})
+        out = frame.groupby(keys, dropna=False, as_index=False).agg(aggregation)
+    elif policy == "selected_recording":
+        out = frame.sort_values("recording_uid" if "recording_uid" in frame.columns else keys[0]).drop_duplicates(keys, keep="first")
+    else:
+        raise ValueError(f"Unsupported subject_aggregation_policy={policy!r}.")
+    out = out.copy()
+    out["analysis_grain"] = "subject_condition"
+    return out
+
+
 def _prepare_subject_metrics_frame(
     analysis_type: str,
     frame: pd.DataFrame,
@@ -1531,6 +1583,33 @@ def _prepare_subject_metrics_frame(
             row["value"] = _to_optional_float(wide_row.get(metric))
             rows.append(row)
     return pd.DataFrame(rows)
+
+
+def _apply_metric_tiers(metric_frame: pd.DataFrame, block_cfg: Optional[AnalysisBlockConfig]) -> pd.DataFrame:
+    if metric_frame.empty or block_cfg is None or not block_cfg.metric_tiers:
+        return metric_frame
+    out = metric_frame.copy()
+    qc_metrics = set(block_cfg.metric_tiers.get("qc", []))
+    if qc_metrics:
+        out.loc[out["metric"].isin(qc_metrics), "metric_role"] = "qc"
+    for tier in ("primary", "secondary", "exploratory"):
+        metrics = set(block_cfg.metric_tiers.get(tier, []))
+        if metrics:
+            out.loc[out["metric"].isin(metrics), "inference_tier"] = tier
+    model_validity_mask = (
+        out["analysis_type"].astype(str).str.startswith("transition_")
+        | out["metric"].astype(str).str.contains("transition_")
+        | out["metric"].astype(str).str.startswith("trace_Q")
+        | out["metric"].astype(str).str.startswith("q_")
+        | out["metric"].astype(str).isin({"effective_rank", "residual_mean_norm"})
+    )
+    out["measurement_family"] = np.where(
+        model_validity_mask,
+        "model_validity",
+        "scientific_measurement",
+    )
+    out.loc[model_validity_mask, "metric_role"] = "qc"
+    return out
 
 
 def _robust_z_series(series: pd.Series) -> pd.Series:
@@ -2333,6 +2412,39 @@ def _build_contrast_results(subject_metrics: pd.DataFrame, cfg: AnalysisConfig) 
     return pd.concat([main_result, control_result], ignore_index=True, sort=False)
 
 
+def _build_model_fidelity_audit(subject_metrics: pd.DataFrame, cfg: AnalysisConfig) -> pd.DataFrame:
+    """Predeclared support-balance gate for biological FTR interpretation.
+
+    WARN at a 0.10 group support-rate gap; FAIL at 0.25 or when either
+    group has <50% valid support. These thresholds do not depend on FTR effects.
+    """
+    if subject_metrics.empty or "measurement_family" not in subject_metrics.columns:
+        return pd.DataFrame()
+    validity = subject_metrics[subject_metrics["measurement_family"] == "model_validity"].copy()
+    if validity.empty:
+        return pd.DataFrame()
+    rows: list[dict[str, Any]] = []
+    for contrast in cfg.contrasts:
+        subset = validity[_match_selector(validity, contrast.subset)] if contrast.subset else validity
+        left = subset[_match_selector(subset, contrast.left)]
+        right = subset[_match_selector(subset, contrast.right)]
+        if left.empty or right.empty:
+            continue
+        left_rate = float(_qc_mask(left, cfg).mean())
+        right_rate = float(_qc_mask(right, cfg).mean())
+        gap = abs(left_rate - right_rate)
+        status = "fail" if min(left_rate, right_rate) < 0.5 or gap >= 0.25 else ("warn" if gap >= 0.10 else "pass")
+        rows.append({
+            "contrast_name": contrast.name,
+            "differential_model_fidelity": status,
+            "left_valid_support_rate": left_rate,
+            "right_valid_support_rate": right_rate,
+            "valid_support_rate_gap": gap,
+            "decision_rule": "fail_if_min_support_lt_0.50_or_gap_ge_0.25;warn_if_gap_ge_0.10",
+        })
+    return pd.DataFrame(rows)
+
+
 def _build_qc_summary(
     subject_metrics: pd.DataFrame,
     loaded_block_rows: Iterable[Dict[str, Any]],
@@ -2443,9 +2555,14 @@ def run_cleaned_analysis_pipeline(
             frame = read_parquet_table(source_file)
             frame = _apply_validity_rules(frame, block_cfg)
             loaded_block_rows.append(_summarize_loaded_block(analysis_type, frame, source_file))
+            frame = _coerce_subject_condition_frame(frame, block_cfg)
+            if frame.empty:
+                skipped.append(f"{analysis_type}:non_subject_condition_grain")
+                continue
             metric_frame = _prepare_subject_metrics_frame(analysis_type, frame, source_file)
             if block_cfg is not None and block_cfg.metrics:
                 metric_frame = metric_frame[metric_frame["metric"].isin(block_cfg.metrics)]
+            metric_frame = _apply_metric_tiers(metric_frame, block_cfg)
             if not metric_frame.empty:
                 subject_metric_frames.append(metric_frame)
             else:
@@ -2571,6 +2688,9 @@ def run_cleaned_analysis_pipeline(
         )
 
     contrast_results = _build_contrast_results(subject_metrics, cfg)
+    model_fidelity = _build_model_fidelity_audit(subject_metrics, cfg)
+    if not contrast_results.empty and not model_fidelity.empty:
+        contrast_results = contrast_results.merge(model_fidelity, on="contrast_name", how="left")
     qc_summary = _build_qc_summary(subject_metrics, loaded_block_rows, contrast_results)
 
     out_root = Path(output_root) if output_root else Path(cfg.output.directory)
@@ -2580,6 +2700,7 @@ def run_cleaned_analysis_pipeline(
     outputs = {
         "subject_metrics": subject_metrics,
         "contrast_results": contrast_results,
+        "model_fidelity": model_fidelity,
         "qc_summary": qc_summary,
     }
     for analysis_type, frame in outputs.items():

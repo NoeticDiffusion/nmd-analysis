@@ -1,0 +1,46 @@
+{
+  "run_level_metrics_file": "run_level_signal_metrics.csv",
+  "patient_timebin_metrics_file": "patient_timebin_signal_metrics.csv",
+  "classical_outcome_ready_analyses": [
+    "global_mnps_3d",
+    "global_mnps_9d",
+    "global_mnps_jacobian_3d",
+    "global_mnps_jacobian_9d",
+    "reachability_cones"
+  ],
+  "available_metrics_by_analysis": {
+    "reachability_cones": [
+      "dims",
+      "horizon",
+      "k",
+      "near_singular_rate",
+      "tube_d_eff_split_half_n",
+      "tube_log_det_split_half_n"
+    ]
+  },
+  "ctip_light_handoff_metrics_available": [],
+  "ctip_light_handoff_note": "The coma wrapper preserves Jacobian, block-Jacobian, and reachability metrics so the next slice can derive adaptive-collapse aliases such as ati_reduced, q_ratio_h4, capture_gate, and cfca without rewriting ndt_analysis core logic.",
+  "patient_timebin_metric_count": 13509,
+  "run_level_metric_count": 16212,
+  "processed_root": "J:\\repos\\NoeticDiffusion\\data\\raw\\neuralmanifolddynamics_physionet_icare_2_1_20260527_101007_NeruroComBat_cleaned",
+  "raw_root": "E:\\Science_Datasets\\physionet\\received\\i-care_2_1_random100_longitudinal\\training",
+  "adapter_config_path": "J:\\repos\\NoeticDiffusion\\articles\\CLINICAL\\comatose_ndt\\config\\icare_ndt_analysis.yaml",
+  "analyses": [
+    "reachability_cones"
+  ],
+  "time_bin_scheme": "hourly_12h",
+  "timeline_input_dir": "J:\\repos\\NoeticDiffusion\\articles\\CLINICAL\\comatose_ndt\\results\\timeline_analysis_20260601_part1_neurocombat_cleaned_hourly12h",
+  "prefilter": {
+    "enabled": true,
+    "good_cpc": 1,
+    "poor_cpc": 5,
+    "time_bin": null,
+    "n_full_rows": 3104,
+    "n_full_subjects": 160,
+    "n_full_h5_paths": 3104,
+    "n_selected_rows": 2702,
+    "n_selected_subjects": 140,
+    "n_selected_h5_paths": 2702
+  },
+  "output_dir": "J:\\repos\\NoeticDiffusion\\articles\\CLINICAL\\comatose_ndt\\results\\mnps_summary_20260601_part1_neurocombat_cleaned_hourly12h_cpc15_prefiltered"
+}

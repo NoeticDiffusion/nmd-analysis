@@ -1,0 +1,73 @@
+{
+  "dataset": "ds003478",
+  "subject_metrics_path": "J:\\repos\\NoeticDiffusion\\data\\analysis\\depression_ds003478_20260521\\ds003478_subject_metrics_20260522_120333.parquet",
+  "participants_path": "J:\\repos\\NoeticDiffusion\\articles\\CLINICAL\\depression\\metadata\\participants.tsv",
+  "results_root": "J:\\repos\\NoeticDiffusion\\articles\\CLINICAL\\depression\\results",
+  "low_group": "BDI 0-13",
+  "high_group": "BDI 20-63",
+  "target_specs": [
+    {
+      "block_key": "mnj_3d",
+      "title": "Global 3D MNJ",
+      "analysis_type": "global_mnps_jacobian_3d",
+      "metric": "spectral_radius_median",
+      "centroid_family": "3d",
+      "source_group": null,
+      "target_group": null
+    },
+    {
+      "block_key": "mnj_9d",
+      "title": "Global 9D MNJ",
+      "analysis_type": "global_mnps_jacobian_9d",
+      "metric": "rotational_power_mean",
+      "centroid_family": "9d",
+      "source_group": null,
+      "target_group": null
+    },
+    {
+      "block_key": "block_mnj_m_to_m",
+      "title": "Block MNJ m->m",
+      "analysis_type": "global_mnps_jacobian_9d_block_jacobian",
+      "metric": "block_frobenius_mean",
+      "centroid_family": "9d",
+      "source_group": "m",
+      "target_group": "m"
+    },
+    {
+      "block_key": "block_mnj_m_to_d",
+      "title": "Block MNJ m->d",
+      "analysis_type": "global_mnps_jacobian_9d_block_jacobian",
+      "metric": "block_frobenius_mean",
+      "centroid_family": "9d",
+      "source_group": "m",
+      "target_group": "d"
+    },
+    {
+      "block_key": "reachability",
+      "title": "Reachability cones",
+      "analysis_type": "reachability_cones",
+      "metric": "tube_log_eig_var_mean",
+      "centroid_family": "9d",
+      "source_group": null,
+      "target_group": null
+    },
+    {
+      "block_key": "emmi",
+      "title": "Tier-2 EMMI",
+      "analysis_type": "tier2_emmi",
+      "metric": "mv_median",
+      "centroid_family": "3d",
+      "source_group": null,
+      "target_group": null
+    },
+    {
+      "block_key": "distribution",
+      "title": "Distribution summary",
+      "analysis_type": "dist_summary",
+      "metric": "e_m_mad_sigma",
+      "centroid_family": "9d",
+      "source_group": null,
+      "target_group": null
+    }
+  ]
+}

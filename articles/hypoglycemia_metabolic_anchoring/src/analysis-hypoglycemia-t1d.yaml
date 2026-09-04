@@ -1,0 +1,88 @@
+dataset: hypoglycemia_t1d
+description: "Paired euglycemia-hypoglycemia contrasts for the Rubega et al. T1D EEG batch."
+
+input:
+  cleaned_root: "../../../data/cleaned/hypoglycemia_t1d_20260723"
+
+output:
+  directory: "../../../data/analysis/hypoglycemia_t1d_20260723"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  continue_on_error: false
+
+qc:
+  require_finite_ok: true
+  exclude_not_testable: true
+  exclude_validity_limited: false
+
+coordinate_contract: cohort_anchored
+
+design:
+  pairing_keys:
+    - subject_id
+  condition_column: condition
+  group_column: group
+
+statistics:
+  permutation_n: 5000
+  bootstrap_n: 2000
+  random_seed: 20260723
+  min_group_n: 3
+  min_pairs: 3
+  fdr_group_by:
+    - contrast_name
+    - analysis_type
+
+blocks:
+  global_mnps_3d:
+    enabled: true
+  global_mnps_jacobian_3d:
+    enabled: true
+    validity:
+      min:
+        n_windows: 50
+      max:
+        jacobian_near_singular_rate: 0.1
+      require_true:
+        - eig_ok
+  global_mnps_9d:
+    enabled: true
+  global_mnps_jacobian_9d:
+    enabled: true
+    validity:
+      min:
+        n_windows: 50
+      max:
+        jacobian_near_singular_rate: 0.1
+      require_true:
+        - eig_ok
+  reachability_cones:
+    enabled: true
+    validity:
+      min:
+        tube_log_det_split_half_rho: 0.5
+        tube_d_eff_split_half_rho: 0.5
+        tube_log_det_split_half_n: 50
+        tube_d_eff_split_half_n: 50
+      max:
+        pred_err_h1: 1.0
+        near_singular_rate: 0.1
+
+contrasts:
+  - name: Hypoglycemia_minus_euglycemia
+    type: paired
+    left:
+      condition: euglycemia
+    right:
+      condition: hypoglycemia
+    subset:
+      condition: [euglycemia, hypoglycemia]
+    pairing_keys: [subject_id]
+
+negative_controls: []

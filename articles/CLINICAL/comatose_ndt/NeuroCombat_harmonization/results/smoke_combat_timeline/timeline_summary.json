@@ -1,0 +1,67 @@
+{
+  "processed_root": "J:\\repos\\NoeticDiffusion\\data\\raw\\neuralmanifolddynamics_physionet_icare_2_1_20260526_164042_part1_ComBat",
+  "raw_root": "E:\\Science_Datasets\\physionet\\received\\i-care_2_1_random100_longitudinal\\training",
+  "coordinate_contract": "cohort_anchored",
+  "n_h5_runs": 20,
+  "n_subjects": 2,
+  "time_bin_scheme": "legacy_24h",
+  "time_axis_note": "Primary run-level timing now comes from H5 time_reference.v1 when available; WFDB header parsing is retained as a fallback for older exports or missing extensions.",
+  "time_reference_available_runs": 20,
+  "time_anchor_sources": {
+    "time_reference": 20
+  },
+  "time_status_counts": {
+    "ok": 20
+  },
+  "time_bins_hours": [
+    {
+      "label": "0_24h",
+      "start_h": 0.0,
+      "end_h": 24.0
+    },
+    {
+      "label": "24_48h",
+      "start_h": 24.0,
+      "end_h": 48.0
+    },
+    {
+      "label": "48_72h",
+      "start_h": 48.0,
+      "end_h": 72.0
+    },
+    {
+      "label": "72h_plus",
+      "start_h": 72.0,
+      "end_h": null
+    }
+  ],
+  "time_bin_assignment_method": "run_midpoint",
+  "time_bin_assignment_note": "Runs are assigned to time bins by run midpoint. This is exact for aggregate windows such as 0_12h, but hourly bins should be interpreted as localized summaries rather than exact window-splitting counts.",
+  "subjects_with_inconsistent_anchor_candidates": 0,
+  "subjects": [
+    {
+      "subject": "sub-0284",
+      "hospital": "A",
+      "age": 53,
+      "sex": "Male",
+      "rosc_minutes": "nan",
+      "ohca": true,
+      "shockable_rhythm": true,
+      "ttm_celsius": 33,
+      "outcome": "Good",
+      "cpc": 1
+    },
+    {
+      "subject": "sub-0286",
+      "hospital": "F",
+      "age": 85,
+      "sex": "Female",
+      "rosc_minutes": 7,
+      "ohca": false,
+      "shockable_rhythm": false,
+      "ttm_celsius": "nan",
+      "outcome": "Good",
+      "cpc": 1
+    }
+  ]
+}

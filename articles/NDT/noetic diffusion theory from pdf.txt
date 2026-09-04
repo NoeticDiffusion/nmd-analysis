@@ -1,0 +1,617 @@
+
+38
+
+Automatic Zoom
+Noetic Diffusion Theory 30
+These features are computed in sliding temporal windows (for example, 2 s for EEG,
+TR‑matched for fMRI) and 𝑧‑scored within subject to yield comparable (𝐸, 𝑅, 𝐷) time series
+that define MNPS coordinates.
+Definition vs. implementation. At the theory level, 𝐸, 𝑅, and 𝐷 denote classes
+of entropy like, rhythmic coherence, and metastability deviation measures: any choice within
+these classes that respects basic regularity assumptions defines a valid MNPS chart. In this
+manuscript we instantiate 𝐸, 𝑅, 𝐷 with spectral entropy, composite PAC/PLV/power indices,
+and modularity based deviation, but our primary predictions target properties that should be
+stable across this class: topological organization (component fragmentation, hub structure), the
+timing of event locked entropy changes relative to rhythms, and the qualitative structure of
+flows in MNPS. Chart dependent quantities (exact
+Δ𝐸 (4)
+magnitudes in a given dataset, or absolute NDHI scores) are always reported together with the
+specific implementation choices used to compute them.
+An extended, 9 dimensional Stratified MNPS framework that decomposes the core
+(𝑚, 𝑑, 𝑒) axes into sub coordinates (for example, attentional vs limbic mobility, local vs network
+diffusivity) is developed in a separate working paper [35]. The present manuscript restricts itself
+to the 3D MNPS needed for the core NDT predictions, but all constructions here are designed
+to remain compatible with that stratified extension.
+7.1.1. Algorithmic specification for MNPS construction
+To ensure reproducibility, we provide explicit computational steps for constructing MNPS
+coordinates from neural data.
+Step 1: Preprocessing.
+1. EEG/MEG: Band‑pass filter 0.5–100 Hz, notch‑filter 50/60 Hz, artifact rejection (ICA or
+robust averaging), re‑reference to average.
+2. fMRI: Standard preprocessing (motion correction, spatial normalization, parcellation via
+Glasser‑360 or Schaefer‑400), temporal filtering 0.01–0.1 Hz.
+Step 2: Feature extraction with explicit formulas (EEG/MEG).
+• Entropy 𝐸(𝑡):
+𝐸spectral(𝑡) = − ∑40
+𝑓=1 𝑃𝑓(𝑡) log 𝑃𝑓(𝑡), 𝑃𝑓(𝑡) = 𝑆𝑓(𝑡)
+∑𝑓′
+𝑆𝑓′ (𝑡)
+where 𝑆𝑓(𝑡) is power spectral density at frequency 𝑓 in a window centered at 𝑡 (estimated
+via Welch’s method; window 2 s, 50 % overlap), and ∑𝑓 𝑃𝑓(𝑡) = 1 by construction so that
+𝐸spectral is a bona fide discrete Shannon entropy on the normalized spectrum.
+• Rhythmic coherence 𝑅(𝑡):
+𝑅(𝑡) = 𝑤PACPAC𝜃→𝛾 (𝑡) + 𝑤PLVPLV𝜃(𝑡) + 𝑤pow𝑃theta(𝑡)
+where PAC is a modulation index [25], PLV the mean phase‑locking value across electrode
+pairs, and 𝑃theta theta‑band power; default weights might be 𝑤PAC = 0.5, 𝑤PLV = 0.3, 𝑤pow =
+0.2.
+• Deviation from metastability 𝐷(𝑡):
+𝐷(𝑡) = | 𝑄(𝑡) − 𝑄∗ |, 𝑄∗ ≈ 0.4
+30
+Noetic Diffusion Theory 31
+where 𝑄(𝑡) is graph modularity at time 𝑡, computed on a thresholded phase‑coherence
+matrix (for example, top 10 % of connections). The reference value 𝑄∗ ≈ 0.4 is chosen based
+on prior work suggesting that intermediate modularity values in this range support flexible
+cognition and healthy integration–segregation balance [36], [37]; in practice, 𝑄∗ can be tuned
+within a plausible interval (for example, [0.3, 0.5]) as part of multiverse sensitivity analysis.
+Step 3: Normalization and MNPS assembly.
+1. 𝑧‑score each feature within subject: 𝐸norm(𝑡) = 𝐸(𝑡)−𝜇𝐸
+𝜎𝐸
+etc.
+2. Construct coordinate vector 𝑿MNPS(𝑡) = [𝐸norm(𝑡), 𝑅norm(𝑡), 𝐷norm(𝑡)]𝑇 .
+3. Optionally expand with higher‑order features (for example, band‑specific PAC, regional
+entropy) for a higher‑dimensional MNPS.
+Pseudocode.
+1. Preprocess. Filter and clean the neural data according to params.filter_specs to obtain
+data_clean .
+2. Windowing. Extract overlapping windows of length params.window_s with 50 % overlap,
+yielding windows .
+3. Feature extraction. For each window:
+• Compute spectral entropy 𝐸[𝑡] from the Welch PSD.
+• Estimate theta–gamma coupling ( pac ), mean PLV ( plv ), and theta band power
+( theta_pow ) to form 𝑅[𝑡].
+• Build the phase coherence matrix, compute modularity 𝑄, and derive 𝐷[𝑡] = | 𝑄 − 0.4 |.
+4. Normalization. 𝐸, 𝑅, and 𝐷 are 𝑧 scored within subject to yield 𝐸 norm , 𝑅 norm , and 𝐷 norm .
+5. Return. The MNPS coordinates are MNPScoords(𝑡) = [𝐸 norm (𝑡), 𝑅 norm (𝑡), 𝐷 norm (𝑡)]𝑇 .
+Coordinate invariance and robustness. While specific choices for 𝐸, 𝑅, and 𝐷 define a
+particular MNPS chart, we explicitly define invariance classes— predictions that must hold
+across all valid coordinate charts to be considered robust:
+1. Topological Invariance: Qualitative features like component fragmentation (in psychosis)
+or collapsed manifold volume (in depression) must remain statistically significant regardless
+of whether 𝐸 is Spectral or Sample entropy.
+2. Temporal Invariance: The timing of step wise entropy drops relative to spindles must be
+preserved across feature choices, even if absolute magnitudes shift.
+3. Gradient Consistency: The direction of flow (𝑑 𝑋
+𝑑 𝑡) in local regions should generally
+align (e.g., 𝑟 > 0.4) across chart choices after Procrustes alignment, ensuring that attractor
+locations are preserved even if exact vector magnitudes vary.
+Primary claims target these intrinsic properties; chart level metrics are used comparatively
+within fixed pipelines.
+7.2. The Noetic Atlas: Geometric and topological tools
+The Noetic Atlas applies four complementary analysis streams to MNPS‑embedded data,
+each revealing different aspects of denoising dynamics:
+Stream 1: Manifold embedding and geodesic flow. Low‑dimensional projection (for
+example, PCA, PHATE, Laplacian eigenmaps) reveals intrinsic dimensionality and trajectory
+structure [36]. We compute global dimensionality (participation ratio, intrinsic‑dimension
+31
+Noetic Diffusion Theory 32
+estimates), geodesic distances between states, local curvature (tangent‑space PCA), and flow
+velocity and directionality along principal manifold axes.
+Stream 2: Topological Data Analysis (Mapper/persistent homology). TDA reveals
+the “shape” of explored state space without assuming linearity. Mapper constructs a graph
+where nodes are clusters of similar states and edges encode transitions [38], [39], [40]. We extract
+hub nodes (high betweenness), component fragmentation (number of disconnected subgraphs),
+and topological features (loops, voids) via persistent homology (Betti numbers) [41].
+Stream 3: Recurrence Quantification Analysis (RQA). RQA characterizes how
+trajectories revisit previous states. From recurrence plots we extract recurrence rate (RR),
+determinism (DET), laminarity (LAM), and entropy of line‑length distributions (structural
+complexity of revisits) [42].
+Stream 4: Metastability and criticality indices. These quantify proximity to the critical
+regime where denoising is maximally informative: metastability index (variance of synchrony
+over time), avalanche‑like branching‑ratio estimates, and DFA exponents capturing long‑range
+temporal correlations.
+Each stream provides complementary information: Embedding reveals trajectory paths,
+TDA reveals manifold structure, RQA reveals temporal organization, and metastability indices
+quantify proximity to criticality. Together, they form a comprehensive geometric portrait of
+denoising dynamics.
+8. Noetic Diffusion Health Index (NDHI)
+NDHI aggregates manifold dimensionality, curvature smoothness, hub centrality/connector
+reliability, recurrence structure, and metastability into a single score. Crucially, these compo
+nents are treated as deviations from a healthy optimum (inverted U profile) or distance from a
+reference centroid, not simple maximizations. This prevents pathological extremes (e.g., hyper
+synchrony, which would maximize “smoothness” but destroy information) from scoring highly. It
+serves as a summary of manifold “fitness” across states and subjects, grounded in evidence that
+near critical and metastable regimes optimize information processing and flexibility [43], [44].
+Components draw on reliable metrics of synchrony/metastability [45] and critical‑like dynamics
+[46], and we predict NDHI correlates with cognition via proximity to criticality [47].
+In this version of the work, NDHI is used as a Stage 1 summary index and tool for cross
+condition visualization rather than as a finalized clinical biomarker; its exact component weights
+and thresholds are expected to be refined as empirical validation accumulates.
+Throughout, terms such as “health” and “fitness” are meant strictly operationally: they
+refer to proximity to a metastable/near critical regime defined by these dynamical metrics, not
+to broader normative or value laden judgements beyond those functional criteria.
+Weighting rationale and alternatives. We use equal weights initially to preserve
+interpretability and avoid overfitting; each component captures a distinct facet (dimension,
+curvature, topology, recurrence, metastability). As a robustness check, we report sensitivity to
+±50 % weight perturbations and can optionally compute cross‑validated linear weights solely for
+predictive benchmarking. Learned‑weight variants are reported as exploratory sensitivity
+analyses and are not the primary biomarker, in order to maintain construct validity.
+32
+Noetic Diffusion Theory 33
+9. Predictions and falsifiable claims
+NDT makes specific, testable predictions that distinguish it from alternative frameworks.
+We organize these by type: signature predictions (novel patterns NDT uniquely predicts),
+competitive predictions (where NDT and alternatives make different predictions), and
+falsification criteria (observations that would disprove core claims).
+Effect size priors and thresholds. Where we quote specific effect sizes (for example,
+Δ𝐸 ≈ 20–35 % or 𝑑 > 0.6), these are grounded in a combination of (i) literature based priors
+—especially recent syntheses on SO–spindle mechanisms and sleep dependent entropy changes
+(for example, [28])—and (ii) simulation results using the minimal MNDM that indicate the scale
+at which predicted topology/entropy signatures become reliably detectable under realistic noise
+and sample sizes. We therefore treat thresholds such as 𝑑 ≥ 0.6 or 𝑟 ≥ 0.3 as conservative
+targets for “strong support”, while smaller but consistent effects are still informative as
+“moderate” or “exploratory” evidence, provided they meet the preregistered robustness criteria
+described later in the methods section.
+9.1. Signature Prediction 1: Step wise entropy locked to rhythmic
+events
+Claim. During NREM sleep, neural entropy should decline in discrete steps time‑locked
+to SO–spindle (and ripple) events, not smoothly.
+Operationalization. Detect SO–spindle complexes in sleep EEG; compute spectral/sample
+entropy in 500 ms windows; align entropy time series to event onsets; test for systematic drops
+within 100–1000 ms post‑onset.
+Predicted pattern. Entropy drops Δ𝐸 ≈ 15–30 % within one spindle duration (∼0.5–1.5 s)
+after complex onset, with effect size 𝑑 > 0.6 vs. pre‑event baseline. Longer/higher‑amplitude
+spindles → deeper drops; non‑nested spindles or isolated SOs show weaker effects.
+Consequence. SO–spindle precision (phase consistency) should predict: (i) magnitude of
+overnight entropy reduction (𝑟 ∼ 0.3–0.5), (ii) next‑day memory performance (𝑟 ∼ 0.2–0.4), (iii)
+NDHI improvement from pre‑sleep to post‑sleep.
+9.2. Signature Prediction 2: Phase specific denoising during wake
+Claim. Items encoded at different theta phases undergo denoising at different depths,
+affecting encoding quality [12].
+Operationalization. Present stimuli at controlled theta phases; measure encoding success
+and neural entropy as a function of presentation phase.
+Predicted pattern. Items near theta peak show better recall and lower entropy. Theta–
+gamma PAC strength shows an inverted‑U with task performance (optimal at intermediate
+coupling; too weak → insufficient denoising, too strong → over‑rigid).
+33
+Noetic Diffusion Theory 34
+9.3. Signature Prediction 3: Sleep as geometric curriculum
+Claim. Manifold topology transforms systematically: NREM centralization, REM expan
+sion, progressive overnight refinement.
+Predicted patterns:
+• NREM: Hub betweenness ↑ (𝑑 > 0.5), manifold volume ↓ (20–40 %), recurrence rate ↑.
+• REM: Opposite pattern (expansion, decreased centrality).
+• Overnight: Net centralization with oscillations; late > early NREM in hub coherence.
+• TMR: Cued content shows increased local Mapper density and steeper local entropy drops.
+9.4. Signature Prediction 4: Disorder specific geometric signatures
+Claim. Psychiatric disorders produce characteristic manifold deformations.
+Predicted signatures:
+• Depression: Collapsed volume (𝑑 > 0.6 vs. controls), over‑recurrence, flattened curvature,
+reduced hub access [48].
+• Psychosis: Fragmented Mapper (high component count), shallow recurrence (low DET),
+unstable geodesics [49].
+• PTSD: Normal global dimension but mode‑collapsed trauma subspace (excessive local
+recurrence).
+• Anxiety: Over‑recurrence during threat (context‑sensitive, unlike depression’s global col
+lapse).
+At this stage these “geometric fingerprints” should be regarded as hypothetical target
+profiles rather than validated diagnostic entities: they specify expected manifold level patterns
+for different syndromes that future empirical work must test and refine, and any eventual clinical
+use would require substantial replication, cross cohort robustness, and regulatory validation.
+9.5. Competitive Prediction 5: Anti phase disruption affects temporal
+order
+NDT prediction. Anti‑phase rhythmic stimulation disrupts temporal ordering of de
+noising steps, leading to temporal binding errors and false associations.
+Predictive‑coding prediction. Disruption reduces overall precision, leading to propor
+tional impairment of all memory.
+Distinguisher. Order errors become disproportionately elevated vs. item memory under
+anti‑phase stimulation.
+9.6. Falsification criteria
+NDT would be falsified or require major revision if:
+1. Entropy declines are smooth/continuous, not event‑locked (contradicts rhythmic variance
+control).
+34
+Noetic Diffusion Theory 35
+2. Manifold geometry is invariant across wake/sleep/pathology (contradicts geometry–dynam
+ics coupling).
+3. Anti‑phase affects only magnitude, not temporal structure (contradicts discrete‑step denois
+ing).
+4. All effects are derivable from precision‑only models without discrete steps or geometry (NDT
+adds nothing).
+5. Phenomenology is uncorrelated with (𝐸, 𝑅, 𝐷), Ω, and NDHI (contradicts phenomenological
+grounding).
+We emphasize that many geometric or topological signatures (for example, changes in Mapper
+fragmentation or RQA indices) could also arise under more generic “criticality plus sleep”
+frameworks that do not commit to an explicit variance schedule 𝑟(𝑡) or the MNDM form. What
+is distinctive about NDT is the combination of (i) explicit coupling between a measurable
+𝑟(𝑡) and entropy dynamics, (ii) discrete, event locked denoising steps, and (iii) a concrete SDE
+linking these schedules to MNPS trajectories. This yields several divergent predictions even
+without interventions: for example, (a) in event locked analyses NDT expects that adding ̂ 𝑟(𝑡)
+as a predictor substantially increases explained variance in entropy steps and topology changes
+over and above sleep stage labels and power spectra, whereas a pure criticality account predicts
+little added value; (b) across individuals or disorders, NDT predicts that distortions in 𝑟(𝑡)
+statistics (for example, SO–spindle precision) explain unique variance in NDHI beyond global
+criticality indices; and (c) when matching cohorts on criticality measures, NDT still expects
+systematic differences in event locked entropy timing and MNPS trajectory geometry if RVC
+is impaired. Evidence that reproduces the topology level findings while showing that ̂ 𝑟(𝑡) or
+related rhythmic proxies add no predictive value beyond generic criticality models would count
+against NDT specifically, even if it supports a broader “sleep tunes criticality” picture.
+9.7. Failure modes, confounds, and unfalsifiability patterns
+We enumerate concrete failure modes and how the preregistered analysis circumvents unfal
+sifiability:
+• Chart‑flexibility inflation: Post‑hoc switching of MNPS features (𝐸, 𝑅, 𝐷) could manu
+facture effects. Guardrail: Predefine a multiverse grid and require directional consistency
+across >60 % of specifications with FDR control; report Procrustes alignment between MNPS
+variants (target 𝑅2 > 0.7).
+• Schedule over‑flexibility: Allowing 𝑟(𝑡) to be freely re‑fit risks tautology. Guardrail:
+Construct ̂ 𝑟(𝑡) from observables with fixed methods and cross‑validated weights; treat 𝜎(𝑡)
+amplitude as the only free scalar in Stage 1 estimation.
+• Event‑detection circularity: Using entropy changes to define events would guarantee
+step‑like drops. Guardrail: Detect SO/spindles with canonical band‑limited criteria and
+circular statistics independent of entropy, then test entropy time‑locked to those events.
+• Parameter overfitting: Rich parameterizations (for example, adaptive 𝑮𝑡) may fit noise.
+Guardrail: Nested model comparison with BIC and held‑out prediction; accept added
+complexity only with Δ BIC > 10 and >10 % test‑set error reduction.
+• Hidden confounds: Vigilance, motion, and medication can mimic topology changes.
+Guardrail: Regress standardized confounds, analyze within‑subject stage contrasts, and
+verify absence of effects in phase‑randomized surrogates.
+• Unfalsifiability pattern A (moving targets): Redefining predictions after seeing data.
+Guardrail: Preregister operationalizations, parameter grids, and success thresholds.
+35
+Noetic Diffusion Theory 36
+• Unfalsifiability pattern B (equivalence classes): Claiming success under transfor
+mations that preserve ordering. Guardrail: Use interventions that break equivalences
+(anti‑phase rhythmic stimulation; TRN‑targeted pharmacology) and require order‑specific
+effects.
+In addition, we include null‑model controls (random‑walk trajectories and continuous‑pre
+cision models) alongside Minimal‑MNDM in simulations and empirical fits; step‑wise,
+event‑locked entropy drops and rhythm‑locked topology changes must exceed these nulls under
+identical preprocessing and FDR control.
+For preregistration and practical analysis planning, each failure mode maps to concrete
+choices:
+• Chart‑flexibility inflation → fix a finite MNPS multiverse grid (pre specified feature sets
+and parameters), preregister the grid, and report both median effects and the proportion of
+specifications supporting each prediction.
+• Schedule over‑flexibility → construct ̂ 𝑟(𝑡) from PAC/SO metrics with a single, cross
+validated weight set and treat only the global scale of 𝜎(𝑡) as a free parameter in Stage 1 fits.
+• Event‑detection circularity → preregister SO/spindle detectors that never use entropy
+or MNPS features as inputs; entropy is computed only after event detection.
+• Parameter overfitting → restrict model comparisons to the nested hierarchy specified in
+the identifiability section, with BIC and test set performance thresholds stated in advance.
+• Hidden confounds → preregister covariates (motion, vigilance, medication), specify
+regression models, and require that core effects survive both confound adjustment and phase
+randomized surrogate controls.
+• Moving target unfalsifiability → list primary and secondary predictions, parameter
+ranges and success thresholds explicitly in preregistrations, and commit to reporting null
+results for preregistered tests.
+• Equivalence‑class unfalsifiability → preregister at least one intervention protocol (for
+example, anti phase rhythmic stimulation) per dataset where feasible, with a priori criteria
+for order specific vs pure magnitude effects.
+10. Simulated demonstrations
+To demonstrate that the MNDM can reproduce key theoretical predictions, we simulate
+the minimal formulation (Eq. Equation 0) under several scenarios capturing core dynamics:
+wake‑to‑sleep transitions, sleep cycling with curriculum structure, and disorder‑typical pertur
+bations. All simulations use Euler–Maruyama integration; predictor–corrector samplers from
+score‑based diffusion can be used analogously for improved stability [50].
+Minimal worked example and null models. Before complex scenarios, we present a
+worked example contrasting Minimal‑MNDM against two nulls:
+• Minimal‑MNDM (event‑locked variance): 𝑑𝑋𝑡 = −∇𝐹 𝑑𝑡 + 𝜎(𝑡)𝑑𝑊𝑡, 𝐹 = 𝐸 − 𝑅, with
+𝜎(𝑡) = 𝜎min + 𝜎0(1 − 𝑟(𝑡)) and piecewise‑constant 𝑟(𝑡) (1.0 during detected events, 0.2 oth
+erwise).
+• Null A (random walk in MNPS): 𝑑𝑋𝑡 = 𝜎RW𝑑𝑊𝑡 with identical preprocessing, feature
+extraction, and windowing; no coupling to 𝑟(𝑡).
+36
+Noetic Diffusion Theory 37
+• Null B (continuous‑precision PC‑like): 𝑑𝑋𝑡 = −∇𝐹 𝑑𝑡 + 𝜎𝑐(𝑡)𝑑𝑊𝑡 with smooth 𝜎𝑐(𝑡)
+obtained by low‑pass filtering ̂ 𝑟(𝑡) (no event steps).
+Readouts: (i) event‑triggered spectral entropy 𝐸(𝑡) (500 ms windows), (ii) Mapper fragmen
+tation index, (iii) RQA determinism (DET). Expected pattern: Minimal‑MNDM shows
+step‑wise post‑event Δ𝐸 and rhythm‑locked topology changes; Null A shows no event‑locked
+structure; Null B shows smooth entropy drifts without discrete steps.
+10.1. Scenario 1: Wake‑to‑sleep transition
+Setup. We simulate a single trajectory over 𝑇 = 3600 s (1 h) with 𝑟(𝑡) transitioning from
+wake‑like continuous modulation to sleep‑like discrete epochs.
+Parameters (illustrative):
+• 𝑋 ∈ ℝ50 (low‑dimensional noetic manifold).
+• 𝐸(𝑋) = ( 1
+2 ) | 𝑋 |2 (quadratic entropy surrogate).
+• 𝑅(𝑋) = ∑𝑖<𝑗 cos(𝑋𝑖 − 𝑋𝑗) (pairwise coherence).
+• 𝜎0 ≈ 0.5 (chosen to match empirical EEG‑feature variability).
+• 𝑟(𝑡) decreases from 0.4 (wake) to 0.9 (deep sleep) over the hour.
+Results. Trajectories show (i) progressive descent in 𝐹 (𝑋, 𝑡) as variance decreases, (ii)
+manifold‑volume contraction (lower participation ratio), and (iii) increased recurrence to low‑𝐹
+basins. Entropy 𝐸(𝑋) drops from ∼15 (wake‑like) to ∼5 (sleep‑like), while coherence 𝑅(𝑋)
+increases from ∼0.3 to ∼0.8, consistent with “centralization” during NREM.
+10.2. Scenario 2: NREM/REM cycling
+Setup. We simulate an 8‑hour sleep night with four 90‑min cycles, each containing NREM
+(tight variance) and REM (loose variance) phases.
+Parameters (schematic): 𝑟NREM ≈ 0.85, 𝑟REM ≈ 0.3, with gradual ramps; NREM duration
+decreases across cycles, REM increases.
+Results. Trajectories exhibit the dual‑timescale curriculum architecture:
+• Within‑cycle pattern: Manifold contracts during NREM, expands during REM, visible
+as oscillations in participation ratio and geodesic distances.
+• Across‑cycle pattern: Early cycles show large‑amplitude 𝐹 oscillations (exploration‑dom
+inated), late cycles small‑amplitude oscillations (integration‑dominated). Final REM ends at
+much lower 𝐹 than initial wake, confirming net overnight consolidation despite REM‑driven
+exploration.
+• Entropy dynamics: Step‑wise drops during NREM epochs (20–30 % per spindle‑dense
+period), partial rebounds in REM (10–15 %), with overall downward trend—matching the
+dual‑schedule architecture.
+10.3. Scenario 3: Pathological parameter perturbations
+Starting from healthy baseline, we perturb parameters to emulate disorder‑typical dynamics:
+• Depression simulation: Flatten ∇𝐹 (weaker score) and reduce exploratory variance (𝜎0
+small) with normal 𝑟(𝑡). Result: Trajectory becomes trapped in a high‑𝐹 local minimum;
+37
+Noetic Diffusion Theory 38
+manifold shows collapsed volume, excessive recurrence, and flattened curvature— matching
+predicted depression topology.
+• Psychosis simulation: Elevate noise (𝜎0 large), weaken gradient, and desynchronize 𝑟(𝑡)
+by adding noise. Result: Trajectory wanders chaotically, rarely settling into coherent basins;
+manifold shows fragmented structure, shallow recurrence, and unstable geodesics.
+• PTSD simulation: Add a deep local basin at 𝑋trauma with elevated local variance. Result:
+Trajectory repeatedly pulled into the trauma basin despite varying inputs (mode collapse);
+normal global dimension but excessive local recurrence in the trauma subspace.
+10.4. Scenario 4: Learning‑induced landscape sculpting
+Setup. We simulate a learning episode followed by sleep consolidation to demonstrate
+acquisition of 𝐹 and 𝑮𝑡.
+• Timeline: (i) wake learning with prediction‑error‑driven updates at a small number of target
+states; (ii) NREM consolidation with replay‑driven basin deepening (Eq. Equation 0); (iii)
+REM regularization via curvature smoothing (Eq. Equation 0).
+• Initial landscape: Flat 𝐹0(𝑋) = ( 1
+2 ) | 𝑋 |2.
+Results (schematic). Post‑wake, shallow basins form at target states and Mapper is
+fragmented; post‑NREM, basins deepen and hubs emerge; post‑REM, over‑sharp minima are
+smoothed and Mapper integrates into a smaller number of components. Entropy drops from a
+high pre‑learning value to an intermediate post‑wake value and further after sleep, within the
+20–35 % range predicted by the theory.
+11. Methods and analysis plan (public datasets)
+We outline a preregistered analysis plan for testing NDT predictions on public datasets.
+By specifying methods, parameters, and success criteria in advance, we aim for transparent,
+hypothesis‑driven evaluation. For fMRI, we focus on topology/dynamics (centralization, frag
+mentation, hubs) rather than sub‑second step‑wise effects; EEG/MEG datasets test the
+temporal predictions.
+11.1. Target datasets
+• Dataset 1: HCP (resting‑state and task fMRI): Test manifold topology predictions
+and NDHI validity in healthy cognition (for example, NDHI vs. fluid intelligence/working
+memory; task‑dependent manifold centralization vs. expansion).
+• Dataset 2: Sleep‑EDF (polysomnography): Test step‑wise entropy and sleep‑curriculum
+predictions: NREM centralization, REM expansion, and SO–spindle precision vs. entropy
+drops and next‑day performance.
+• Dataset 3: OpenNeuro clinical datasets (for example, depression, schizophrenia):
+Test disorder‑specific topology predictions (collapsed volume and over‑recurrence in depres
+sion; fragmented Mapper and shallow recurrence in psychosis, etc.).
+38
+Noetic Diffusion Theory 39
+Subsequent subsections adapt the MNPS/Atlas/NDHI pipelines described above to these
+datasets (feature extraction, Mapper/RQA settings, NDHI construction) and specify effect‑size
+thresholds, power analyses, and multiverse‑analysis strategies much as in the LaTeX version.
+12. Related work
+We situate NDT relative to several major frameworks:
+• Predictive coding / Active Inference: NDT shares the focus on probabilistic inference
+and precision but emphasizes rhythmic scheduling and event‑locked denoising steps rather
+than purely smooth precision dynamics.
+• Criticality and metastability: Prior work characterizes near‑critical regimes; NDT adds
+a concrete mechanism (RVC/TRN‑VG) for actively steering the system near this edge and
+makes topology‑level predictions.
+• ML diffusion models: MNDM borrows reverse‑time denoising intuition but constrains
+schedules to endogenous rhythms and distributes the “score” over biological circuits, yielding
+predictions about lesions, perturbations, and adaptive geometry.
+• Embodied/interoceptive inference: EAP aligns with these accounts but adds an
+explicitly rhythmic, phase‑structured self‑prior that modulates both landscape and variance
+schedules.
+• Geometric/TDA approaches: The Noetic Atlas builds on manifold and TDA methods
+but is driven by a generative dynamical model (MNDM) rather than remaining purely
+descriptive.
+13. Limitations and future work
+We explicitly acknowledge key limitations:
+• Learning problem: MNDM specifies dynamics given 𝐹 and 𝑮𝑡 but does not yet derive
+how they are learned from synaptic/circuit plasticity; the tri‑phase learning architecture
+is a proposal needing empirical tests. A complementary, more speculative subcellular
+implementation—in which parts of the noetic metric 𝑮𝑡 are instantiated by microtubular
+“key–lock” gating in dendrites—is developed in a companion paper on Microtubular Key–
+Lock Geometry [51]; that work should be read as one possible realization pathway rather
+than a prerequisite for the present MNDM formalism.
+• Measurement and identifiability: Coordinate choices for MNPS introduce ambiguity;
+robust multiverse analysis and targeted perturbations are needed to disambiguate models.
+A tensorial extension that focuses specifically on second order dynamics in MNPS—the
+Meta‑Noetic Jacobian (MNJ), capturing how the rules of change vary locally—is developed
+in a separate theoretical paper [52]; the present work only uses first order MNPS trajectories
+but is constructed so that MNJ style analyses can be layered on top of the same coordinates
+and pipelines.
+• Phenomenological methods: Claims about pulsed experience, presence, and embodiment
+require high‑resolution neurophenomenology that is still under development.
+39
+
+Hard‑problem scope: NDT addresses when/how denoising unfolds and what geometry
+it leaves, not why denoising is accompanied by subjective experience.
+Future work should unify score‑learning with predictive‑error plasticity, incorporate action and
+active inference, model development and lifespan changes in schedules, extend to multi‑agent
+settings, and explore laminar implementations and geometric pharmacology in detail.
+14. Conclusion
+We summarize the thesis that conscious reconstruction is rhythmic, step‑wise denoising
+on a learned manifold, highlight three core advances (discrete timing via RVC/TRN‑VG,
+geometry‑first visibility via the Atlas/NDHI, and embodied conditioning via EAP), and sketch
+implications for AI, clinical practice, and philosophy. NDT is offered as a research program with
+concrete next steps (public‑dataset analyses, closed‑loop perturbation experiments, geometric
+pharmacology) and an invitation to treat manifold health as a measurable, cultivable aspect
+of mind.
+15. Acknowledgments
+This work emerged through structured correspondence among human and AI collaborators;
+large language models (GPT‑5, Claude, Gemini, Grok) assisted in literature synthesis, drafting,
+and editorial refinement.
+16. Contact
+Robin Langell — hello(at)mychainos.org
+17. Licensing
+This work follows the Mychainos multi‑layer licensing framework
+( https://mychainos.org/licence/ ):
+• Conceptual layer (theory, writings, patterns): CC BY‑SA 4.0.
+• Software layer (tools, compilers, simulations): GPLv3.
+• Hardware layer (sensors, interfaces, devices): CERN OHL v2.
+• Biological layer (living systems, DNA, mycelium): OpenMTA.
+Unified ethical guardrails apply: No coercion/military/surveillance use; no patenting or
+black‑boxing; works must remain accessible, attributed, and shared with care.
+40
+Noetic Diffusion Theory 41
+18. Data and Code Availability
+Reference implementations and analysis pipelines will be released at
+https://github.com/ruppi86/NoeticDiffusion (public upon acceptance), with licensing following
+the Mychainos policy.
+19. Trademark Notice
+The following terms used in this manuscript are pending trademark registration with the
+European Union Intellectual Property Office (EUIPO):
+• Noetic Diffusion™ (EUIPO Application No. 019271986)
+• Noetic Diffusion Theory™ (EUIPO Application No. 019263111)
+• Noetic Diffusion Mapping™ (EUIPO Application No. 019263076)
+• Noetic Health Index™ (EUIPO Application No. 019263100)
+• Noetic Atlas™ (EUIPO Application No. 019266220)
+These applications are currently under examination. The trademark status does not affect the
+scientific content or reproducibility of the research described herein.
+Rationale for Registration: The purpose of these registrations is to steward the scientific
+integrity of the framework, not to restrict academic inquiry. Specific goals include:
+1. Quality Control: Ensuring that metrics labeled as NDHI or methodologies cited as NDT
+adhere to the definitions established in peer reviewed literature, preventing concept dilution
+by non standardized actors.
+2. Open Source Sustainability: Providing a legal vehicle for a future non profit foundation
+or institute to maintain the open source codebase and reinvest potential licensing royalties
+into fundamental method development.
+3. Ethical Standardization: Establishing a framework for future certification to ensure these
+tools are used in accordance with the ethical guardrails defined in the licensing section.
+4. Precedents: This stewardship model mirrors successful open source governance structures
+in software (e.g., Linux®, Arduino®, Mozilla®), where trademark protection coexists with
+permissive open source licensing to guarantee that the brand signals compatibility and
+quality while the code remains free.
+Bibliography
+[1] K. Friston, “The free energy principle: a unified brain theory?,” Nature Reviews Neuro-
+science, vol. 11, no. 2, pp. 127–138, 2010, doi: 10.1038/nrn2787.
+[2] A. Clark, “Whatever next? Predictive brains, situated agents, and the future of cognitive
+science,” Behavioral and Brain Sciences, vol. 36, no. 3, pp. 181–204, 2013, doi: 10.1017/
+S0140525X12000477.
+41
+Noetic Diffusion Theory 42
+[3] H. D. Critchley and N. A. Harrison, “Visceral influences on brain and behavior,” Neuron,
+vol. 77, no. 4, pp. 624–638, 2013, doi: 10.1016/j.neuron.2013.02.008.
+[4] H. D. Park and O. Blanke, “Heartbeat evoked cortical responses: Underlying mechanisms,
+functional roles, and methodological considerations,” NeuroImage, vol. 197, pp. 502–511,
+2019, doi: 10.1016/j.neuroimage.2019.04.081.
+[5] Y. Song, J. Sohl Dickstein, D. P. Kingma, A. Kumar, S. Ermon, and B. Poole, “Score
+Based Generative Modeling through Stochastic Differential Equations,” in International
+Conference on Learning Representations, 2021. doi: 10.48550/arXiv.2011.13456.
+[6] J. Ho, A. Jain, and P. Abbeel, “Denoising Diffusion Probabilistic Models,” in Advances
+in Neural Information Processing Systems, 2020, pp. 6840–6851. doi: 10.48550/
+arXiv.2006.11239.
+[7] Y. Song and S. Ermon, “Generative Modeling by Estimating Gradients of the Data
+Distribution,” in NeurIPS, 2019. doi: 10.48550/arXiv.1907.05600.
+[8] E. Tognoli and J. A. S. Kelso, “The metastable brain,” Neuron, vol. 81, no. 1, pp. 35–48,
+2014, doi: 10.1016/j.neuron.2013.12.022.
+[9] G. Deco, M. L. Kringelbach, V. K. Jirsa, and P. Ritter, “The dynamics of resting fluctu
+ations in the brain: metastability and its dynamical cortical core,” Scientific Reports, vol.
+7, p. 3095, 2017, doi: 10.1038/s41598 017 03073 5.
+[10] W. L. Shew and D. Plenz, “The functional benefits of criticality in the cortex,” The
+Neuroscientist, vol. 19, no. 1, pp. 88–100, 2013, doi: 10.1177/1073858412445487.
+[11] A. K. Seth, K. Suzuki, and H. D. Critchley, “An interoceptive predictive coding model
+of conscious presence,” Frontiers in Psychology, vol. 2, p. 395, 2012, doi: 10.3389/
+fpsyg.2011.00395.
+[12] A. Bahramisharif, O. Jensen, J. Jacobs, and J. Lisman, “Serial representation of items
+during working memory maintenance at letter selective cortical sites,” PLoS Biology, vol.
+16, no. 8, p. e2003805, 2018, doi: 10.1371/journal.pbio.2003805.
+[13] M. M. Halassa and S. Kastner, “Thalamic functions in distributed cognitive control,”
+Nature Neuroscience, vol. 20, no. 12, pp. 1669–1679, 2017, doi: 10.1038/s41593 017 0020 1.
+[14] B. P. Staresina, J. Niediek, R. Surges, F. Mormann, and V. Borger, “How coupled
+slow oscillations, spindles and ripples coordinate neuronal processing and communication
+during human sleep,” Nature Neuroscience, vol. 26, pp. 1843–1854, 2023, doi: 10.1038/
+s41593 023 01381 w.
+[15] J. E. Lisman and O. Jensen, “The \theta \gamma neural code,” Neuron, vol. 77, no. 6,
+pp. 1002–1016, 2013, doi: 10.1016/j.neuron.2013.03.007.
+[16] R. T. Canolty and R. T. Knight, “The functional role of cross frequency coupling,” Trends
+in Cognitive Sciences, vol. 14, no. 11, pp. 506–515, 2010, doi: 10.1016/j.tics.2010.09.001.
+[17] M. M. Halassa and L. Acsády, “Thalamic inhibition: diverse sources, diverse scales,” Trends
+in Neurosciences, vol. 39, no. 10, pp. 680–693, 2016, doi: 10.1016/j.tins.2016.01.002.
+[18] J. W. Crabtree, “Functional Diversity of Thalamic Reticular Subnetworks,” Frontiers in
+Systems Neuroscience, vol. 12, p. 41, 2018, doi: 10.3389/fnsys.2018.00041.
+42
+Noetic Diffusion Theory 43
+[19] N. Hádinger, E. Bősz, B. Tóth, G. Vantomme, A. Lüthi, and L. Acsády, “Region selective
+control of the thalamic reticular nucleus via cortical layer 5 pyramidal cells,” Nature
+Neuroscience, vol. 26, pp. 1843–1854, 2022, doi: 10.1038/s41593 022 01217 z.
+[20] N. Takata, “The thalamic reticular nucleus (TRN) is a key modulator of a thalamocortical
+loop,” Neuroscience Research, vol. 158, pp. 1–7, 2019, doi: 10.1016/j.neures.2019.12.004.
+[21] L. D. Lewis et al., “Thalamic reticular nucleus induces fast and local modulation of arousal
+state,” eLife, vol. 4, p. e8760, 2015, doi: 10.7554/eLife.08760.
+[22] S. Li, C. Wang, and S. Wu, “Spindle oscillations emerge at the critical state of electrically
+coupled networks in the thalamic reticular nucleus,” Cell Reports, vol. 43, p. 114790, 2024,
+doi: 10.1016/j.celrep.2024.114790.
+[23] L. M. J. Fernandez, G. Vantomme, A. Osorio Forero, J. Kebschull, and A. Lüthi, “Thala
+mic reticular control of local sleep in mouse sensory cortex,” eLife, vol. 7, p. e39111, 2018,
+doi: 10.7554/eLife.39111.
+[24] S. Thankachan et al., “Thalamic Reticular Nucleus Parvalbumin Neurons Regulate Sleep
+Spindles and Electrophysiological Aspects of Schizophrenia in Mice,” Scientific Reports,
+vol. 9, p. 3607, 2019, doi: 10.1038/s41598 019 40398 9.
+[25] A. B. L. Tort, R. W. Komorowski, J. R. Manns, N. Kopell, and H. Eichenbaum, “Theta–
+gamma coupling increases during the learning of item–context associations,” Proceedings
+of the National Academy of Sciences, vol. 107, no. 5, pp. 2093–2098, 2009, doi: 10.1073/
+pnas.0911331106.
+[26] C. F. V. Latchoumane, H. V. V. Ngo, J. Born, and H. S. Shin, “Thalamic spindles promote
+memory formation during sleep through triple phase locking of cortical, thalamic, and hip
+pocampal rhythms,” Neuron, vol. 95, pp. 424–435, 2017, doi: 10.1016/j.neuron.2017.06.025.
+[27] H. V. Ngo, J. Fell, and B. P. Staresina, “Sleep spindles mediate hippocampal–neocortical
+coupling during long duration ripples,” eLife, vol. 9, p. e56655, 2020, doi: 10.7554/
+eLife.56655.
+[28] T. Ng, E. Noh, and R. M. C. Spencer, “Bayesian meta analysis reveals the mechanistic
+role of slow oscillation–spindle coupling in sleep dependent memory consolidation,” eLife,
+vol. 13, p. e101992, 2024, doi: 10.7554/eLife.101992.
+[29] A. Mahdavi, Y. Qin, A. S. Aubry, D. Cornec, S. Kulikova, and D. Pinault, “A single
+psychotomimetic dose of ketamine decreases thalamocortical spindles and delta oscilla
+tions in the sedated rat,” Neuropharmacology, vol. 225, p. 109567, 2023, doi: 10.1016/
+j.neuropharm.2023.109567.
+[30] S. S. Khalsa, H. D. Critchley, S. N. Garfinkel, J. S. Feinstein, A. B. Barrett, and et al.,
+“Interoception and mental health: a roadmap,” Biological Psychiatry: Cognitive Neuro-
+science and Neuroimaging, vol. 3, no. 6, pp. 501–513, 2018, doi: 10.1016/j.bpsc.2018.06.012.
+[31] X. Wang et al., “Anterior insular cortex plays a critical role in interoceptive attention,”
+eLife, vol. 8, p. e42265, 2019, doi: 10.7554/eLife.42265.
+[32] R. Salomon et al., “The Insula Mediates Access to Awareness of Visual Stimuli Presented
+Synchronously to the Heartbeat,” Journal of Neuroscience, vol. 36, no. 18, pp. 5115–5127,
+2016, doi: 10.1523/JNEUROSCI.4262 15.2016.
+43
+Noetic Diffusion Theory 44
+[33] N. Medford, M. Sierra, A. Stringaris, V. Giampietro, M. J. Brammer, and A. S. David,
+“Emotional Experience and Awareness of Self: Functional MRI Studies of Depersonaliza
+tion Disorder,” Frontiers in Psychology, vol. 7, p. 432, 2016, doi: 10.3389/fpsyg.2016.00432.
+[34] M. P. Coll, H. Hobson, G. Bird, and J. Murphy, “Systematic review and meta analysis of
+the relationship between the heartbeat evoked potential and interoception,” Neuroscience
+& Biobehavioral Reviews, vol. 121, pp. 190–200, 2021, doi: 10.1016/j.neubiorev.2020.12.012.
+[35] R. Langell, “Stratified Meta Noetic Phase Space: Unmasking Neural Mechanisms beneath
+the Manifold,” Zenodo, Nov. 2025, doi: 10.5281/zenodo.17643473.
+[36] J. M. Shine et al., “Human cognition involves the dynamic integration of neural activity
+and neuromodulatory systems,” Nature Neuroscience, vol. 19, no. 3, pp. 390–398, 2016,
+doi: 10.1038/nn.4349.
+[37] J. R. Cohen and M. D'Esposito, “The Segregation and Integration of Distinct Brain
+Networks and Their Relationship to Cognition,” Journal of Neuroscience, vol. 36, no. 48,
+pp. 12083–12094, 2016, doi: 10.1523/JNEUROSCI.2965 15.2016.
+[38] M. Saggar and others, “Towards a new approach to reveal dynamical organization of the
+brain using topological data analysis,” Nature Communications, vol. 9, p. 1399, 2018, doi:
+10.1038/s41467 018 03664 4.
+[39] M. Saggar, K. Supekar, and V. Menon, “Precision dynamical mapping using topological
+data analysis reveals a hub like transition state at rest,” Nature Communications, vol. 13,
+p. 3210, 2022, doi: 10.1038/s41467 022 32381 2.
+[40] M. Zhang, S. Chowdhury, and M. Saggar, “Temporal Mapper: Transition networks in
+simulated and real neural dynamics,” PLoS Computational Biology, vol. 17, no. 8, p.
+e1008999, 2021, doi: 10.1371/journal.pcbi.1008999.
+[41] A. E. Sizemore, J. E. Phillips Cremins, R. Ghrist, and D. S. Bassett, “The importance of
+the whole: Topological data analysis for the network neuroscientist,” PLoS Computational
+Biology, vol. 15, no. 4, p. e1006793, 2019, doi: 10.1371/journal.pcbi.1006793.
+[42] M. A. Lopes et al., “Recurrence Quantification Analysis of Dynamic Brain Networks,”
+arXiv preprint arXiv:2106.12345, 2021.
+[43] L. Cocchi, L. L. Gollo, A. Zalesky, and M. Breakspear, “Criticality in the brain: A synthesis
+of neurobiology, models and cognition,” Trends in Neurosciences, vol. 40, no. 2, pp. 87–
+95, 2017, doi: 10.1016/j.tins.2017.01.001.
+[44] J. O'Byrne and K. Jerbi, “How critical is brain criticality?,” Trends in Neurosciences, vol.
+45, no. 11, pp. 820–837, 2022, doi: 10.1016/j.tins.2022.08.007.
+[45] L. Yang et al., “Test–Retest Reliability of Synchrony and Metastability in Resting State
+fMRI,” Sensors, vol. 21, no. 12, p. 4189, 2021, doi: 10.3390/s21124189.
+[46] S. H. Wang et al., “Critical like brain dynamics in a continuum from second to first
+order phase transition,” Journal of Neuroscience, vol. 43, no. 45, pp. 7642–7656, 2023, doi:
+10.1523/JNEUROSCI.0980 23.2023.
+[47] L. Xu, J. Feng, and L. Yu, “Avalanche criticality in individuals, fluid intelligence, and
+working memory,” Human Brain Mapping, vol. 43, no. 9, pp. 2856–2870, 2022, doi:
+10.1002/hbm.25802.
+44
+

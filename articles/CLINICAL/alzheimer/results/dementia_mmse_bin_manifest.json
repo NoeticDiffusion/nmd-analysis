@@ -1,0 +1,79 @@
+{
+  "dataset": "ds004504",
+  "subject_metrics_path": "H:\\SourceRepo2\\NoeticDiffusion\\data\\analysis\\alzheimer_ds004504_20260521\\ds004504_subject_metrics_20260521_111521.parquet",
+  "participants_path": "H:\\SourceRepo2\\NoeticDiffusion\\articles\\alzheimer\\metadata\\ds004504_alzheimer_FTD_eeg\\participants.tsv",
+  "thresholds": {
+    "Dementia_all": {
+      "median_cut": 20.0,
+      "lower_tertile_cut": 18.666666666666657,
+      "upper_tertile_cut": 22.0
+    },
+    "AD_only": {
+      "median_cut": 20.0,
+      "lower_tertile_cut": 16.0,
+      "upper_tertile_cut": 20.0
+    },
+    "FTD_only": {
+      "median_cut": 22.0,
+      "lower_tertile_cut": 20.666666666666664,
+      "upper_tertile_cut": 24.0
+    }
+  },
+  "cohort_group_counts": {
+    "Dementia_all": {
+      "median_groups": {
+        "Lower MMSE": 36,
+        "Higher MMSE": 23
+      },
+      "tertile_groups": {
+        "Middle tertile": 28,
+        "Lower tertile": 20,
+        "Upper tertile": 11
+      }
+    },
+    "AD_only": {
+      "median_groups": {
+        "Lower MMSE": 28,
+        "Higher MMSE": 8
+      },
+      "tertile_groups": {
+        "Middle tertile": 15,
+        "Lower tertile": 13,
+        "Upper tertile": 8
+      }
+    },
+    "FTD_only": {
+      "median_groups": {
+        "Lower MMSE": 14,
+        "Higher MMSE": 9
+      },
+      "tertile_groups": {
+        "Middle tertile": 11,
+        "Lower tertile": 8,
+        "Upper tertile": 4
+      }
+    }
+  },
+  "split_specs": [
+    {
+      "split_name": "mmse_median",
+      "left_group": "Lower MMSE",
+      "right_group": "Higher MMSE"
+    },
+    {
+      "split_name": "mmse_tertiles_low_vs_mid",
+      "left_group": "Lower tertile",
+      "right_group": "Middle tertile"
+    },
+    {
+      "split_name": "mmse_tertiles_low_vs_high",
+      "left_group": "Lower tertile",
+      "right_group": "Upper tertile"
+    },
+    {
+      "split_name": "mmse_tertiles_mid_vs_high",
+      "left_group": "Middle tertile",
+      "right_group": "Upper tertile"
+    }
+  ]
+}

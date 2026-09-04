@@ -1,0 +1,99 @@
+{
+  "task_dataset": "ds003474",
+  "rest_dataset": "ds003478",
+  "task_analysis_root": "J:\\repos\\NoeticDiffusion\\data\\analysis\\depression_probsel_ds003474_20260609",
+  "rest_analysis_root": "J:\\repos\\NoeticDiffusion\\data\\analysis\\depression_ds003478_20260521",
+  "task_subject_metrics_path": "J:\\repos\\NoeticDiffusion\\data\\analysis\\depression_probsel_ds003474_20260609\\ds003474_subject_metrics_20260609_090225.parquet",
+  "task_contrast_results_path": "J:\\repos\\NoeticDiffusion\\data\\analysis\\depression_probsel_ds003474_20260609\\ds003474_contrast_results_20260609_090228.parquet",
+  "rest_subject_metrics_path": "J:\\repos\\NoeticDiffusion\\data\\analysis\\depression_ds003478_20260521\\ds003478_subject_metrics_20260522_120333.parquet",
+  "task_raw_root": "J:\\repos\\NoeticDiffusion\\data\\raw\\neuralmanifolddynamics_ds003474_20260609_044822",
+  "participants_path": "J:\\repos\\NoeticDiffusion\\articles\\CLINICAL\\depression_probalistic_selection\\metadata\\participants.tsv",
+  "task_source_participants_path": "N:\\received\\ds003474\\participants.tsv",
+  "results_root": "J:\\repos\\NoeticDiffusion\\articles\\CLINICAL\\depression_probalistic_selection\\results",
+  "bdi_band_counts": {
+    "BDI 0-13": 76,
+    "BDI 20-63": 30,
+    "BDI 14-19": 15
+  },
+  "event_families": [
+    "feedback_correct",
+    "feedback_incorrect",
+    "train_stim_any",
+    "test_stim_any",
+    "left_response",
+    "right_response"
+  ],
+  "event_bins": [
+    "pre_far",
+    "pre_near",
+    "event",
+    "post_near",
+    "post_far"
+  ],
+  "paired_specs": [
+    {
+      "key": "mnps_3d",
+      "title": "3D MNPS",
+      "analysis_type": "global_mnps_3d",
+      "metric": "d_median",
+      "source_group": null,
+      "target_group": null
+    },
+    {
+      "key": "mnps_9d",
+      "title": "9D MNPS",
+      "analysis_type": "global_mnps_9d",
+      "metric": "d_s_mean",
+      "source_group": null,
+      "target_group": null
+    },
+    {
+      "key": "mnj_3d",
+      "title": "3D MNJ",
+      "analysis_type": "global_mnps_jacobian_3d",
+      "metric": "spectral_radius_median",
+      "source_group": null,
+      "target_group": null
+    },
+    {
+      "key": "mnj_9d",
+      "title": "9D MNJ",
+      "analysis_type": "global_mnps_jacobian_9d",
+      "metric": "rotational_power_mean",
+      "source_group": null,
+      "target_group": null
+    },
+    {
+      "key": "block_mnj",
+      "title": "Block MNJ m->m",
+      "analysis_type": "global_mnps_jacobian_9d_block_jacobian",
+      "metric": "block_frobenius_mean",
+      "source_group": "m",
+      "target_group": "m"
+    },
+    {
+      "key": "reachability",
+      "title": "Reachability",
+      "analysis_type": "reachability_cones",
+      "metric": "tube_log_eig_var_mean",
+      "source_group": null,
+      "target_group": null
+    },
+    {
+      "key": "emmi",
+      "title": "Tier-2 EMMI",
+      "analysis_type": "tier2_emmi",
+      "metric": "mv_median",
+      "source_group": null,
+      "target_group": null
+    },
+    {
+      "key": "distribution",
+      "title": "Distribution summary",
+      "analysis_type": "dist_summary",
+      "metric": "e_m_mad_sigma",
+      "source_group": null,
+      "target_group": null
+    }
+  ]
+}

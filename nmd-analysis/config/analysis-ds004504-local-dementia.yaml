@@ -1,0 +1,131 @@
+dataset: ds004504
+description: "Focused resting dementia pilot: 9D FTR primary, 9D Jacobian secondary, 3D reference"
+
+input:
+  cleaned_root: "../data/cleaned/dementia_ds004504_20260812_132437"
+
+output:
+  directory: "../data/analysis/dementia_ds004504_20260812_132437"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  continue_on_error: false
+
+qc:
+  require_finite_ok: true
+  exclude_not_testable: true
+  exclude_validity_limited: false
+
+design:
+  pairing_keys: [subject_id, condition]
+  condition_column: condition
+  group_column: group
+
+statistics:
+  permutation_n: 2000
+  bootstrap_n: 1000
+  random_seed: 4504
+  min_group_n: 3
+  min_pairs: 3
+  fdr_group_by: [contrast_name, analysis_type]
+
+blocks:
+  local_dynamics_availability:
+    enabled: false
+  transition_residual_summary_3d_recording:
+    enabled: false
+  transition_residual_summary_9d_recording:
+    enabled: false
+  transition_q_proxy_3d_recording:
+    enabled: false
+  transition_q_proxy_9d_recording:
+    enabled: false
+
+  jacobian_metrics_3d_recording:
+    enabled: true
+    grain: subject_condition
+    subject_aggregation_policy: mean_within_condition
+    aggregation_keys: [subject_id, condition]
+    metrics: [mean_spectral_abscissa, mean_numerical_abscissa, mean_reactivity_gap, stable_reactive_fraction]
+    metric_tiers:
+      reference: [mean_spectral_abscissa, mean_numerical_abscissa, mean_reactivity_gap, stable_reactive_fraction]
+      qc: [n_windows_total, n_windows_metrics_valid, jacobian_metrics_valid_fraction]
+    validity:
+      min:
+        n_windows_metrics_valid: 50
+
+  jacobian_metrics_9d_recording:
+    enabled: true
+    grain: subject_condition
+    subject_aggregation_policy: mean_within_condition
+    aggregation_keys: [subject_id, condition]
+    metrics: [mean_spectral_abscissa, mean_numerical_abscissa, mean_reactivity_gap, stable_reactive_fraction]
+    metric_tiers:
+      secondary: [mean_spectral_abscissa, mean_numerical_abscissa, mean_reactivity_gap, stable_reactive_fraction]
+      qc: [n_windows_total, n_windows_metrics_valid, jacobian_metrics_valid_fraction]
+    validity:
+      min:
+        n_windows_metrics_valid: 50
+
+  finite_time_response_3d_recording_horizon:
+    enabled: true
+    grain: subject_condition
+    subject_aggregation_policy: mean_within_condition
+    aggregation_keys: [subject_id, condition]
+    horizon_steps: 4
+    metrics: [mean_log_g_max, mean_d_resp, mean_c_1]
+    metric_tiers:
+      reference: [mean_log_g_max, mean_d_resp, mean_c_1]
+      qc: [n_sequences_valid, n_sequences_candidate]
+    validity:
+      min:
+        n_sequences_valid: 50
+      require_true: [finite_ok]
+
+  finite_time_response_9d_recording_horizon:
+    enabled: true
+    grain: subject_condition
+    subject_aggregation_policy: mean_within_condition
+    aggregation_keys: [subject_id, condition]
+    horizon_steps: 4
+    metrics: [mean_log_g_max, mean_d_resp, mean_c_1]
+    metric_tiers:
+      primary: [mean_log_g_max, mean_d_resp, mean_c_1]
+      qc: [n_sequences_valid, n_sequences_candidate]
+    validity:
+      min:
+        n_sequences_valid: 50
+      require_true: [finite_ok]
+
+contrasts:
+  - name: AD_vs_Healthy
+    type: between_subject
+    left:
+      group: A
+    right:
+      group: C
+    subset:
+      group: [A, C]
+
+  - name: FTD_vs_Healthy
+    type: between_subject
+    left:
+      group: F
+    right:
+      group: C
+    subset:
+      group: [F, C]
+
+  - name: AD_vs_FTD
+    type: between_subject
+    left:
+      group: A
+    right:
+      group: F
+    subset:
+      group: [A, F]

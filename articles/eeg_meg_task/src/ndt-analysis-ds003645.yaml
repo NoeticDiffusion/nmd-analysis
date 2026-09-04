@@ -1,0 +1,34 @@
+dataset: ds003645
+description: "Thin ds003645 export wrapper for healthy EEG--MEG concordance."
+
+input:
+  h5_root: "../data/raw/neuralmanifolddynamics_ds003645_20260722_215042"
+
+output:
+  directory: "../data/cleaned"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  skip_disabled_analyses: true
+  continue_on_analysis_error: false
+  workers: 4
+
+flags:
+  sleep_data_contrast: false
+
+modality_rules: {}
+
+analyses:
+  global_mnps_3d: true
+  global_mnps_jacobian_3d: true
+  global_mnps_9d: true
+  global_mnps_jacobian_9d: false
+  global_mnps_jacobian_9d_block_jacobian: false
+  regional_3d: true
+  regional_9d: false
+  reachability_cones: true

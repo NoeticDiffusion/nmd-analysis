@@ -14,55 +14,22 @@ Robin Langell1
 1 Langell Konsult AB, Vallentuna, Sweden
 For correspondence: Robin Langell, hello@noeticdiffusion.com
 
-Abstract Task-related  differences  in  neural  dynamics  are  often  sought  in  global  state-space  coordinates 
-or  spectral  power.  Here  we  ask  whether  the  local  geometry  of  neural  flow  —  the  Jacobian 
-deformation of the manifold trajectory at each moment — distinguishes task contexts that leave 
-global manifold coordinates largely unchanged. We analyzed ds004511, a multimodal EEG–ECG–
-respiration–EDA  dataset,  using  the  N  =  44  primary  GG/CC  intersection  sample  from  a  release 
-containing  45  ingested  subject  directories  (44  officially  listed  participants;  see  Methods),  with 
-healthy adults performing a gambling game (GG), a cognitive control task (CC), and eyes-closed 
-rest. Using the NeuralManifoldDynamics pipeline, we extracted epoch-level Meta-Noetic Phase 
-Space  (MNPS)  coordinates  (m,  d,  e)  and  Meta-Noetic  Jacobian  (MNJ)  metrics  —  Frobenius 
-norm, spectral radius, rotation norm, rotational power, anisotropic compression index (ACI), and 
-manifold deformation rate (MDR) — across 57,526 eight-second epochs. Global MNPS coordinates 
-did  not  separate  tasks  (all  Friedman  𝑝 > 0.23).  In  contrast,  MNJ  metrics  strongly  differentiated 
-task context, especially the gambling-vs-cognitive-control contrast, which was significant for all 
-six non-trace MNJ metrics: gambling produced substantially higher Frobenius norm and spectral 
-radius  than  cognitive  control  (Cohen’s  𝑑 = 1.62  and  𝑑 = 1.81  respectively,  both  𝑝 < 10{−12} 
-after  FDR  correction),  while  CC  and  rest  showed  relatively  greater  rotational  power  and ACI. 
-The  GG-vs-Rest  and  CC-vs-Rest  contrasts  showed  more  selective,  metric-specific  differences 
-rather than a uniform separation (trace was non-significant for every task pair). The GG > CC 
-Frobenius effect survived intersection-sample restriction (𝑁 = 44, 𝑑 = 1.62, 𝑝 = 8.0 × 10{−13}), 
-epoch-count matching (𝑑 = 1.44), leave-one-subject-out testing (100% sign-consistent), bootstrap 
-confidence intervals (𝑑: 95% CI [1.31, 2.13]), and within-subject permutation (0/5000 permutations 
-exceeded the observed statistic, reported as 𝑝 < 0.0002). Critically, BioPac-derived tonic electro-
-dermal  activity  (EDA)  did  not  differ  between  gambling  and  cognitive  control  (𝑑 = −0.07,  𝑝 =
-0.55), ruling out peripheral sympathetic arousal as a confound for that specific contrast (EDA did 
-differ from rest in both active tasks, so this arousal-independence claim is scoped to GG vs. CC 
-and does not extend to the GG-vs-Rest or CC-vs-Rest comparisons). Two further confound checks 
-corroborate this: a matched conventional-EEG baseline (band power, spectral/permutation entropy, 
-Hjorth complexity) shows its largest GG-vs-CC effect (relative theta power, 𝑑 = 0.63) at less than 
-half the size of the MNJ Frobenius effect, and corrugator-EMG activity — a candidate facial-affect/
-muscle-artifact confound — neither differs between GG and CC (𝑑 = 0.08, 𝑝 = 0.51) nor corre-
-lates with the GG−CC Frobenius difference (𝑟𝑠 = −0.08, 𝑝 = 0.60). As a secondary exploratory 
-analysis consistent with the Embodied Anchoring Principle (EAP), respiratory anchoring showed a 
-partial correlation with manifold mobility during cognitive control after controlling for HRV (𝑟 =
-−0.41, 𝑝 = 0.006, the numerically largest but FDR-non-significant association in the nine-test EAP 
-family), and a sign-stable negative association with Frobenius norm during gambling (𝑟 = −0.22, 
-LOOSO  sign-consistent).  These  findings  demonstrate  that  local  neural  flow  geometry  captures 
-task-context reorganization beyond global manifold position, and — at least for the gambling-vs-
-cognitive-control comparison — beyond peripheral autonomic arousal; the same contrast is also 
-larger in effect size than every tested conventional-EEG summary statistic (a baseline effect-size 
-comparison,  not  a  demonstration  of  incremental  predictive  validity  in  a  joint  model). A  direct 
-sensitivity check using raw Sync(1) trigger-pulse timing confirms that GG and CC differ in event/
-response-rate structure, but not in the assumed direction: session-level pulse rate is, if anything, 
-
-higher  in  CC  (median  0.45  Hz)  than  GG  (median  0.36  Hz),  the  event-rate  difference  does 
-not correlate with the Frobenius difference (𝑟𝑠 = −0.05, 𝑝 = 0.77), and the effect is essentially 
-unchanged when restricted to each subject’s lowest-event-density epochs (𝑑 = 1.70 vs. 𝑑 = 1.62 
-on the full sample). This narrows, without fully closing, the event/response-rate alternative (a small 
-epoch-level coupling, 𝑟𝑠 ≈ 0.03, remains); the present result should be read as a task-context MNJ 
-difference rather than a process-pure gambling-specific mechanism.
+Abstract Task differences in neural dynamics are typically characterized by where a system sits in a low-
+dimensional  state-space  manifold,  leaving  open  whether  the  local  geometry  of  neural  flow  — 
+how the trajectory is stretched, rotated, or compressed at each moment, captured by its Jacobian — 
+carries independent task-context information, and whether any such signal survives once peripheral 
+sympathetic arousal is accounted for. We tested this in ds004511, a public multimodal EEG–ECG–
+respiration–EDA  dataset  (𝑁 = 45;  44  in  the  dataset’s  official  demographic  table,  see  Methods) 
+recorded during a gambling/spontaneous-deception task (GG), a cognitive-control task (CC), and 
+eyes-closed  rest.  Using  the  NeuralManifoldDynamics  pipeline,  we  computed  epoch-level  Meta-
+Noetic Phase Space (MNPS) coordinates (m, d, e) and six Meta-Noetic Jacobian (MNJ) metrics 
+across 57,526 eight-second epochs. Global MNPS coordinates did not separate the three tasks (all 
+Friedman 𝑝 > 0.23), but MNJ metrics did so strongly, especially for GG vs. CC (Frobenius norm 
+𝑑 = 1.62, spectral radius 𝑑 = 1.81, both 𝑝 < 10{−12} after FDR correction). This effect survived 
+ten  independent  robustness  and  confound  checks  and  was  not  explained  by  tonic  electrodermal 
+activity  (𝑑 = −0.07),  corrugator  EMG,  conventional  EEG  spectral  power,  or  stimulus/response-
+rate structure. Local neural flow geometry therefore captures task-context organization that global 
+manifold position — and the peripheral-arousal and artifact confounds tested here — do not.
 
 Author Summary
 When people switch from rest to a gambling game or a cognitive control task, their brain’s overall “position” in 
@@ -89,9 +56,12 @@ in time.
 Noetic  Diffusion  Theory  (NDT)  formalizes  both  layers.  (Langell,  2025)  The  Meta-Noetic  Phase  Space 
 (MNPS) captures global state position through three coordinates (𝑚, 𝑑, 𝑒): manifold mobility, diffusivity, and 
 entropy. Alongside MNPS, the Meta-Noetic Jacobian (MNJ) describes the local deformation structure of neural 
-flow — the directional Jacobian of the manifold trajectory evaluated at each epoch. The MNJ provides a richer 
+
+flow — the directional Jacobian of the manifold trajectory evaluated at each epoch. The MNJ provides a richer 
 characterization of task-state geometry than coordinates alone: two tasks could occupy similar regions of MNPS 
-while differing radically in how trajectories move through those regions.
+while differing radically in how trajectories move through those regions. Short definitions of these and every 
+other NDT/NMD term used below are collected in the Glossary (S5); the exact operational computation of 
+MNPS and MNJ from EEG for this dataset is given in Supplementary Methods S1.1–S1.2.
 
 This distinction matters in settings where cognitive contexts differ in process rather than in state position. 
 A gambling/betting task and a cognitive control task may activate overlapping prefrontal–subcortical circuits 
@@ -115,8 +85,7 @@ tasks and whether peripheral arousal can account for any observed differences.
 A secondary question concerns the Embodied Anchoring Principle (EAP) from NDT, (Langell, 2025) which 
 proposes that interoceptive signals — cardiac and respiratory rhythms — condition the neural variance schedule 
 and thus modulate which regions of the manifold are traversed. Our prior work on a working-memory dataset 
-
-found EAP-compatible comodulation at the condition level but modest direct anchor–MNPS coupling. (Langell, 
+found EAP-compatible comodulation at the condition level but modest direct anchor–MNPS coupling. (Langell, 
 2025) Here we ask whether respiratory anchoring shows EAP-compatible associations with MNJ flow geometry 
 in a context with strong task-structure contrast.
 
@@ -129,6 +98,11 @@ Does local neural flow geometry (MNJ) differentiate task contexts that do not st
 MNPS coordinates, and is any observed effect reducible to peripheral sympathetic arousal?
 
 2. Theory: NDT layers and the Meta­Noetic Jacobian
+This section summarizes, at a conceptual level, the theoretical layers needed to read the Results below; it is not 
+a substitute for the full operational specification. The versioned NMD measurement contract — the exact EEG-
+feature-to-coordinate  mapping,  epoch  export  schema,  and  the  complete  derivation  of  the  six  MNJ  formulas 
+introduced below — is given in Supplementary Methods S1.0–S1.2, and every NDT/MNDM term used in this 
+section has a short reference definition in the Glossary (S5).
 
 2.1. Meta­Noetic Phase Space and Jacobian
 NDT models neural state dynamics as rhythmically guided denoising on a learned manifold, governed by:
@@ -139,7 +113,8 @@ NDT models neural state dynamics as rhythmically guided denoising on a learned m
 
 where 𝜎(𝑡) = 𝜎min + 𝜎0(1 − 𝑟(𝑡)) is the variance schedule regulated by neural rhythms. The MNPS coordinates 
 (𝑚, 𝑑, 𝑒) locate the system on this manifold; high 𝑚 corresponds to a mobile, exploratory state; low 𝑚 to a 
-constrained, converged state.
+constrained, converged state. (See Glossary, S5, for the nine sub-coordinates of the stratified MNPS chart, and 
+S1.1 for the exact EEG feature mapping used for this dataset.)
 
 The Meta-Noetic Jacobian captures how small perturbations to the current state evolve under the flow:
 
@@ -147,9 +122,10 @@ The Meta-Noetic Jacobian captures how small perturbations to the current state e
 
 (2)
 
-From 𝐽  we derive six epoch-level metrics:
+𝐽  is estimated per epoch, subject-anchored, directly from the NMD pipeline (S1.1); from it we derive six epoch-
+level metrics, with full formulas and estimation details in Supplementary Methods S1.2:
 
-• Frobenius norm (‖𝐽 ‖𝐹 ): total flow-field deformation — how strongly the manifold stretches nearby trajec-
+• Frobenius norm (‖𝐽 ‖𝐹 ): total flow-field deformation — how strongly the manifold stretches nearby trajec-
 
 tories in all directions.
 
@@ -181,7 +157,8 @@ flow) is theoretically important: gambling may produce high absolute deformation
 consistent with established resting-state oscillatory organization. (Kluger & Gross, 2021)
 
 2.2. The Embodied Anchoring Principle
-EAP extends NDT’s variance schedule by positing that interoceptive signals modulate 𝑟(𝑡):
+EAP extends NDT’s variance schedule by positing that interoceptive signals modulate 𝑟(𝑡) (see Glossary, S5, 
+for EAP-related terms and prior EAP results referenced above):
 
 𝑟(𝑡) ↦ 𝑟(𝑡)[1 + 𝛾entrain cos(𝜑cardiac − 𝜑𝜃) cos(𝜑resp − 𝜑𝛼)]
 
@@ -190,7 +167,7 @@ EAP extends NDT’s variance schedule by positing that interoceptive signals mod
 Higher  respiratory  anchoring  (respiratory  phase  more  regularly  entrained  to  alpha-band  oscillations)  should 
 tighten variance control, reduce manifold exploration, and reduce Frobenius norm. The present study tests a 
 proxy version of this prediction using session-level respiratory anchor indices derived from respiration-MNPS 
-coherence metrics.
+coherence metrics; the exact definitions of these indices are given in Supplementary Methods S1.4.
 
 3. Methods
 
@@ -198,8 +175,7 @@ coherence metrics.
 ds004511 (Makowski et al., 2023) (“Deception_data,” OpenNeuro DOI version v1.0.2) is a publicly available 
 EEG–physiology  dataset  collected  at  Nanyang  Technological  University.  Its  official  participants  table  and 
 README list N  =  44 healthy adults, but the ingested data release contains 45 subject directories; the 45th 
-
-subject  (sub-S200203)  is  present  with  valid  cognitive-control  and  rest  data  but  is  not  listed  in  the  official 
+subject  (sub-S200203)  is  present  with  valid  cognitive-control  and  rest  data  but  is  not  listed  in  the  official 
 demographics table, and has no gambling-game EEG acquisition at all (see below). We therefore report N  = 
 45 as the total number of subjects contributing data to at least one task, consistent with the ingested pipeline 
 manifest, while noting the version-specific 44-vs-45 discrepancy explicitly here. Participants performed three 
@@ -222,7 +198,8 @@ frequency,  spectral/permutation  entropy,  Hjorth  complexity)  and  injected  
 channels (EMGA, EMGB) alongside the primary MNPS/MNJ geometry, in the same run. Independent component 
 analysis  (ICA)  removed  cardiac  and  ocular  artifacts  (1–2  components  per  session);  ECG-derived  heartbeat 
 events  were  used  for  ICA  identification  (ECG=["ECG"]).  EEG  epochs  of  8  seconds  were  extracted  on  a 
-sliding basis. Per-epoch features include MNPS coordinates (𝑚, 𝑑, 𝑒), epoch-level ECG/HRV indices (RMSSD, 
+
+sliding basis. Per-epoch features include MNPS coordinates (𝑚, 𝑑, 𝑒), epoch-level ECG/HRV indices (RMSSD, 
 pNN50),  respiration  metrics  (rate,  anchor  index,  RSA,  cardiorespiratory  PLV),  EOG  stability,  conventional-
 EEG  summary  metrics,  and  corrugator-EMG  RMS.  Failed  sessions:  one  GG  session  produced  zero  valid 
 epochs and was excluded from GG analyses — sub-S200203 (no GG EEG acquisition exists for this subject; 
@@ -258,8 +235,7 @@ flow).
 Session-level medians of all epoch-level metrics were computed per subject per task. Cross-task contrasts used 
 the Wilcoxon signed-rank test on matched subject pairs. (Wilcoxon, 1945) Effect sizes are reported as Cohen’s 
 𝑑𝑧: the mean of the paired within-subject differences divided by the standard deviation of those differences. 
-
-(Cohen, 1988) Multiple comparisons across the six MNJ metrics × three task pairs (18 tests for MNJ; 9 tests 
+(Cohen, 1988) Multiple comparisons across the six MNJ metrics × three task pairs (18 tests for MNJ; 9 tests 
 for MNPS, three coordinates × three task pairs) were controlled using Benjamini–Hochberg FDR at 𝛼 = 0.05. 
 (Benjamini & Hochberg, 1995) All reported contrasts with “✓” survive FDR 5%.
 
@@ -282,7 +258,8 @@ summaries  —  a  baseline  effect-size  comparison  rather  than  a  confound 
 response­rate  sensitivity:  raw  BIDS  events.tsv  Sync(1)  trigger-pulse  timing  joined  to  the  epoch-level 
 Jacobian windows (11_event_density_sensitivity.py), testing session-level event-rate contrasts by task, a 
 confound-partial correlation of GG-CC event-rate difference against GG-CC Frobenius difference, within-task 
-epoch-level event-density × Frobenius correlation, and a density-matched (below-median-density-epochs-only) 
+
+epoch-level event-density × Frobenius correlation, and a density-matched (below-median-density-epochs-only) 
 re-test of the GG-vs-CC Frobenius contrast.
 
 3.6. Secondary EAP analysis
@@ -290,6 +267,17 @@ Session-level  Spearman  correlations  between  resp_anchor_index  and  MNPS/MNJ
 computed per task. Partial Spearman correlations controlling for HRV (RMSSD) were computed for the CC 
 condition where the direct association was strongest. Bootstrap 95% CIs (2000 resamples) and LOOSO sign-
 consistency tests were run for the primary EAP trends.
+
+Before the Results
+
+The  sections  below  assume  familiarity  with  the  MNPS/MNJ  constructs  introduced  in  Theory  and 
+Methods. Supplementary Methods S1 gives the complete, versioned computational specification behind 
+every number reported next: the dataset and NMD measurement contract (S1.0), the epoch structure and 
+MNPS/MNJ export schema (S1.1), the six MNJ formulas and their geometric intuition (S1.2), the stand-
+alone EDA extraction procedure (S1.3), the physiological/EAP feature definitions (S1.4), the statistical 
+design (S1.5), the ten-part robustness/confound-audit protocol (S1.6), and the secondary EAP analysis 
+(S1.7). The Glossary (S5) gives quick-reference definitions for every NDT/MNDM term used below, and 
+the QC/robustness figures referenced throughout are documented further in S3.
 
 4. Results
 
@@ -1466,9 +1454,9 @@ Respiratory anchor index (session median)
 1.0
 Respiratory anchor index (session median)
 
-1.1
-
 1.2
+
+1.1
 
 0.9
 

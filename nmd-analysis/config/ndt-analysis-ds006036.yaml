@@ -1,0 +1,38 @@
+dataset: ds006036
+description: "Dataset config for ds006036 local-dynamics dementia photic pilot"
+
+input:
+  h5_root: "../data/raw/neuralmanifolddynamics_ds006036_20260812_130118"
+
+output:
+  directory: "../data/cleaned"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  skip_disabled_analyses: true
+  continue_on_analysis_error: false
+
+flags:
+  sleep_data_contrast: false
+
+modality_rules: {}
+
+analyses:
+  local_dynamics_availability: true
+  jacobian_metrics_3d_recording: true
+  jacobian_metrics_9d_recording: true
+  jacobian_metrics_3d_window: true
+  jacobian_metrics_9d_window: true
+  finite_time_response_3d_recording_horizon: true
+  finite_time_response_9d_recording_horizon: true
+  finite_time_response_3d_sequence: true
+  finite_time_response_9d_sequence: true
+  transition_residual_summary_3d_recording: true
+  transition_residual_summary_9d_recording: true
+  transition_q_proxy_3d_recording: true
+  transition_q_proxy_9d_recording: true

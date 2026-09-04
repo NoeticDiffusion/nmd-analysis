@@ -1,0 +1,407 @@
+#import "network_neuroscience_template.typ": *
+
+#show: netn-template.with(
+  title: "S1 Supplementary Methods - Disease-State and Paired Pharmacology Geometry in Parkinson ON/OFF Auditory Oddball EEG",
+  short-title: "Parkinson Supplementary Methods",
+  subtitle: "Bundle contract, mixed-anchor design, and event-window wrapper details",
+  authors: (
+    (name: "Robin Langell", affil: 1),
+  ),
+  affiliations: (
+    "Langell Konsult AB, Vallentuna, Sweden",
+  ),
+  corresponding-author: "Robin Langell, hello@noeticdiffusion.com",
+  article-type: "Supplement",
+)
+
+= Scope
+
+This supplement records the extended methods for the mixed-contract Parkinson ON/OFF rerun. It focuses on:
+
+1. the processed bundle contract,
+2. the reason the study now uses two coordinate contracts,
+3. the exact standard and wrapper analysis stack,
+4. the event-window segmentation boundary,
+5. the metric families carried into the main paper,
+6. and the statistical / interpretation boundary used to keep the article review-stable.
+
+= Processed bundle contract
+
+The rerun consumes the unified processed root:
+
+- `data/raw/neuralmanifolddynamics_ds003490_20260602_144145`
+
+This bundle contains `75` H5 runs from `50` subjects:
+
+- `25` control runs,
+- `25` Parkinson `OFF` runs,
+- `25` Parkinson `ON` runs.
+
+The bundle exposes both global and regional contract-specific coordinate layers, including:
+
+- `coords_3d_subject_anchored`
+- `coords_3d_cohort_anchored`
+- `coords_9d_subject_anchored`
+- `coords_9d_cohort_anchored`
+- `regional_mnps/<network>/subject_anchored/...`
+- `regional_mnps/<network>/cohort_anchored/...`
+
+It also exposes:
+
+- `event_windows/*`
+- `labels/stage`
+- `codebooks/stage/*`
+- `participant/clinical_json`
+- `coverage/*`
+- `provenance/*`
+- and `qc/windows/*`
+
+Age and sex are available in `participant/clinical_json` for all `75` runs. More disease-specific clinical covariates such as `LEDD`, `UPDRS`, and disease duration remain absent or incomplete in the article-facing export.
+
+= Noetic Diffusion and NeuralManifoldDynamics framing
+
+
+The main paper uses two nested levels of description.
+
+- Noetic Diffusion Theory is the broader dynamical framing.
+- NeuralManifoldDynamics is the operational export layer that fixes auditable charts, Jacobian summaries, and reachability summaries.
+
+In the present manuscript, the exported coordinate state is treated as a measurement contract rather than as proof that one unique latent ontology has been recovered. The paper tests group differences and MMSE structure on those exported observables only.
+
+== NeuralManifoldDynamics chart basis
+
+The coma manuscript does not define `m`, `d`, and `e` de novo inside the downstream article code. Instead, it consumes H5 exports produced under a fixed `NeuralManifoldDynamics` measurement contract, so the coordinate definitions are inherited from that release rather than re-estimated from the pooled cohort.@langell2026_mndm
+
+The canonical `3D` chart is
+
+$ x_t = [m_t, d_t, e_t] $
+
+and the stratified chart is
+
+$ x_t^((9)) = [m_a, m_e, m_o, d_n, d_l, d_s, e_e, e_s, e_m] $
+
+where the `m`, `d`, and `e` labels should be read as fixed operational chart labels in the current release contract rather than as uniquely privileged latent biological variables.@langell2026_mndm
+
+Under the active EEG contract used for the I-CARE article, the nine subcoordinates are built from fixed feature families before recomposition to `3D`:
+
+#figure(
+  kind: table,
+  table(
+    columns: (0.9fr, 1.05fr, 2.3fr),
+    align: left,
+    inset: 4pt,
+    table.header([*Family*], [*Subcoordinate*], [*EEG operational mapping in active contract*]),
+    [`m`], [`m_a`], [`-0.5 * eeg_delta - 0.5 * eeg_theta`],
+    [`m`], [`m_e`], [`-1.0 * eeg_alpha`],
+    [`m`], [`m_o`], [`eeg_beta_alpha`],
+    [`d`], [`d_n`], [`eeg_gamma`],
+    [`d`], [`d_l`], [`eeg_hjorth_mobility`],
+    [`d`], [`d_s`], [`eeg_alpha_theta`],
+    [`e`], [`e_e`], [`eeg_permutation_entropy`],
+    [`e`], [`e_s`], [`eeg_hjorth_complexity`],
+    [`e`], [`e_m`], [`embodied_arousal_proxy`],
+  ),
+  caption: [Fixed EEG-side `9D` chart used by the `NeuralManifoldDynamics` release inherited in this manuscript.@langell2026_mndm]
+) <tab-s1-nmdm-9d>
+
+The exported `mnps_3d` trajectory is then derived from a fixed weighted `9D -> 3D` projection:
+
+$ m_t = 0.62 m_a + 0.55 m_e + 0.45 m_o $
+
+$ d_t = 0.50 d_n + 0.82 d_l + 0.28 d_s $
+
+$ e_t = 0.85 e_e + 0.62 e_s + 0.03 e_m $
+
+Operationally, the upstream contract standardizes the contributing feature columns, applies coverage-aware renormalization when some subcoordinate support is missing, and records the resulting `3D` and `9D` trajectories as serialized measurement objects rather than as article-specific fitted axes.@langell2026_mndm The spread, Jacobian, and reachability summaries analyzed in this manuscript therefore inherit a versioned chart definition from `NeuralManifoldDynamics`.
+
+
+
+
+= NMD measurement stack
+
+The article draws from four linked layers on top of the same processed bundle.
+
+1. `MNPS` / stratified `MNPS`: where the state sits in `3D` or `9D`.
+2. Meta-Noetic Jacobian (`MNJ`) / Jacobian summaries: how the local flow deforms around the current point.
+3. Reachability summaries: what short-horizon future geometry looks like under local linearization.
+4. Article-local realized trajectory summaries: how the observed path actually moves through the exported chart during eye-state and tone windows.
+
+Operationally, if the exported dynamics are written as `dot(x) = f(x,t)`, then the local Jacobian is:
+
+$ J_t = partial f / partial x $
+
+and the reachability layer uses the local linearization:
+
+$ x_(t+1) = A_t x_t + b_t + epsilon_t $
+
+to summarize the geometry of short-horizon reachable sets. The wrapper metrics used in the main manuscript sit one level above this: they do not estimate a new latent system, but rather summarize the realized path in the already exported coordinate chart.
+
+= Mixed-contract design
+
+The main manuscript treats coordinate contract as part of the inferential design rather than as a technical detail.
+
+The primary selection rule is:
+
+- `Control vs Parkinson OFF` -> `cohort_anchored`
+- `Control vs Parkinson ON` -> `cohort_anchored`
+- `Parkinson OFF vs ON` -> `subject_anchored`
+
+The rationale is simple.
+
+- Disease-state contrasts are between-subject questions and therefore require a shared reference frame.
+- Medication contrasts are within-subject paired questions and therefore should preserve subject-centered alignment.
+
+This means the article does *not* claim that one contract is globally superior. It claims that different questions have different optimal contracts.
+
+= Standard analysis stack
+
+The repository standard layer was run twice, once per contract.
+
+Subject-anchor configs:
+
+- `ndt-analysis/config/ndt-analysis-ds003490.yaml`
+- `ndt-analysis/config/analysis-ds003490.yaml`
+
+Cohort-anchor configs:
+
+- `ndt-analysis/config/ndt-analysis-ds003490-cohort.yaml`
+- `ndt-analysis/config/analysis-ds003490-cohort.yaml`
+
+Enabled standard families were:
+
+- global `MNPS 3D`
+- global Jacobian `3D`
+- global `MNPS 9D`
+- global Jacobian `9D`
+- global `9D` block-Jacobian exports
+- regional `3D`
+- regional `9D`
+- regional Jacobian exports
+- global reachability
+- regional reachability
+- `trajectory_dynamics`
+- `tier2_jacobian`
+
+Regional network summaries (`regional_3d`, `regional_9d`, and `regional Jacobian` exports) are computed over pre-defined electrode groups — frontal, central, temporal, and parietal-occipital — rather than from source-space reconstruction or surface Laplacian (CSD). They should be interpreted as sensor-group proxies for regional contributions rather than as anatomically precise source estimates. Regional findings therefore support a general topographic description but do not carry independent anatomical certainty beyond the corresponding global summary rows.
+
+The merged article-facing standard export is:
+
+- `results/parkinson_on_off_dual_contract_20260602/primary_standard_contrasts.csv`
+
+= Event-locked trajectory wrapper
+
+The article-local wrapper was also run twice, once per contract, and then merged by the same primary-question rule.
+
+Main wrapper scripts:
+
+- `src/parkinson_trajectory_support.py`
+- `src/compute_parkinson_event_metrics.py`
+- `src/export_parkinson_contrasts.py`
+- `src/run_parkinson_pipeline.py`
+
+The wrapper resolves:
+
+- global `3D` and `9D` coordinates from explicit contract-specific root datasets,
+- regional `3D` and `9D` coordinates from `regional_mnps/<network>/<coordinate_contract>/...` when available,
+- and falls back to legacy paths only if a file is incomplete.
+
+The article-facing merged wrapper exports are:
+
+- `results/parkinson_on_off_dual_contract_20260602/primary_event_contrasts.csv`
+- `results/parkinson_on_off_dual_contract_20260602/primary_trajectory_esb_contrasts.csv`
+
+= Event-window contract
+
+The main methodological change in the wrapper is the event segmentation rule.
+
+The rerun now prefers:
+
+- `event_windows/event_label`
+- `event_windows/event_id`
+- `event_start_window_index`
+- `event_stop_window_index`
+
+Each unique `event_id` contributes one processed-window event block. This replaces the older strategy in which tone onsets were mapped to the nearest exported time index and then collapsed into contiguous windows.
+
+The old nearest-time mapping is retained only as a guarded fallback when `event_windows/*` is missing or incomplete.
+
+Eye-state blocks are now read from the H5 stage codebook plus `labels/stage`, rather than relying only on hard-coded stage integers.
+
+= Metric families
+
+The rerun still spans several geometric families, but the main paper now emphasizes only a small number of high-effect rows. The full wrapper and standard inventories are preserved in `S2`.
+
+Wrapper metric families include:
+
+- speed
+- curvature
+- tortuosity
+- path length
+- peak displacement
+- recovery residual
+- hysteresis
+- entropy-rate
+- irreversibility
+- entropy production
+- self-loop rate
+- transition sparsity
+- noetic-action total
+- noetic-action kinetic
+- noetic-action jerk
+- noetic-action potential
+
+Trajectory ESB is retained as an exploratory extension only. It yielded `0` retained rows at `BH-FDR q < 0.1` in the merged primary inventory.
+
+= Focused walkthrough of the main-text metrics
+
+The main manuscript is no longer written as a generic tour of all available metrics. It is built around a small set of rows that remain both large and corrected under the stricter main-text threshold. This section explains those rows in NDT/NMD terms.
+
+== `d_n_std`: stratified deviation variability
+
+The strongest stable standard disease rows for `Control vs Parkinson OFF` and part of the `Control vs Parkinson ON` cluster sit on `d_n_std`, especially in global and frontal `9D`.
+
+In the compact summary notation, the `d_n` subcoordinate can be written operationally as `d_n = 1 - norm(window-average of Tr(H(t_h,w)) / |V|)`.
+
+where `H(t_h,w)` denotes the local heat-kernel style propagator and the averaging is over valid windows. In practical article terms, `d_n` is the network-deviation subcomponent of the `d` family. The exported statistic `d_n_std` is the across-window standard deviation of that subcoordinate.
+
+Why this matters here:
+
+- lower Parkinson medians do not mean "less disease" in a clinical sense;
+- they mean that the cohort-anchor disease state occupies a differently distributed `d_n` surface than controls;
+- and the replication of this shift across global, frontal, and parietal-occipital `9D` rows suggests that the disease-state effect is not carried by one isolated regional artifact.
+
+For this article, `d_n_std` is therefore interpreted as a stratified dispersion marker within the deviation family, not as a literal direct readout of one biophysical process.
+
+== `speed_median`: realized path velocity
+
+The strongest event-layer row in the whole rerun is `Control vs Parkinson OFF` global `3D` `eyes_closed speed_median`.
+
+The wrapper definition is the median of:
+
+$ v_t = || z_(t+1) - z_t || / Delta t $
+
+over valid steps within the segment. Here `z_t` denotes the exported trajectory in the relevant coordinate chart.
+
+In NDT/NMD language, `speed_median` is the simplest realized-path quantity: how quickly the state moves through the measurement manifold. Its importance in the current paper is that it agrees with the standard `9D` disease-state separation rather than pointing somewhere orthogonal. Parkinson `OFF` is not only shifted in stratified shared-reference geometry; it also traverses the `eyes_closed` path more slowly.
+
+== `noetic_action_kinetic`: path-cost without the jerk term
+
+The paired `speed_median` result is reinforced by `noetic_action_kinetic`, especially in `Control vs Parkinson OFF` global `9D`.
+
+In the wrapper implementation:
+
+$ K_t = (1 / 2) || Delta z_t ||_M^2 / Delta t^2 $
+
+where `M` is the diagonal metric used for variance-stabilized weighting in the exported chart. The reported metric is the median of `K_t` across valid steps.
+
+The key reason to keep this metric in the paper is that it is more than a speed duplicate. Speed says how fast the trajectory moves. Kinetic action says how costly that movement is once the path is weighted by the local chart metric. This is the clearest place where the manuscript can talk about "hidden cost" without overclaiming mechanism.
+
+== `mdr_median`: relative Jacobian reconfiguration rate
+
+The leading `Control vs Parkinson ON` standard row is global `9D` Jacobian `mdr_median`.
+
+The article uses the operational definition `D_t = || dot(J)_t ||_F / (|| J_t ||_F + epsilon)` and reports `mdr_median = median_t(D_t)`.
+
+Higher values mean that local Jacobian structure changes more rapidly relative to its current size. In this paper, that does *not* imply a direct statement about beneficial or harmful dynamics by itself. It means that the medicated Parkinson state remains non-control-like on a meta-dynamical deformation surface even when the question is posed in the correct cohort anchor.
+
+This metric is important for the manuscript because it prevents an overly simple interpretation in which medication merely restores the control geometry. The shared-reference Jacobian surface remains measurably different.
+
+== `hysteresis_area_me`: forward versus return asymmetry in the `(m,e)` plane
+
+The strongest tone-centered results that survive `q < 0.05` are `Control vs Parkinson ON` `standard_tone` and `novel_tone` `hysteresis_area_me`.
+
+The wrapper computes hysteresis as the polygonal area enclosed by the outbound and recovery trajectories after projecting into a family plane. For the `(m,e)` projection, this can be written operationally as `H_me = (1 / 2) abs(sum_t m_t e_(t+1) - e_t m_(t+1))`, up to the practical polygonal discretization implied by the sampled path.
+
+In article terms, this is a loop-asymmetry statistic. Larger values mean that entering and leaving the event do not trace the same family-level route. The reason this matters for the present paper is not that hysteresis dominates the whole dataset, but that exact event-window segmentation now yields two corrected tone rows where the earlier one-contract run had none at `q < 0.05`.
+
+== `anisotropy_abs_eig_mean`: paired Jacobian directional-spread shift
+
+The only retained paired pharmacology row is `regional_mnps_jacobian_3d / temporal / anisotropy_abs_eig_mean` (`d_z = -0.483`, `q = 0.038`).
+
+This metric is the mean over valid windows of the variance of absolute Jacobian eigenvalues across eigenvalue dimensions. Formally, for a window with absolute eigenvalue vector $bold(lambda)_abs$, the per-window anisotropy is $"Var"(bold(lambda)_abs)$, and `anisotropy_abs_eig_mean` is the run-level mean of these values. Larger values indicate that the Jacobian deformation is concentrated along fewer directions (more anisotropic); smaller values indicate more isotropic local dynamics.
+
+The retained row reflects a reduction in temporal-network Jacobian anisotropy between `OFF` and `ON` states (`OFF` median = 0.0311, `ON` median = 0.0232). Dopaminergic medication appears to slightly equalize the eigenvalue spread in the temporal network's local dynamical structure.
+
+Why the interpretation remains intentionally narrow:
+
+- the metric survives BH-FDR correction at the primary threshold,
+- but it is the *only* paired row under `q < 0.05`,
+- the absolute effect is modest (`d_z = -0.483`), and
+- it does not come with parallel corrected event-layer support.
+
+The previously prominent near-miss `tier2_jacobian / signed_divergence_balance_mean_neg` (`d_z = -0.711`, `q = 0.066`) narrowly fails the primary threshold following mathematical correction to persistence-based metrics. The manuscript treats it as a near-miss of interest for follow-up rather than a retained finding.
+
+The manuscript therefore treats the anisotropy row as evidence that the paired `OFF vs ON` comparison is not completely null, but also not broad enough to carry a large medication-geometry claim by itself.
+
+= Main-text selection rule
+
+The main paper was intentionally restricted to seven focal rows. These were selected from the merged retained inventory by combining:
+
+1. strong absolute effect size,
+2. survival at the stricter `q < 0.05` threshold,
+3. low redundancy,
+4. and coverage of all major inferential questions.
+
+The seven focal rows therefore include:
+
+- two cohort-anchor standard disease rows for `Control vs Parkinson OFF`,
+- two cohort-anchor event rows for `Control vs Parkinson OFF`,
+- two cohort-anchor disease rows for `Control vs Parkinson ON`,
+- and one subject-anchor pharmacology row for `Parkinson OFF vs ON`.
+
+= Statistical boundary
+
+Standard contrasts inherit the repository pipeline statistics and BH-FDR grouping by contrast and analysis family. Wrapper contrasts use:
+
+- paired Wilcoxon tests for `Parkinson OFF vs ON`,
+- Mann-Whitney tests for control-versus-Parkinson contrasts,
+- Cohen's `d_z` for paired effects,
+- Cohen's `d` for unpaired effects,
+- BH-FDR within contrast and analysis-type families.
+
+The main-text threshold is `BH-FDR q < 0.05`.
+
+The broader `q < 0.1` retained inventory is still preserved in `S2` because it is useful for auditability and follow-up analysis, but it is no longer the threshold used to decide the headline rows in the manuscript.
+
+BH-FDR correction is applied separately within each (contrast × analysis-type) family. The `primary_standard_contrasts.csv` file contains `2916` rows spanning `16` analysis-type families per contrast. Family sizes range from `3` (e.g., `adaptive_collapse` for `OFF vs ON`) to `308` (e.g., `regional_reachability_cones_3d` for each between-subject contrast). The correction is therefore more stringent in the larger regional families and less stringent in the smaller families, reflecting the asymmetric testing depth across analysis types. The BH-FDR families for the event-locked wrapper contrasts are defined analogously, with rows grouped by contrast and wrapper analysis type.
+
+= Interpretation boundary
+
+The review-stable interpretation rule is:
+
+- disease-state claims are primary when they survive in `cohort_anchored` space,
+- pharmacology claims are primary when they survive in `subject_anchored` space,
+- event-window improvements can clean the event contract without implying a stronger paired oddball result,
+- and negative families are reported explicitly rather than being hidden.
+
+This is why the main manuscript no longer treats the paper as a broad `ON/OFF` success story. In the rerun, disease-state geometry is broad and pharmacology is narrow.
+
+= What was not varied
+
+For transparency, the following analytical choices were fixed and not varied across the reported runs:
+
+- the feature-to-axis mapping and coordinate chart structure (`3D` and `9D` stratification),
+- the NeuralManifoldDynamics preprocessing pipeline and coordinate export contract,
+- alternative coordinate projection families (no PCA, ICA, or learned embedding variants),
+- raw ERP reconstruction at the single-trial level (the wrapper analyzes processed windows, not raw single-trial EEG),
+- external preprocessing pipeline comparison (no alternative preprocessing was applied to the raw EEG),
+- independent cohort replication (all analyses use `ds003490` only),
+- and site or scanner control variables (no reliable site identifier is available in this bundle).
+
+These boundaries are listed because they define where the current analysis ends and where future work begins. The paper does not make claims that require resolution of any of these choices.
+
+= Files
+
+The main result bundle for this supplement is:
+
+- `articles/CLINICAL/parkinson_on_off_trajectory/results/parkinson_on_off_dual_contract_20260602`
+
+Especially:
+
+- `primary_standard_contrasts.csv`
+- `primary_event_contrasts.csv`
+- `primary_trajectory_esb_contrasts.csv`
+- `exploratory_summary.md`
+- `pipeline_manifest.json`
+
+#bibliography("parkinson_on_off_trajectory_geometry.bib")

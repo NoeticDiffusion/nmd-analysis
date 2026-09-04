@@ -1,0 +1,94 @@
+{
+  "summary_dir": "J:\\repos\\NoeticDiffusion\\articles\\CLINICAL\\comatose_block_jacobian\\results\\smoke_summary_limit20",
+  "output_dir": "J:\\repos\\NoeticDiffusion\\articles\\CLINICAL\\comatose_block_jacobian\\results\\smoke_pilot_limit20",
+  "analysis_type": "global_mnps_jacobian_9d_block_jacobian",
+  "primary_time_bin": "0_12h",
+  "good_cpc": 1,
+  "poor_cpc": 5,
+  "processed_root": "E:\\Science_Datasets\\physionet\\processed\\physionet_icare_2_1\\neuralmanifolddynamics_physionet_icare_2_1_20260527_151403",
+  "n_patient_rows": 18,
+  "n_unique_subjects": 2,
+  "n_cpc1_subjects": 2,
+  "n_cpc5_subjects": 0,
+  "raw_metric_columns": [
+    "block_trace_mean",
+    "block_frobenius_mean",
+    "block_anisotropy_mean",
+    "c_sym_mean",
+    "c_rot_mean"
+  ],
+  "available_block_ids": [
+    "dd",
+    "de",
+    "dm",
+    "ed",
+    "ee",
+    "em",
+    "md",
+    "me",
+    "mm"
+  ],
+  "run_error_summary": {
+    "run_errors_present": true,
+    "errors_total": 88,
+    "groupings_total": 3501,
+    "subjects_with_errors": 27,
+    "errors_by_cpc": {
+      "1.0": 49,
+      "5.0": 38,
+      "NaN": 1
+    },
+    "errors_by_outcome": {
+      "Good": 49,
+      "Poor": 38,
+      "NaN": 1
+    }
+  },
+  "input_manifest": {
+    "run_level_metrics_file": "run_level_signal_metrics.csv",
+    "patient_timebin_metrics_file": "patient_timebin_signal_metrics.csv",
+    "classical_outcome_ready_analyses": [
+      "global_mnps_jacobian_9d_block_jacobian"
+    ],
+    "available_metrics_by_analysis": {
+      "global_mnps_jacobian_9d_block_jacobian": [
+        "block_anisotropy_mean",
+        "block_frobenius_mean",
+        "block_trace_mean",
+        "c_rot_mean",
+        "c_sym_mean",
+        "in_dim",
+        "out_dim",
+        "source_dim",
+        "target_dim"
+      ]
+    },
+    "ctip_light_handoff_metrics_available": [
+      "block_frobenius_mean"
+    ],
+    "ctip_light_handoff_note": "The coma wrapper preserves Jacobian, block-Jacobian, and reachability metrics so the next slice can derive adaptive-collapse aliases such as ati_reduced, q_ratio_h4, capture_gate, and cfca without rewriting ndt_analysis core logic.",
+    "patient_timebin_metric_count": 180,
+    "run_level_metric_count": 1260,
+    "processed_root": "E:\\Science_Datasets\\physionet\\processed\\physionet_icare_2_1\\neuralmanifolddynamics_physionet_icare_2_1_20260527_151403",
+    "raw_root": "E:\\Science_Datasets\\physionet\\received\\i-care_2_1_random100_longitudinal\\training",
+    "adapter_config_path": "J:\\repos\\NoeticDiffusion\\articles\\CLINICAL\\comatose_ndt\\config\\icare_ndt_analysis.yaml",
+    "analyses": [
+      "global_mnps_jacobian_9d_block_jacobian"
+    ],
+    "time_bin_scheme": "legacy_24h",
+    "timeline_input_dir": "J:\\repos\\NoeticDiffusion\\articles\\CLINICAL\\comatose_ndt\\results\\timeline_analysis_20260524_part1_primary12h_9d",
+    "prefilter": {
+      "enabled": true,
+      "good_cpc": 1,
+      "poor_cpc": 5,
+      "time_bin": "0_12h",
+      "n_full_rows": 3396,
+      "n_full_subjects": 161,
+      "n_full_h5_paths": 3396,
+      "n_selected_rows": 1668,
+      "n_selected_subjects": 141,
+      "n_selected_h5_paths": 1668
+    },
+    "output_dir": "J:\\repos\\NoeticDiffusion\\articles\\CLINICAL\\comatose_block_jacobian\\results\\smoke_summary_limit20"
+  }
+}

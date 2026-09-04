@@ -1,0 +1,41 @@
+dataset: hypoglycemia_t1d
+description: "H5 export configuration for the Rubega et al. paired euglycemia-hypoglycemia EEG batch."
+
+input:
+  h5_root: "../../../data/raw/neuralmanifolddynamics_hypoglycemia_t1d_20260723_180515"
+
+output:
+  directory: "../../../data/cleaned/hypoglycemia_t1d_20260723"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  skip_disabled_analyses: true
+  continue_on_analysis_error: false
+  workers: 4
+
+flags:
+  sleep_data_contrast: false
+
+# The H5 batch contains both subject- and cohort-anchored coordinate layers.
+# The latter uses a pooled eu+hy feature anchor, not a euglycemia-only anchor.
+coordinate_contract: cohort_anchored
+modality_rules: {}
+
+analyses:
+  global_mnps_3d: true
+  global_mnps_jacobian_3d: true
+  global_mnps_9d: true
+  global_mnps_jacobian_9d: true
+  reachability_cones: true
+  global_mnps_9d_block_jacobian: false
+  global_mnps_jacobian_9d_block_jacobian: false
+  regional_mnps_jacobian_3d: false
+  regional_mnps_jacobian_9d: false
+  regional_3d: false
+  regional_9d: false
+  regional_reachability_cones_3d: false

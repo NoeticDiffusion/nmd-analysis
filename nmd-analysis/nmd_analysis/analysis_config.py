@@ -83,6 +83,11 @@ class AnalysisDesignConfig:
 class AnalysisBlockConfig:
     enabled: bool
     metrics: Optional[List[str]]
+    grain: str
+    aggregation_policy: str
+    aggregation_keys: List[str]
+    metric_tiers: Dict[str, List[str]]
+    horizon_steps: Optional[int]
     validity_min: Dict[str, float]
     validity_max: Dict[str, float]
     validity_require_true: List[str]
@@ -226,6 +231,11 @@ def load_analysis_config(path: str | Path) -> AnalysisConfig:
         blocks[str(key)] = AnalysisBlockConfig(
             enabled=_as_bool(block_raw.get("enabled"), True),
             metrics=_as_list_of_str(block_raw.get("metrics")),
+            grain=str(block_raw.get("grain") or "subject_condition").strip().lower(),
+            aggregation_policy=str(block_raw.get("subject_aggregation_policy") or "identity").strip().lower(),
+            aggregation_keys=_as_list_of_str(block_raw.get("aggregation_keys")) or ["subject_id", "condition"],
+            metric_tiers={str(tier): _as_list_of_str(metrics) or [] for tier, metrics in _as_mapping(block_raw.get("metric_tiers")).items()},
+            horizon_steps=_as_int(block_raw.get("horizon_steps"), 0) if block_raw.get("horizon_steps") is not None else None,
             validity_min=_as_float_mapping(_as_mapping(block_raw.get("validity")).get("min")),
             validity_max=_as_float_mapping(_as_mapping(block_raw.get("validity")).get("max")),
             validity_require_true=_as_list_of_str(_as_mapping(block_raw.get("validity")).get("require_true")) or [],

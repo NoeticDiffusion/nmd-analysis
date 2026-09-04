@@ -1,0 +1,2016 @@
+{
+  "dataset_id": "ds006036:sub-087:eyes_open_photic_photomark",
+  "samples": 19,
+  "mnps": {
+    "fs_out": 4.0,
+    "window_sec": 8.0,
+    "overlap": 0.5,
+    "window_bounds": true
+  },
+  "mnps_axes": {
+    "names": [
+      "m",
+      "d",
+      "e"
+    ],
+    "meaning": {
+      "m": "mobility",
+      "d": "diffusivity",
+      "e": "entropy"
+    },
+    "order": {
+      "m": 0,
+      "d": 1,
+      "e": 2
+    }
+  },
+  "meta_indices": {
+    "mean_trace": 0.017607334645136315,
+    "mean_rotation_fro": 0.1230333644677611,
+    "windows": 17
+  },
+  "events": [
+    "raw_cal_mode_onset_sec",
+    "raw_closed_eyes_onset_sec",
+    "raw_open_eyes_onset_sec",
+    "raw_photo_10hz_onset_sec",
+    "raw_photo_15hz_onset_sec",
+    "raw_photo_20hz_onset_sec",
+    "raw_photo_5hz_onset_sec",
+    "raw_photo_hv_mark_onset_sec",
+    "raw_reset_condition_onset_sec",
+    "raw_swallowing_onset_sec"
+  ],
+  "labels": [
+    "l",
+    "open_eyes",
+    "photo_10hz",
+    "photo_15hz",
+    "photo_20hz",
+    "photo_5hz",
+    "stage",
+    "swallowing"
+  ],
+  "jacobian": {
+    "windows": 17,
+    "with_centers": true
+  },
+  "meta_indices_v2": {
+    "mean_trace": -0.013321352136485717,
+    "mean_rotation_fro": 0.6905022298588472,
+    "windows": 17
+  },
+  "jacobian_9D": {
+    "windows": 17,
+    "with_centers": true
+  },
+  "diagnostics": {
+    "windows": 17.0,
+    "failed": 0.0,
+    "j_dot_mode": "gradient",
+    "j_dot_dt": 4.0,
+    "local_fit_mse_median": 0.0111839659512043,
+    "local_fit_mse_baseline_median": 0.011193636804819107,
+    "rel_mse_baseline_median": 0.9991360400749608,
+    "failed_insufficient_neighbours": 0.0,
+    "failed_nonfinite_samples": 0.0,
+    "windows_raw": 17.0,
+    "hard_invalid_windows": 0.0,
+    "hard_invalid_nonfinite_windows": 0.0,
+    "hard_invalid_condition_number_windows": 0.0,
+    "hard_invalid_condition_number_threshold": 10000000000.0
+  },
+  "stage_codes": {
+    "unique": [
+      -1,
+      50,
+      51,
+      52,
+      53,
+      60,
+      63
+    ],
+    "codebook": {
+      "W": 0,
+      "Wake": 0,
+      "N1": 1,
+      "N2": 2,
+      "N3": 3,
+      "REM": 4,
+      "R": 4,
+      "L": -1,
+      "PHOTO 3Hz": 57,
+      "PHOTO 5Hz": 50,
+      "PHOTO 7Hz": 58,
+      "PHOTO 10Hz": 51,
+      "PHOTO 15Hz": 52,
+      "PHOTO 20Hz": 53,
+      "Photo/HV mark": 54,
+      "PHOTO 25Hz": 55,
+      "PHOTO 30Hz": 56,
+      "open eyes": 60,
+      "closed eyes": 61,
+      "eye movement": 62,
+      "Swallowing": 63,
+      "speech": 64,
+      "head movement": 65,
+      "muscle": 66,
+      "CAL mode": 67,
+      "RESET condition": 68,
+      "PAT 2 CAL": 69,
+      "PAT 2 EEG": 70,
+      "PAT Mon-Cz EEG": 71,
+      "PAT ComAv EEG": 72
+    }
+  },
+  "coords_9d": {
+    "names": [
+      "m_a",
+      "m_e",
+      "m_o",
+      "d_n",
+      "d_l",
+      "d_s",
+      "e_e",
+      "e_s",
+      "e_m"
+    ],
+    "export_prefix": "v2_",
+    "composites": {
+      "m": "m_mean_from_v2",
+      "d": "d_mean_from_v2",
+      "e": "e_mean_from_v2"
+    },
+    "groups": {
+      "m": [
+        "m_a",
+        "m_e",
+        "m_o"
+      ],
+      "d": [
+        "d_n",
+        "d_l",
+        "d_s"
+      ],
+      "e": [
+        "e_e",
+        "e_s",
+        "e_m"
+      ]
+    }
+  },
+  "feature_baselines": {
+    "eeg_alpha": {
+      "abs_median": 0.23597371578216553,
+      "abs_mad": 0.06576355828642845,
+      "anchor_applied": "local",
+      "standardization_center": -0.6271363496780396,
+      "standardization_scale": 0.12099537502527236,
+      "transformation_applied": "log10 -> robust_z -> clip_6.0"
+    },
+    "eeg_alpha_theta": {
+      "abs_median": 0.4386100471019745,
+      "abs_mad": 0.17616228411197662,
+      "anchor_applied": "local",
+      "standardization_center": 0.4386100471019745,
+      "standardization_scale": 0.17616228411197662,
+      "transformation_applied": "robust_z -> clip_6.0"
+    },
+    "eeg_beta": {
+      "abs_median": 0.49018535017967224,
+      "abs_mad": 0.09333768981099128,
+      "anchor_applied": "local",
+      "standardization_center": -0.30963966250419617,
+      "standardization_scale": 0.077799929022789,
+      "transformation_applied": "log10 -> robust_z -> clip_6.0"
+    },
+    "eeg_beta_alpha": {
+      "abs_median": 1.699485182762146,
+      "abs_mad": 0.43179132928848263,
+      "anchor_applied": "local",
+      "standardization_center": 1.699485182762146,
+      "standardization_scale": 0.43179132928848263,
+      "transformation_applied": "robust_z -> clip_6.0"
+    },
+    "eeg_delta": {
+      "abs_median": 1.8595033884048462,
+      "abs_mad": 1.73482008998394,
+      "anchor_applied": "local",
+      "standardization_center": 0.26939696073532104,
+      "standardization_scale": 0.40806128607988357,
+      "transformation_applied": "log10 -> robust_z -> clip_6.0"
+    },
+    "eeg_gamma": {
+      "abs_median": 0.210856631398201,
+      "abs_mad": 0.04646442335844039,
+      "anchor_applied": "local",
+      "standardization_center": -0.6760127544403076,
+      "standardization_scale": 0.08922367579936981,
+      "transformation_applied": "log10 -> robust_z -> clip_6.0"
+    },
+    "eeg_sample_entropy": {
+      "abs_median": 0.9220929741859436,
+      "abs_mad": 0.006465579807758331,
+      "anchor_applied": "local",
+      "standardization_center": 0.9220929741859436,
+      "standardization_scale": 0.006465579807758331,
+      "transformation_applied": "robust_z -> clip_6.0"
+    },
+    "eeg_theta": {
+      "abs_median": 0.6114884614944458,
+      "abs_mad": 0.3837050983250141,
+      "anchor_applied": "local",
+      "standardization_center": -0.21361173689365387,
+      "standardization_scale": 0.33727357064187524,
+      "transformation_applied": "log10 -> robust_z -> clip_6.0"
+    },
+    "eeg_hjorth_complexity": {
+      "abs_median": 2.988208055496216,
+      "abs_mad": 0.8807228739738464,
+      "anchor_applied": "local",
+      "standardization_center": 2.988208055496216,
+      "standardization_scale": 0.8807228739738464,
+      "transformation_applied": "robust_z -> clip_6.0"
+    },
+    "eeg_hjorth_mobility": {
+      "abs_median": 0.48582684993743896,
+      "abs_mad": 0.12281654500365256,
+      "anchor_applied": "local",
+      "standardization_center": 0.48582684993743896,
+      "standardization_scale": 0.12281654500365256,
+      "transformation_applied": "robust_z -> clip_6.0"
+    },
+    "eeg_permutation_entropy": {
+      "abs_median": 0.9220929741859436,
+      "abs_mad": 0.006465579807758331,
+      "anchor_applied": "local",
+      "standardization_center": 0.9220929741859436,
+      "standardization_scale": 0.006465579807758331,
+      "transformation_applied": "robust_z -> clip_6.0"
+    },
+    "embodied_arousal_proxy": {
+      "abs_median": 0.210856631398201,
+      "abs_mad": 0.04646442335844039,
+      "anchor_applied": "local",
+      "standardization_center": 0.210856631398201,
+      "standardization_scale": 0.04646442335844039,
+      "transformation_applied": "robust_z -> clip_6.0"
+    },
+    "eeg_alpha__cohort_anchor": {
+      "abs_median": 0.23597371578216553,
+      "abs_mad": 0.06576355828642845,
+      "anchor_id": "ds006036_cohort_auto_v2_1",
+      "anchor_hash": "3b61ceca691f2bf7d8d76d999cd633894b8d513adfc7382303d967fa45d9d251",
+      "anchor_applied": "external",
+      "standardization_center": -0.6384134292602539,
+      "standardization_scale": 0.3814724659902065,
+      "transformation_applied": "log10 -> robust_z -> clip_6.0"
+    },
+    "eeg_alpha_theta__cohort_anchor": {
+      "abs_median": 0.4386100471019745,
+      "abs_mad": 0.17616228411197662,
+      "anchor_id": "ds006036_cohort_auto_v2_1",
+      "anchor_hash": "3b61ceca691f2bf7d8d76d999cd633894b8d513adfc7382303d967fa45d9d251",
+      "anchor_applied": "external",
+      "standardization_center": 0.8160171508789062,
+      "standardization_scale": 0.7150518708621422,
+      "transformation_applied": "robust_z -> clip_6.0"
+    },
+    "eeg_beta_alpha__cohort_anchor": {
+      "abs_median": 1.699485182762146,
+      "abs_mad": 0.43179132928848263,
+      "anchor_id": "ds006036_cohort_auto_v2_1",
+      "anchor_hash": "3b61ceca691f2bf7d8d76d999cd633894b8d513adfc7382303d967fa45d9d251",
+      "anchor_applied": "external",
+      "standardization_center": 1.7951093316078186,
+      "standardization_scale": 0.671070535771488,
+      "transformation_applied": "robust_z -> clip_6.0"
+    },
+    "eeg_delta__cohort_anchor": {
+      "abs_median": 1.8595033884048462,
+      "abs_mad": 1.73482008998394,
+      "anchor_id": "ds006036_cohort_auto_v2_1",
+      "anchor_hash": "3b61ceca691f2bf7d8d76d999cd633894b8d513adfc7382303d967fa45d9d251",
+      "anchor_applied": "external",
+      "standardization_center": -0.2658410966396332,
+      "standardization_scale": 0.5997726824921621,
+      "transformation_applied": "log10 -> robust_z -> clip_6.0"
+    },
+    "eeg_gamma__cohort_anchor": {
+      "abs_median": 0.210856631398201,
+      "abs_mad": 0.04646442335844039,
+      "anchor_id": "ds006036_cohort_auto_v2_1",
+      "anchor_hash": "3b61ceca691f2bf7d8d76d999cd633894b8d513adfc7382303d967fa45d9d251",
+      "anchor_applied": "external",
+      "standardization_center": -0.6549543142318726,
+      "standardization_scale": 0.2008953564603564,
+      "transformation_applied": "log10 -> robust_z -> clip_6.0"
+    },
+    "eeg_hjorth_complexity__cohort_anchor": {
+      "abs_median": 2.988208055496216,
+      "abs_mad": 0.8807228739738464,
+      "anchor_id": "ds006036_cohort_auto_v2_1",
+      "anchor_hash": "3b61ceca691f2bf7d8d76d999cd633894b8d513adfc7382303d967fa45d9d251",
+      "anchor_applied": "external",
+      "standardization_center": 2.3469009399414062,
+      "standardization_scale": 0.6928256125340557,
+      "transformation_applied": "robust_z -> clip_6.0"
+    },
+    "eeg_hjorth_mobility__cohort_anchor": {
+      "abs_median": 0.48582684993743896,
+      "abs_mad": 0.12281654500365256,
+      "anchor_id": "ds006036_cohort_auto_v2_1",
+      "anchor_hash": "3b61ceca691f2bf7d8d76d999cd633894b8d513adfc7382303d967fa45d9d251",
+      "anchor_applied": "external",
+      "standardization_center": 0.6120092868804932,
+      "standardization_scale": 0.1913701951106095,
+      "transformation_applied": "robust_z -> clip_6.0"
+    },
+    "eeg_permutation_entropy__cohort_anchor": {
+      "abs_median": 0.9220929741859436,
+      "abs_mad": 0.006465579807758331,
+      "anchor_id": "ds006036_cohort_auto_v2_1",
+      "anchor_hash": "3b61ceca691f2bf7d8d76d999cd633894b8d513adfc7382303d967fa45d9d251",
+      "anchor_applied": "external",
+      "standardization_center": 0.9291865229606628,
+      "standardization_scale": 0.02017820473509068,
+      "transformation_applied": "robust_z -> clip_6.0"
+    },
+    "eeg_theta__cohort_anchor": {
+      "abs_median": 0.6114884614944458,
+      "abs_mad": 0.3837050983250141,
+      "anchor_id": "ds006036_cohort_auto_v2_1",
+      "anchor_hash": "3b61ceca691f2bf7d8d76d999cd633894b8d513adfc7382303d967fa45d9d251",
+      "anchor_applied": "external",
+      "standardization_center": -0.552084892988205,
+      "standardization_scale": 0.3445382423980577,
+      "transformation_applied": "log10 -> robust_z -> clip_6.0"
+    },
+    "embodied_arousal_proxy__cohort_anchor": {
+      "abs_median": 0.210856631398201,
+      "abs_mad": 0.04646442335844039,
+      "anchor_id": "ds006036_cohort_auto_v2_1",
+      "anchor_hash": "3b61ceca691f2bf7d8d76d999cd633894b8d513adfc7382303d967fa45d9d251",
+      "anchor_applied": "external",
+      "standardization_center": 0.22134000062942505,
+      "standardization_scale": 0.10394281517849577,
+      "transformation_applied": "robust_z -> clip_6.0"
+    },
+    "eeg_beta__cohort_anchor": {
+      "abs_median": 0.49018535017967224,
+      "abs_mad": 0.09333768981099128,
+      "anchor_id": "ds006036_cohort_auto_v2_1",
+      "anchor_hash": "3b61ceca691f2bf7d8d76d999cd633894b8d513adfc7382303d967fa45d9d251",
+      "anchor_applied": "external",
+      "standardization_center": -0.3198751211166382,
+      "standardization_scale": 0.2433274568143467,
+      "transformation_applied": "log10 -> robust_z -> clip_6.0"
+    },
+    "eeg_sample_entropy__cohort_anchor": {
+      "abs_median": 0.9220929741859436,
+      "abs_mad": 0.006465579807758331,
+      "anchor_id": "ds006036_cohort_auto_v2_1",
+      "anchor_hash": "3b61ceca691f2bf7d8d76d999cd633894b8d513adfc7382303d967fa45d9d251",
+      "anchor_applied": "external",
+      "standardization_center": 0.9291865229606628,
+      "standardization_scale": 0.02017820473509068,
+      "transformation_applied": "robust_z -> clip_6.0"
+    }
+  },
+  "subject": "sub-087",
+  "participant_meta": {
+    "participant_id": "sub-087",
+    "Gender": "M",
+    "Age": 73,
+    "Group": "F",
+    "MMSE  ": 24
+  },
+  "participant_meta_source": {
+    "source_path": "M:\\datasets\\received\\openneuro\\ds006036\\participants.tsv",
+    "source_format": "tsv",
+    "subject_id_column": "participant_id"
+  },
+  "participant_mapped_meta": {
+    "group": "F",
+    "condition": "eyes_open_photic",
+    "task": "photomark"
+  },
+  "group": "F",
+  "condition": "eyes_open_photic",
+  "task": "photomark",
+  "stage_source": "consensus:override_features_stage",
+  "stage_column": "value",
+  "stage_events_path": "M:\\datasets\\received\\openneuro\\ds006036\\sub-087\\eeg\\sub-087_task-photomark_events.tsv",
+  "stage_frac_labeled": 0.8947368421052632,
+  "coverage": {
+    "rule_tag": "default",
+    "min_seconds_effective": 30.0,
+    "min_epochs_effective": 10,
+    "seconds_effective": 80.0,
+    "seconds_measured": 80.0,
+    "seconds_assumed": 76.0,
+    "seconds_method": "timestamps_span"
+  },
+  "coverage_h5": {
+    "status": "available",
+    "path": "/coverage",
+    "axis_fraction_path": "/coverage/axis_fraction",
+    "coordinate_layers_present": [
+      "coords_3d_cohort_anchored",
+      "coords_3d_subject_anchored",
+      "coords_9d_cohort_anchored",
+      "coords_9d_subject_anchored"
+    ],
+    "jacobian_layers_present": [
+      "jacobian_9D_cohort_anchored",
+      "jacobian_9D_subject_anchored",
+      "jacobian_cohort_anchored",
+      "jacobian_subject_anchored"
+    ]
+  },
+  "provenance_h5": {
+    "status": "available",
+    "path": "/provenance",
+    "contract_path": "/provenance/contract",
+    "anchoring_path": "/provenance/anchoring"
+  },
+  "jacobian_h5": {
+    "primary_path": "/jacobian",
+    "primary_v2_path": "/jacobian_9D",
+    "layer_paths": [
+      "/jacobian_9D_cohort_anchored",
+      "/jacobian_9D_subject_anchored",
+      "/jacobian_cohort_anchored",
+      "/jacobian_subject_anchored"
+    ]
+  },
+  "participant_h5": {
+    "clinical_json_path": "/participant/clinical_json"
+  },
+  "created_at": "2026-08-12T13:18:40.894721Z",
+  "time_reference": {
+    "enabled": false,
+    "status": "disabled",
+    "source": "wfdb_header",
+    "anchor": "first_recording",
+    "schema_version": "time_reference.v1"
+  },
+  "phase_continuous": {
+    "enabled": false,
+    "status": "disabled"
+  },
+  "non_event_risk": {
+    "enabled": false,
+    "status": "disabled"
+  },
+  "stage_mapping_qc": {
+    "raw_event_label_counts": {
+      "CAL mode": 1,
+      "PHOTO 10Hz": 1,
+      "PHOTO 15Hz": 1,
+      "PHOTO 20Hz": 1,
+      "PHOTO 5Hz": 1,
+      "Photo/HV mark": 504,
+      "RESET condition": 1,
+      "Swallowing": 1,
+      "closed eyes": 4,
+      "open eyes": 4
+    },
+    "cleaned_event_label_counts": {
+      "CAL mode": 1,
+      "PHOTO 10Hz": 1,
+      "PHOTO 15Hz": 1,
+      "PHOTO 20Hz": 1,
+      "PHOTO 5Hz": 1,
+      "Photo/HV mark": 504,
+      "RESET condition": 1,
+      "Swallowing": 1,
+      "closed eyes": 4,
+      "open eyes": 4
+    },
+    "normalized_event_label_counts": {
+      "cal mode": 1,
+      "closed eyes": 4,
+      "open eyes": 4,
+      "photo 10hz": 1,
+      "photo 15hz": 1,
+      "photo 20hz": 1,
+      "photo 5hz": 1,
+      "photo/hv mark": 504,
+      "reset condition": 1,
+      "swallowing": 1
+    },
+    "mapped_stage_code_counts": {
+      "50": 57,
+      "51": 106,
+      "52": 158,
+      "53": 183,
+      "54": 4,
+      "60": 4,
+      "61": 4,
+      "63": 1,
+      "67": 1,
+      "68": 1
+    },
+    "unmapped_event_label_counts": {},
+    "mapping_mode_counts": {
+      "direct": 9,
+      "direct_hv_support": 4,
+      "direct_no_window_match": 2,
+      "direct_photic_block": 4,
+      "inferred_photic_block": 500
+    },
+    "mapping_status_counts": {
+      "direct": 9,
+      "direct_hv_support": 4,
+      "direct_no_window_match": 2,
+      "direct_photic_block": 4,
+      "inferred_photic_block": 500
+    },
+    "stage_blocking_enabled": true,
+    "raw_stage_frequency_event_counts_hz": {
+      "5": 57,
+      "10": 106,
+      "15": 158,
+      "20": 183
+    },
+    "raw_photic_frequency_event_counts_hz": {
+      "5": 57,
+      "10": 106,
+      "15": 158,
+      "20": 183
+    },
+    "window_stage_counts": {
+      "-1": 2,
+      "50": 4,
+      "51": 4,
+      "52": 4,
+      "53": 1,
+      "60": 3,
+      "63": 1
+    },
+    "expected_frequencies_hz": [
+      3,
+      5,
+      7,
+      10,
+      15,
+      20,
+      25,
+      30
+    ],
+    "detected_raw_frequencies_hz": [
+      5,
+      10,
+      15,
+      20
+    ],
+    "missing_expected_frequencies_hz_raw": [
+      3,
+      7,
+      25,
+      30
+    ],
+    "raw_has_25hz": false,
+    "raw_has_30hz": false,
+    "events_path": "M:\\datasets\\received\\openneuro\\ds006036\\sub-087\\eeg\\sub-087_task-photomark_events.tsv",
+    "source_event_column": "value",
+    "duration_column": "duration",
+    "n_event_rows": 519,
+    "n_event_rows_mapped": 519,
+    "n_event_rows_unmapped": 0,
+    "n_windows": 19,
+    "subject": "sub-087",
+    "session": null,
+    "run": null,
+    "acq": null,
+    "task": "photomark",
+    "condition": "eyes_open_photic",
+    "stage_source": "consensus:override_features_stage",
+    "stage_column": "value",
+    "stage_frac_labeled": 0.8947368421052632
+  },
+  "event_provenance": {
+    "status": "available",
+    "events_path": "M:\\datasets\\received\\openneuro\\ds006036\\sub-087\\eeg\\sub-087_task-photomark_events.tsv",
+    "event_table_columns": [
+      "_schema_version",
+      "duration_sec",
+      "inferred_block_id",
+      "is_photic",
+      "is_stage_block_event",
+      "mapped_stage_code",
+      "mapping_mode",
+      "mapping_rule",
+      "normalized_event_label",
+      "onset_sec",
+      "photic_frequency_hz",
+      "raw_event_label",
+      "source_event_column",
+      "stage_block_frequency_hz",
+      "window_assignment_count"
+    ],
+    "event_rows": 519
+  },
+  "event_windows": {
+    "status": "available",
+    "path": "/event_windows",
+    "rows": 6167,
+    "reference": "onset",
+    "bins_json": "[{\"label\": \"pre_far\", \"lo\": -30.0, \"hi\": -10.0}, {\"label\": \"pre_near\", \"lo\": -10.0, \"hi\": 0.0}, {\"label\": \"event\", \"lo\": 0.0, \"hi\": 3.0}, {\"label\": \"post_near\", \"lo\": 3.0, \"hi\": 10.0}, {\"label\": \"post_far\", \"lo\": 10.0, \"hi\": 30.0}]"
+  },
+  "codebooks": {
+    "available": [
+      "stage"
+    ],
+    "stage_path": "/codebooks/stage"
+  },
+  "regional_outputs_h5": {
+    "path": "/regional_mnps",
+    "available_coordinate_contracts": [
+      "cohort_anchored",
+      "subject_anchored"
+    ],
+    "primary_coordinate_contract": "cohort_anchored"
+  },
+  "coordinate_contracts": {
+    "requested_contracts": [
+      "subject_anchored",
+      "cohort_anchored"
+    ],
+    "realized_contracts": [
+      "subject_anchored",
+      "cohort_anchored"
+    ],
+    "skipped_contracts_with_reason": [],
+    "available_coordinate_contracts": [
+      "cohort_anchored",
+      "subject_anchored"
+    ],
+    "primary_coordinate_contract": "cohort_anchored"
+  },
+  "jacobian_9D_blocks": {
+    "config": {
+      "enabled": true,
+      "preset": "mde_families_v1",
+      "groups": {
+        "m": [
+          "m_a",
+          "m_e",
+          "m_o"
+        ],
+        "d": [
+          "d_n",
+          "d_l",
+          "d_s"
+        ],
+        "e": [
+          "e_e",
+          "e_s",
+          "e_m"
+        ]
+      },
+      "pairs": "all",
+      "include_self": true,
+      "include_sym_rot": true,
+      "n_blocks": 9
+    },
+    "rows": [
+      {
+        "out_group": "m",
+        "in_group": "m",
+        "out_dim": 3,
+        "in_dim": 3,
+        "n_timepoints": 17,
+        "block_trace_mean": 0.0524468158974367,
+        "block_frobenius_mean": 0.24702978134155273,
+        "block_anisotropy_mean": 24.229968295377844,
+        "c_sym_mean": null,
+        "c_rot_mean": null
+      },
+      {
+        "out_group": "m",
+        "in_group": "d",
+        "out_dim": 3,
+        "in_dim": 3,
+        "n_timepoints": 17,
+        "block_trace_mean": null,
+        "block_frobenius_mean": 0.2682429552078247,
+        "block_anisotropy_mean": null,
+        "c_sym_mean": 0.15508531209300547,
+        "c_rot_mean": 0.17892864872427547
+      },
+      {
+        "out_group": "m",
+        "in_group": "e",
+        "out_dim": 3,
+        "in_dim": 3,
+        "n_timepoints": 17,
+        "block_trace_mean": null,
+        "block_frobenius_mean": 0.29591819643974304,
+        "block_anisotropy_mean": null,
+        "c_sym_mean": 0.21659487047616174,
+        "c_rot_mean": 0.22382943069233613
+      },
+      {
+        "out_group": "d",
+        "in_group": "m",
+        "out_dim": 3,
+        "in_dim": 3,
+        "n_timepoints": 17,
+        "block_trace_mean": null,
+        "block_frobenius_mean": 0.2002255916595459,
+        "block_anisotropy_mean": null,
+        "c_sym_mean": 0.15508531209300547,
+        "c_rot_mean": 0.17892864872427547
+      },
+      {
+        "out_group": "d",
+        "in_group": "d",
+        "out_dim": 3,
+        "in_dim": 3,
+        "n_timepoints": 17,
+        "block_trace_mean": -0.00034448285313213575,
+        "block_frobenius_mean": 0.27365997433662415,
+        "block_anisotropy_mean": 63.10210070890539,
+        "c_sym_mean": null,
+        "c_rot_mean": null
+      },
+      {
+        "out_group": "d",
+        "in_group": "e",
+        "out_dim": 3,
+        "in_dim": 3,
+        "n_timepoints": 17,
+        "block_trace_mean": null,
+        "block_frobenius_mean": 0.33584457635879517,
+        "block_anisotropy_mean": null,
+        "c_sym_mean": 0.2766064642106785,
+        "c_rot_mean": 0.29013441590701833
+      },
+      {
+        "out_group": "e",
+        "in_group": "m",
+        "out_dim": 3,
+        "in_dim": 3,
+        "n_timepoints": 17,
+        "block_trace_mean": null,
+        "block_frobenius_mean": 0.32603970170021057,
+        "block_anisotropy_mean": null,
+        "c_sym_mean": 0.21659487047616174,
+        "c_rot_mean": 0.22382943069233613
+      },
+      {
+        "out_group": "e",
+        "in_group": "d",
+        "out_dim": 3,
+        "in_dim": 3,
+        "n_timepoints": 17,
+        "block_trace_mean": null,
+        "block_frobenius_mean": 0.4558570981025696,
+        "block_anisotropy_mean": null,
+        "c_sym_mean": 0.2766064642106785,
+        "c_rot_mean": 0.29013441590701833
+      },
+      {
+        "out_group": "e",
+        "in_group": "e",
+        "out_dim": 3,
+        "in_dim": 3,
+        "n_timepoints": 17,
+        "block_trace_mean": -0.06542368474252083,
+        "block_frobenius_mean": 0.40180209279060364,
+        "block_anisotropy_mean": 96.1312759623808,
+        "c_sym_mean": null,
+        "c_rot_mean": null
+      }
+    ]
+  },
+  "ensemble_robustness": {
+    "groups_config": {
+      "frontal": [
+        "Fp1",
+        "Fp2",
+        "F3",
+        "F4",
+        "Fz",
+        "F7",
+        "F8"
+      ],
+      "central": [
+        "FC1",
+        "FC2",
+        "C3",
+        "Cz",
+        "C4"
+      ],
+      "parietal_occipital": [
+        "P3",
+        "P4",
+        "Pz",
+        "O1",
+        "O2",
+        "PO3",
+        "PO4",
+        "Oz"
+      ],
+      "temporal": [
+        "T7",
+        "T8",
+        "TP7",
+        "TP8",
+        "T3",
+        "T4",
+        "T5",
+        "T6"
+      ]
+    },
+    "groups_realised": [
+      "frontal",
+      "central",
+      "parietal_occipital",
+      "temporal"
+    ],
+    "subcoord_names": [
+      "m_a",
+      "m_e",
+      "m_o",
+      "d_n",
+      "d_l",
+      "d_s",
+      "e_e",
+      "e_s",
+      "e_m"
+    ],
+    "mean": {
+      "m_a": -0.11695101857185364,
+      "m_e": 0.0,
+      "m_o": 0.0,
+      "d_n": 0.0,
+      "d_l": 0.0,
+      "d_s": 0.0,
+      "e_e": 0.0,
+      "e_s": 0.0,
+      "e_m": 0.0
+    },
+    "var": {
+      "m_a": 0.04816463217139244,
+      "m_e": 0.0,
+      "m_o": 0.0,
+      "d_n": 0.0,
+      "d_l": 0.0,
+      "d_s": 0.0,
+      "e_e": 0.0,
+      "e_s": 0.0,
+      "e_m": 0.0
+    }
+  },
+  "robust_summary": {
+    "axes": {
+      "summary": {
+        "m": {
+          "point": -0.21945948898792267,
+          "ci_low": -0.8299634456634521,
+          "ci_high": 0.0067456807009875774
+        },
+        "d": {
+          "point": -0.38071656227111816,
+          "ci_low": -0.6022562980651855,
+          "ci_high": -0.1800006628036499
+        },
+        "e": {
+          "point": 0.08100798726081848,
+          "ci_low": -0.07947894930839539,
+          "ci_high": 0.5293996334075928
+        }
+      },
+      "reliability": {
+        "m": 0.1983778501381195,
+        "d": 0.5794023714462438,
+        "e": 0.5954004722669354
+      }
+    },
+    "subcoords": {
+      "summary": {
+        "m_a": {
+          "point": -0.77708500623703,
+          "ci_low": -1.3741194009780884,
+          "ci_high": -0.2262069582939148
+        },
+        "m_e": {
+          "point": -0.029561974108219147,
+          "ci_low": -0.5123662948608398,
+          "ci_high": 0.07205073535442352
+        },
+        "m_o": {
+          "point": -0.14249484241008759,
+          "ci_low": -0.5078478455543518,
+          "ci_high": 0.6114246845245361
+        },
+        "d_n": {
+          "point": -0.10482293367385864,
+          "ci_low": -0.36324959993362427,
+          "ci_high": 0.2987789809703827
+        },
+        "d_l": {
+          "point": -0.6593630909919739,
+          "ci_low": -1.0922341346740723,
+          "ci_high": 0.06444533914327621
+        },
+        "d_s": {
+          "point": -0.5278037786483765,
+          "ci_low": -0.6894686222076416,
+          "ci_high": -0.24904415011405945
+        },
+        "e_e": {
+          "point": -0.3515450656414032,
+          "ci_low": -0.5775192975997925,
+          "ci_high": -0.13842031359672546
+        },
+        "e_s": {
+          "point": 0.9256400465965271,
+          "ci_low": -0.09001998603343964,
+          "ci_high": 1.7830555438995361
+        },
+        "e_m": {
+          "point": -0.10085707902908325,
+          "ci_low": -0.3294254243373871,
+          "ci_high": 0.31553536653518677
+        }
+      },
+      "reliability": {
+        "m_a": 0.11901316779304275,
+        "m_e": 0.20059393681015844,
+        "m_o": 0.42652229967122784,
+        "d_n": 0.49315932211829455,
+        "d_l": 0.45922880330143606,
+        "d_s": -0.3588918627490954,
+        "e_e": 0.19988379585603208,
+        "e_s": 0.7023272010955035,
+        "e_m": 0.5349420640314767
+      }
+    }
+  },
+  "dist_summary": {
+    "axes": {
+      "m": {
+        "n": 19,
+        "nan_frac": 0.0,
+        "mean": -0.33055180784216837,
+        "median": -0.21945948898792267,
+        "std": 0.5013850410556386,
+        "iqr": 0.743023589020595,
+        "mad": 0.3382408246397972,
+        "mad_sigma": 0.5014758466109633,
+        "skewness": 0.06513692336299515,
+        "kurtosis_excess": -0.7783529662078181,
+        "delta_mean_median": -0.1110923188542457
+      },
+      "d": {
+        "n": 19,
+        "nan_frac": 0.0,
+        "mean": -0.4176471500020278,
+        "median": -0.38071656227111816,
+        "std": 0.2933915473286473,
+        "iqr": 0.4117458611726761,
+        "mad": 0.20155203342437744,
+        "mad_sigma": 0.298821044754982,
+        "skewness": -0.514966583075248,
+        "kurtosis_excess": -0.24765321450326772,
+        "delta_mean_median": -0.036930587730909625
+      },
+      "e": {
+        "n": 19,
+        "nan_frac": 0.0,
+        "mean": 0.21656129080312034,
+        "median": 0.08100798726081848,
+        "std": 0.48201948110993437,
+        "iqr": 0.5667358599603176,
+        "mad": 0.2749735414981842,
+        "mad_sigma": 0.4076757726252079,
+        "skewness": 0.6370032945230184,
+        "kurtosis_excess": -0.23087144872029475,
+        "delta_mean_median": 0.13555330354230186
+      }
+    },
+    "subcoords": {
+      "m_a": {
+        "n": 19,
+        "nan_frac": 0.0,
+        "mean": -0.8155052365833207,
+        "median": -0.77708500623703,
+        "std": 0.6339851997490163,
+        "iqr": 1.1073864549398422,
+        "mad": 0.551119863986969,
+        "mad_sigma": 0.8170903103470802,
+        "skewness": -0.12142515105521223,
+        "kurtosis_excess": -1.18516249121687,
+        "delta_mean_median": -0.03842023034629072
+      },
+      "m_e": {
+        "n": 19,
+        "nan_frac": 0.0,
+        "mean": -0.1274820472309856,
+        "median": -0.029561974108219147,
+        "std": 0.400029610943028,
+        "iqr": 0.4913594275712967,
+        "mad": 0.21393486112356186,
+        "mad_sigma": 0.31717982510179277,
+        "skewness": 0.3120196051671413,
+        "kurtosis_excess": -0.3788022376905871,
+        "delta_mean_median": -0.09792007312276646
+      },
+      "m_o": {
+        "n": 19,
+        "nan_frac": 0.0,
+        "mean": 0.08940990112329784,
+        "median": -0.14249484241008759,
+        "std": 0.6720975238907052,
+        "iqr": 0.9452258050441742,
+        "mad": 0.43399204313755035,
+        "mad_sigma": 0.6434366031557321,
+        "skewness": 0.6916126102948199,
+        "kurtosis_excess": -0.5025983717783729,
+        "delta_mean_median": 0.23190474353338542
+      },
+      "d_n": {
+        "n": 19,
+        "nan_frac": 0.0,
+        "mean": -0.04971290017037015,
+        "median": -0.10482293367385864,
+        "std": 0.43143458129893186,
+        "iqr": 0.5973820090293884,
+        "mad": 0.29956164956092834,
+        "mad_sigma": 0.4441301016390323,
+        "skewness": 0.06883748925576649,
+        "kurtosis_excess": -0.9098240394747203,
+        "delta_mean_median": 0.05511003350348849
+      },
+      "d_l": {
+        "n": 19,
+        "nan_frac": 0.0,
+        "mean": -0.6300607558928037,
+        "median": -0.6593630909919739,
+        "std": 0.5986925551931348,
+        "iqr": 0.9610567800700665,
+        "mad": 0.4328710436820984,
+        "mad_sigma": 0.6417746093630791,
+        "skewness": 0.16809538982742275,
+        "kurtosis_excess": -1.0869441549026577,
+        "delta_mean_median": 0.02930233509917013
+      },
+      "d_s": {
+        "n": 19,
+        "nan_frac": 0.0,
+        "mean": -0.45260415814424815,
+        "median": -0.5278037786483765,
+        "std": 0.31116187802460615,
+        "iqr": 0.40581075847148895,
+        "mad": 0.16616952419281006,
+        "mad_sigma": 0.24636293656826017,
+        "skewness": 1.063383189721643,
+        "kurtosis_excess": 0.4999977126636237,
+        "delta_mean_median": 0.07519962050412832
+      },
+      "e_e": {
+        "n": 19,
+        "nan_frac": 0.0,
+        "mean": -0.3555140309035778,
+        "median": -0.3515450656414032,
+        "std": 0.3053642690506147,
+        "iqr": 0.42441214621067047,
+        "mad": 0.21612295508384705,
+        "mad_sigma": 0.3204238932073116,
+        "skewness": -0.2175297505204839,
+        "kurtosis_excess": -0.7431108943449747,
+        "delta_mean_median": -0.003968965262174606
+      },
+      "e_s": {
+        "n": 19,
+        "nan_frac": 0.0,
+        "mean": 1.0116542311091172,
+        "median": 0.9256400465965271,
+        "std": 1.0668529827563518,
+        "iqr": 1.5781449750065804,
+        "mad": 0.857415497303009,
+        "mad_sigma": 1.2712042163014412,
+        "skewness": 0.6998415617940444,
+        "kurtosis_excess": -0.19822353110345237,
+        "delta_mean_median": 0.08601418451259013
+      },
+      "e_m": {
+        "n": 19,
+        "nan_frac": 0.0,
+        "mean": -0.006557813698523923,
+        "median": -0.10085707902908325,
+        "std": 0.42618420364333603,
+        "iqr": 0.5769445896148682,
+        "mad": 0.3015102446079254,
+        "mad_sigma": 0.4470190886557102,
+        "skewness": 0.38200668533754795,
+        "kurtosis_excess": -0.8510336070225493,
+        "delta_mean_median": 0.09429926533055932
+      }
+    }
+  },
+  "tau_summary": {
+    "axes": {
+      "m": {
+        "tau_sec": 4.0,
+        "dt_sec": 4.0,
+        "max_lag_sec": 60.0,
+        "threshold": 0.36787944117144233,
+        "nan_frac": 0.0,
+        "nan_policy": "strict"
+      },
+      "d": {
+        "tau_sec": 4.0,
+        "dt_sec": 4.0,
+        "max_lag_sec": 60.0,
+        "threshold": 0.36787944117144233,
+        "nan_frac": 0.0,
+        "nan_policy": "strict"
+      },
+      "e": {
+        "tau_sec": 4.0,
+        "dt_sec": 4.0,
+        "max_lag_sec": 60.0,
+        "threshold": 0.36787944117144233,
+        "nan_frac": 0.0,
+        "nan_policy": "strict"
+      }
+    },
+    "subcoords": {
+      "m_a": {
+        "tau_sec": 4.0,
+        "dt_sec": 4.0,
+        "max_lag_sec": 60.0,
+        "threshold": 0.36787944117144233,
+        "nan_frac": 0.0,
+        "nan_policy": "strict"
+      },
+      "m_e": {
+        "tau_sec": 4.0,
+        "dt_sec": 4.0,
+        "max_lag_sec": 60.0,
+        "threshold": 0.36787944117144233,
+        "nan_frac": 0.0,
+        "nan_policy": "strict"
+      },
+      "m_o": {
+        "tau_sec": 8.0,
+        "dt_sec": 4.0,
+        "max_lag_sec": 60.0,
+        "threshold": 0.36787944117144233,
+        "nan_frac": 0.0,
+        "nan_policy": "strict"
+      },
+      "d_n": {
+        "tau_sec": 4.0,
+        "dt_sec": 4.0,
+        "max_lag_sec": 60.0,
+        "threshold": 0.36787944117144233,
+        "nan_frac": 0.0,
+        "nan_policy": "strict"
+      },
+      "d_l": {
+        "tau_sec": 4.0,
+        "dt_sec": 4.0,
+        "max_lag_sec": 60.0,
+        "threshold": 0.36787944117144233,
+        "nan_frac": 0.0,
+        "nan_policy": "strict"
+      },
+      "d_s": {
+        "tau_sec": 4.0,
+        "dt_sec": 4.0,
+        "max_lag_sec": 60.0,
+        "threshold": 0.36787944117144233,
+        "nan_frac": 0.0,
+        "nan_policy": "strict"
+      },
+      "e_e": {
+        "tau_sec": 4.0,
+        "dt_sec": 4.0,
+        "max_lag_sec": 60.0,
+        "threshold": 0.36787944117144233,
+        "nan_frac": 0.0,
+        "nan_policy": "strict"
+      },
+      "e_s": {
+        "tau_sec": 4.0,
+        "dt_sec": 4.0,
+        "max_lag_sec": 60.0,
+        "threshold": 0.36787944117144233,
+        "nan_frac": 0.0,
+        "nan_policy": "strict"
+      },
+      "e_m": {
+        "tau_sec": 4.0,
+        "dt_sec": 4.0,
+        "max_lag_sec": 60.0,
+        "threshold": 0.36787944117144233,
+        "nan_frac": 0.0,
+        "nan_policy": "strict"
+      }
+    }
+  },
+  "tier2_jacobian": {
+    "signed_divergence_balance": {
+      "n": 17,
+      "frac_pos": 0.6470588235294118,
+      "frac_neg": 0.35294117647058826,
+      "mean_pos": 0.039285779295658525,
+      "mean_neg": -0.02213648078031838,
+      "mean_abs": 0.03323308570200906
+    },
+    "jacobian_condition_number": {
+      "n": 17,
+      "nan_frac": 0.0,
+      "mean": 46.84245824833879,
+      "median": 22.5648094984634,
+      "std": 55.796402206045514,
+      "iqr": 61.830790593114,
+      "mad": 17.81988243059073,
+      "mad_sigma": 26.419757691593816,
+      "skewness": 1.6079575692171342,
+      "kurtosis_excess": 1.4807393933411355,
+      "delta_mean_median": 24.277648749875386,
+      "estimated_on_windows": 17,
+      "total_finite_windows": 17,
+      "subsampled": false
+    },
+    "rotation_coherence": {
+      "n": 17,
+      "mean_resultant_length": 0.8300278528475367,
+      "mean_axis": [
+        0.13610981924845209,
+        -0.09122294999184177,
+        0.9864849165085797
+      ]
+    },
+    "rel_mse_baseline": {
+      "n": 17,
+      "nan_frac": 0.0,
+      "mean": 1.0034516173250534,
+      "median": 0.9991360306739807,
+      "std": 0.02263326776300617,
+      "iqr": 0.031837284564971924,
+      "mad": 0.015105128288269043,
+      "mad_sigma": 0.022394863200187683,
+      "skewness": 0.6845375014629308,
+      "kurtosis_excess": -0.6936861900284459,
+      "delta_mean_median": 0.004315586651072678,
+      "note": "Relative local-fit MSE vs intercept-only baseline (<1 better than baseline)."
+    }
+  },
+  "jacobian_metrics": {
+    "n_windows_total": 17,
+    "n_windows_jacobian_valid": 17,
+    "n_windows_metrics_valid": 17,
+    "n_windows_stable_reactive": 0,
+    "stable_reactive_fraction": 0.0,
+    "mean_spectral_abscissa": 0.029550413724990388,
+    "mean_numerical_abscissa": 0.0862733242328348,
+    "mean_symmetric_rate_min": -0.06949838594950465,
+    "mean_symmetric_rate_max": 0.0862733242328348,
+    "mean_reactivity_gap": 0.05672291050784443,
+    "mean_spectral_radius": 0.058622213360224155,
+    "mean_frobenius_norm": 0.16867742991928333,
+    "mean_trace": 0.01760733456296079,
+    "mean_rotation_norm": 0.12303336450661284,
+    "mean_henrici_departure": 0.8230881721516428,
+    "schema_version": "mndm.jacobian_metrics.v1",
+    "h5_path": "/jacobian/derived_metrics/v1"
+  },
+  "jacobian_metrics_9d": {
+    "n_windows_total": 17,
+    "n_windows_jacobian_valid": 17,
+    "n_windows_metrics_valid": 17,
+    "n_windows_stable_reactive": 0,
+    "stable_reactive_fraction": 0.0,
+    "mean_spectral_abscissa": 0.03903811499712038,
+    "mean_numerical_abscissa": 0.4242634866221797,
+    "mean_symmetric_rate_min": -0.4774241593325806,
+    "mean_symmetric_rate_max": 0.4242634866221797,
+    "mean_reactivity_gap": 0.3852253716250594,
+    "mean_spectral_radius": 0.12582052426212476,
+    "mean_frobenius_norm": 0.9630541391441151,
+    "mean_trace": -0.013321350362864049,
+    "mean_rotation_norm": 0.690502234280646,
+    "mean_henrici_departure": 0.9711526314873485,
+    "schema_version": "mndm.jacobian_metrics.v1",
+    "h5_path": "/jacobian_9D/derived_metrics/v1"
+  },
+  "finite_time_response": {
+    "schema_version": "mndm.finite_time_response.v1",
+    "computation_status": "computed",
+    "validation_level": "model_derived",
+    "summary": {
+      "g_peak_over_horizons": 2.731188001631651,
+      "log_g_peak_over_horizons": 1.0047366799726907,
+      "tau_peak_over_horizons": 16.0,
+      "peak_horizon_steps": 4
+    },
+    "h5_path": "/finite_time_response/v1/primary"
+  },
+  "finite_time_response_9d": {
+    "schema_version": "mndm.finite_time_response.v1",
+    "computation_status": "computed",
+    "validation_level": "model_derived",
+    "summary": {
+      "g_peak_over_horizons": 13.570456326479366,
+      "log_g_peak_over_horizons": 2.607895100877504,
+      "tau_peak_over_horizons": 16.0,
+      "peak_horizon_steps": 4
+    },
+    "h5_path": "/finite_time_response/v1/stratified_9d"
+  },
+  "transition_residuals": {
+    "schema_version": "mndm.transition_residuals.v1",
+    "computation_status": "computed",
+    "summary": {
+      "n_windows": 17,
+      "n_transitions_candidate": 16,
+      "n_transitions_valid": 16,
+      "residual_mean": [
+        -0.023332316428422928,
+        0.02472410909831524,
+        0.01839194819331169
+      ]
+    },
+    "h5_path": "/transition_residuals/v1/primary"
+  },
+  "transition_residuals_9d": {
+    "schema_version": "mndm.transition_residuals.v1",
+    "computation_status": "computed",
+    "summary": {
+      "n_windows": 17,
+      "n_transitions_candidate": 16,
+      "n_transitions_valid": 6,
+      "residual_mean": [
+        -0.11258634179830551,
+        -0.32051628828048706,
+        -0.3935343325138092,
+        0.20872938632965088,
+        -0.20676355063915253,
+        0.20651642978191376,
+        -0.11839600652456284,
+        0.31599563360214233,
+        0.20048241317272186
+      ]
+    },
+    "h5_path": "/transition_residuals/v1/stratified_9d"
+  },
+  "transition_residual_covariance_proxy": {
+    "schema_version": "mndm.transition_residual_covariance_proxy.v1",
+    "computation_status": "computed",
+    "q_scope": "recording",
+    "q_dt_sec": 4.0,
+    "h5_path": "/transition_residual_covariance_proxy/v1/primary"
+  },
+  "tier2_emmi": {
+    "speed_mean": 0.149526142708688,
+    "speed_median": 0.13056889300846483,
+    "mv_median": 0.00676836818914122,
+    "mv_abs_median": 0.00676836818914122,
+    "emmi_e_over_m_median": -0.3691250154386194,
+    "mv_over_speed_median": 0.05183752449139953
+  },
+  "entropy_qc": {
+    "e_e": {
+      "var": 0.09324733681281619,
+      "n_unique": 19,
+      "nan_frac": 0.0,
+      "provisional": false
+    },
+    "e_s": {
+      "var": 1.1381752868161248,
+      "n_unique": 19,
+      "nan_frac": 0.0,
+      "provisional": false
+    },
+    "e_m": {
+      "var": 0.18163297543510454,
+      "n_unique": 19,
+      "nan_frac": 0.0,
+      "provisional": false
+    }
+  },
+  "extensions": {
+    "regional_data_available": false,
+    "rfm": {
+      "status": "skipped_no_regional_bold"
+    },
+    "o_koh": {
+      "status": "skipped_no_regional_bold"
+    },
+    "tig": {
+      "status": "skipped_no_regional_bold"
+    }
+  },
+  "ndt_ingest": {
+    "mapping_source": "mnps_projection",
+    "normalize_mode_effective": "robust_z"
+  },
+  "mnps_3d": {
+    "mode_requested": "from_v2",
+    "mode_effective": "from_v2",
+    "x_definition": "derived_mde_from_v2_fixed_weighted_projection_cohort_anchored",
+    "from_v2": {
+      "aggregation_requested": "fixed_weighted_projection",
+      "aggregation": "fixed_weighted_projection",
+      "legacy_pooling": "mean",
+      "map": {
+        "m": [
+          "m_a",
+          "m_e",
+          "m_o"
+        ],
+        "d": [
+          "d_n",
+          "d_l",
+          "d_s"
+        ],
+        "e": [
+          "e_e",
+          "e_s",
+          "e_m"
+        ]
+      },
+      "v1_mapping_source": "mnps_projection.v1_mapping",
+      "v1_mapping_input": {
+        "m": {
+          "m_a": 0.62,
+          "m_e": 0.55,
+          "m_o": 0.45
+        },
+        "d": {
+          "d_n": 0.5,
+          "d_l": 0.82,
+          "d_s": 0.28
+        },
+        "e": {
+          "e_e": 0.85,
+          "e_s": 0.62,
+          "e_m": 0.03
+        }
+      },
+      "v1_mapping_normalized": {
+        "m": {
+          "m_a": 0.6574203372001648,
+          "m_e": 0.5831954479217529,
+          "m_o": 0.47715988755226135
+        },
+        "d": {
+          "d_n": 0.4998001158237457,
+          "d_l": 0.819672167301178,
+          "d_s": 0.2798880636692047
+        },
+        "e": {
+          "e_e": 0.8075850605964661,
+          "e_s": 0.5890620350837708,
+          "e_m": 0.028503000736236572
+        }
+      },
+      "v1_mapping_matrix": [
+        [
+          0.6574203372001648,
+          0.0,
+          0.0
+        ],
+        [
+          0.5831954479217529,
+          0.0,
+          0.0
+        ],
+        [
+          0.47715988755226135,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.4998001158237457,
+          0.0
+        ],
+        [
+          0.0,
+          0.819672167301178,
+          0.0
+        ],
+        [
+          0.0,
+          0.2798880636692047,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.8075850605964661
+        ],
+        [
+          0.0,
+          0.0,
+          0.5890620350837708
+        ],
+        [
+          0.0,
+          0.0,
+          0.028503000736236572
+        ]
+      ],
+      "v1_mapping_matrix_rows": [
+        "m_a",
+        "m_e",
+        "m_o",
+        "d_n",
+        "d_l",
+        "d_s",
+        "e_e",
+        "e_s",
+        "e_m"
+      ],
+      "v1_mapping_hash": "fc17689f4f8408dd321e4a6a293426ca4240892b93647558f136a277b7a7be7b",
+      "fallback_reason": null
+    }
+  },
+  "geometry_contract": {
+    "policy_version": "standard_invalidity_v1",
+    "status": "ok",
+    "primary_requires_coords_9d": true,
+    "shared_time_grid": {
+      "epochs_before_policy": 19,
+      "epochs_retained": 19,
+      "epochs_dropped": 0,
+      "drop_fraction": 0.0,
+      "dropped_epoch_indices_preview": [],
+      "drop_reason_counts": {
+        "mnps_3d_nonfinite_rows": 0,
+        "coords_9d_nonfinite_rows_affecting_primary": 0
+      }
+    },
+    "mnps_3d": {
+      "finite_row_fraction_before": 1.0,
+      "nonfinite_row_count": 0,
+      "degenerate_axes": [],
+      "all_nan_axes": []
+    },
+    "coords_9d": {
+      "available": true,
+      "shape_matches_time_grid": true,
+      "finite_row_fraction_before": 1.0,
+      "nonfinite_row_count": 0,
+      "nonfinite_rows_retained_on_shared_grid": 0,
+      "degenerate_axes": [],
+      "all_nan_axes": []
+    },
+    "time_grid": {
+      "status": "ok",
+      "warnings": [],
+      "window_count": 19,
+      "finite_window_bounds_fraction": 1.0,
+      "dt_source": "window_start",
+      "dt_sec_runtime": 4.0,
+      "dt_sec_config": 4.0,
+      "window_sec_config": 8.0,
+      "dt_matches_runtime": true,
+      "dt_matches_config_formula": true,
+      "window_len_matches_config": true,
+      "nonpositive_dt_count": 0,
+      "nonpositive_window_len_count": 0,
+      "dt_intervals_sec": {
+        "n": 18,
+        "mean": 4.0,
+        "median": 4.0,
+        "iqr": 0.0,
+        "p95": 4.0,
+        "max": 4.0
+      },
+      "window_lengths_sec": {
+        "n": 19,
+        "mean": 8.0,
+        "median": 8.0,
+        "iqr": 0.0,
+        "p95": 8.0,
+        "max": 8.0
+      }
+    },
+    "jacobian": {
+      "policy_version": "standard_invalidity_v1",
+      "status": "ok",
+      "windows_raw": 17,
+      "windows_retained": 17,
+      "invalid_windows": 0,
+      "invalid_window_fraction": 0.0,
+      "condition_number_threshold": 10000000000.0,
+      "invalid_reason_counts": {
+        "nonfinite_windows": 0,
+        "condition_number_windows": 0
+      },
+      "invalid_centers_preview": []
+    },
+    "jacobian_9d": {
+      "policy_version": "standard_invalidity_v1",
+      "status": "ok",
+      "windows_raw": 17,
+      "windows_retained": 17,
+      "invalid_windows": 0,
+      "invalid_window_fraction": 0.0,
+      "condition_number_threshold": 10000000000.0,
+      "invalid_reason_counts": {
+        "nonfinite_windows": 0,
+        "condition_number_windows": 0
+      },
+      "invalid_centers_preview": []
+    }
+  },
+  "provenance": {
+    "mnps_9d_definition_version": "2.0",
+    "mnps_9d_constructs": {
+      "e_e": {
+        "intended_metric": "permutation_entropy",
+        "actual_metric_used": "permutation_entropy",
+        "metric_backend": "numpy",
+        "params": {
+          "order": 5,
+          "delay": 1,
+          "normalize": true
+        },
+        "degraded_mode": false,
+        "reason": null
+      }
+    },
+    "reproducibility": {
+      "seed": 42,
+      "seed_source": "robustness.seed",
+      "stochastic_components": [
+        "feature_worker_rng",
+        "robustness_bootstrap",
+        "null_sanity_tests",
+        "epoch_stage_stratified_sampling",
+        "preprocess_ica",
+        "fmri_louvain_modularity"
+      ],
+      "deterministic_outputs": [
+        "mnps_3d",
+        "mnps_3d_dot",
+        "coords_9d",
+        "nn_indices",
+        "jacobian.J_hat",
+        "jacobian.J_dot",
+        "jacobian_9D.J_hat",
+        "jacobian_9D.J_dot"
+      ],
+      "nn_indices_hash_saved": "b2243e14cd3ffd4b5f257f60cb0d44ce45ce2da9c62397f27b9c58fce2f91193",
+      "x_hash_saved": "e3981b72dbceea7842272a2971306e1e756ff264580bfce5d18a6ecc48e11f0b",
+      "x_hash_knn_input": "e3981b72dbceea7842272a2971306e1e756ff264580bfce5d18a6ecc48e11f0b",
+      "x_hash_jacobian_input": "e3981b72dbceea7842272a2971306e1e756ff264580bfce5d18a6ecc48e11f0b",
+      "jacobian_hash_saved": "5821e28add965be94634df4d00de2d6c2198639300ff01d3ad17296221135ef4",
+      "jacobian_dot_hash_saved": "0a030141013d86d8cd70447ff44d732917e13673921647195d48ca5312cd7924",
+      "coords_9d_hash_saved": "8b83a55ff6cb4fce648b017557d0fe5dc5dbd0c5be8688729462bf5d96836d3b",
+      "coords_9d_hash_knn_input": "8b83a55ff6cb4fce648b017557d0fe5dc5dbd0c5be8688729462bf5d96836d3b",
+      "coords_9d_hash_jacobian_input": "8b83a55ff6cb4fce648b017557d0fe5dc5dbd0c5be8688729462bf5d96836d3b",
+      "jacobian_9d_hash_saved": "59b5fe1dec2e97815b3257bce5a90422cbbe1640677472a24cf9d40900ea0c21",
+      "jacobian_9d_dot_hash_saved": "c106b82da0132eb0c2edf4dcfdeab57d3ecb0f0aa0de8eb84855a95ecd7452ba"
+    }
+  },
+  "feature_exports": {
+    "raw_h5_path": "/features_raw",
+    "robust_z_h5_path": "/features_robust_z",
+    "scope": "all_numeric_feature_columns_excluding_metadata",
+    "column_count": 61,
+    "names_hash": "e730ea9dc35c6294e2843dee4a47b1fa808f15462dd48930dc7d40705fa3a522",
+    "metadata_fields": [
+      "backend",
+      "degraded_mode",
+      "fallback_reason",
+      "feature_name",
+      "group_label",
+      "is_regional",
+      "projection_normalize_mode",
+      "projection_transform_applied",
+      "projection_transform_steps",
+      "raw_abs_mad",
+      "raw_abs_median",
+      "robust_z_center",
+      "robust_z_finite_count",
+      "robust_z_invalid_reason",
+      "robust_z_scale",
+      "robust_z_valid",
+      "source_column",
+      "used_anywhere",
+      "used_by_coords_9d",
+      "used_by_mnps_3d",
+      "used_by_regional_projection"
+    ],
+    "robust_z_guard": {
+      "policy": "nan",
+      "policy_version": "mndm.robust_z_guard.v1",
+      "degenerate_scale_eps": 1e-09,
+      "min_finite_count": 3
+    }
+  },
+  "_TENTATIVE_NOTE": "Metrics such as baseline_comparisons, mnps_mnj_sanity, null_sanity_tests, tier2_jacobian, tier2_emmi, tau_summary, and dist_summary are provided as tentative QA summaries only. Real statistical verification and interpretation must be performed downstream in the analysis repository.",
+  "event_locked": {
+    "n_rows_total": 19,
+    "n_event_rows": 19,
+    "n_spindle_event_rows": 19,
+    "n_matched_control_rows": 0,
+    "condition_counts": {
+      "event": 19
+    },
+    "alignment_qc": {
+      "n_events_input": 4,
+      "n_events_excluded_non_finite": 0,
+      "n_events_excluded_stage_transition": 0,
+      "n_events_aligned": 4,
+      "n_rows_total": 19,
+      "bins_used": [
+        "in_block_tail_ms",
+        "post_block_early_ms",
+        "post_block_late_ms"
+      ],
+      "reference": "onset"
+    },
+    "control_qc": {
+      "seed": 42,
+      "n_events_input": 4,
+      "n_events_with_full_match": 0,
+      "n_events_with_partial_match": 0,
+      "n_events_with_no_match": 4,
+      "n_controls_requested_per_event": 3,
+      "target_stage": null,
+      "exclusion_margin_sec": 30.0,
+      "match_success_rate": 0.0
+    },
+    "output_paths": [
+      "K:\\NeuralManifoldDyanamics\\processed\\ds006036\\neuralmanifolddynamics_ds006036_20260812_130118\\sub-087_eyes_open_photic_photomark\\event_locked.parquet",
+      "K:\\NeuralManifoldDyanamics\\processed\\ds006036\\neuralmanifolddynamics_ds006036_20260812_130118\\sub-087_eyes_open_photic_photomark\\event_locked.csv"
+    ],
+    "event_source": {
+      "kind": "derived_stage_block_end",
+      "event_type": "stage_block_end",
+      "event_kind": "end",
+      "stage_codes": [],
+      "block_parameters": [],
+      "source_label": "derived:stage_blocking",
+      "source_path": ""
+    },
+    "profile": {
+      "profile_name": "ds006036_stage_block_end_v1",
+      "dataset_id": "ds006036",
+      "event_source_kind": "derived_stage_block_end",
+      "event_types": [
+        "stage_block_end"
+      ],
+      "stage_filter_labels": [],
+      "stage_filter_codes": [],
+      "reference": "onset",
+      "bins": [
+        {
+          "label": "in_block_tail_ms",
+          "lo": -8.0,
+          "hi": 0.0
+        },
+        {
+          "label": "post_block_early_ms",
+          "lo": 0.0,
+          "hi": 8.0
+        },
+        {
+          "label": "post_block_late_ms",
+          "lo": 8.0,
+          "hi": 16.0
+        }
+      ],
+      "window_length_s": 6.0,
+      "window_step_s": 2.0,
+      "control_seed": 42,
+      "n_controls_per_event": 3,
+      "control_exclusion_margin_sec": 30.0
+    }
+  },
+  "block_native": {
+    "n_blocks": 4,
+    "n_windows": 29,
+    "status": "ok",
+    "window_profile_kind": "sliding",
+    "named_window_profile": "whole_block",
+    "block_source_kind": "stage_blocking",
+    "block_counts_by_stage": {
+      "50": 1,
+      "51": 1,
+      "52": 1,
+      "53": 1
+    },
+    "window_counts_by_stage": {
+      "50": 9,
+      "51": 8,
+      "52": 9,
+      "53": 3
+    },
+    "block_counts_by_frequency_hz": {
+      "5": 1,
+      "10": 1,
+      "15": 1,
+      "20": 1
+    },
+    "source_window_match_count": 29,
+    "source_window_total": 29,
+    "export_paths": [
+      "K:\\NeuralManifoldDyanamics\\processed\\ds006036\\neuralmanifolddynamics_ds006036_20260812_130118\\sub-087_eyes_open_photic_photomark\\block_native_windows.parquet",
+      "K:\\NeuralManifoldDyanamics\\processed\\ds006036\\neuralmanifolddynamics_ds006036_20260812_130118\\sub-087_eyes_open_photic_photomark\\block_native_windows.csv"
+    ],
+    "qc_entry": {
+      "schema": "mndm.block_native_qc.v1",
+      "n_blocks": 4,
+      "n_windows": 29,
+      "block_counts_by_stage": {
+        "50": 1,
+        "51": 1,
+        "52": 1,
+        "53": 1
+      },
+      "window_counts_by_stage": {
+        "50": 9,
+        "51": 8,
+        "52": 9,
+        "53": 3
+      },
+      "block_counts_by_frequency_hz": {
+        "5": 1,
+        "10": 1,
+        "15": 1,
+        "20": 1
+      },
+      "end_reason_counts": {
+        "bridge_tail": 1,
+        "next_carrier": 3
+      },
+      "duration_sec_distribution": {
+        "count": 4,
+        "min": 9.594999999999999,
+        "p25": 17.367250000000002,
+        "median": 20.009500000000003,
+        "p75": 20.06575,
+        "max": 20.080000000000005
+      },
+      "gap_sec_distribution": {
+        "count": 3,
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "p75": 0.0,
+        "max": 0.0
+      },
+      "source_window_index": {
+        "matched": 29,
+        "unmatched": 0,
+        "total": 29,
+        "matched_fraction": 1.0
+      },
+      "filters": {
+        "min_block_sec": 4.0,
+        "min_windows_per_block": 2
+      }
+    }
+  },
+  "block_native_coverage": {
+    "raw_stage_label_counts": {
+      "CAL mode": 1,
+      "PHOTO 10Hz": 1,
+      "PHOTO 15Hz": 1,
+      "PHOTO 20Hz": 1,
+      "PHOTO 5Hz": 1,
+      "Photo/HV mark": 504,
+      "RESET condition": 1,
+      "Swallowing": 1,
+      "closed eyes": 4,
+      "open eyes": 4
+    },
+    "recovered_blocks_by_stage": {
+      "50": 1,
+      "51": 1,
+      "52": 1,
+      "53": 1
+    },
+    "block_native_windows_by_stage": {
+      "50": 9,
+      "51": 8,
+      "52": 9,
+      "53": 3
+    },
+    "block_counts_by_frequency_hz": {
+      "5": 1,
+      "10": 1,
+      "15": 1,
+      "20": 1
+    }
+  },
+  "block_native_qc": {
+    "schema": "mndm.block_native_qc.v1",
+    "n_blocks": 4,
+    "n_windows": 29,
+    "block_counts_by_stage": {
+      "50": 1,
+      "51": 1,
+      "52": 1,
+      "53": 1
+    },
+    "window_counts_by_stage": {
+      "50": 9,
+      "51": 8,
+      "52": 9,
+      "53": 3
+    },
+    "block_counts_by_frequency_hz": {
+      "5": 1,
+      "10": 1,
+      "15": 1,
+      "20": 1
+    },
+    "end_reason_counts": {
+      "bridge_tail": 1,
+      "next_carrier": 3
+    },
+    "duration_sec_distribution": {
+      "count": 4,
+      "min": 9.594999999999999,
+      "p25": 17.367250000000002,
+      "median": 20.009500000000003,
+      "p75": 20.06575,
+      "max": 20.080000000000005
+    },
+    "gap_sec_distribution": {
+      "count": 3,
+      "min": 0.0,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0,
+      "max": 0.0
+    },
+    "source_window_index": {
+      "matched": 29,
+      "unmatched": 0,
+      "total": 29,
+      "matched_fraction": 1.0
+    },
+    "filters": {
+      "min_block_sec": 4.0,
+      "min_windows_per_block": 2
+    },
+    "subject": "sub-087",
+    "session": null,
+    "run": null,
+    "acq": null,
+    "task": "photomark",
+    "condition": "eyes_open_photic",
+    "dataset_id": "ds006036",
+    "label_cleaning": {
+      "raw_event_label_counts": {
+        "CAL mode": 1,
+        "PHOTO 10Hz": 1,
+        "PHOTO 15Hz": 1,
+        "PHOTO 20Hz": 1,
+        "PHOTO 5Hz": 1,
+        "Photo/HV mark": 504,
+        "RESET condition": 1,
+        "Swallowing": 1,
+        "closed eyes": 4,
+        "open eyes": 4
+      },
+      "cleaned_event_label_counts": {
+        "CAL mode": 1,
+        "PHOTO 10Hz": 1,
+        "PHOTO 15Hz": 1,
+        "PHOTO 20Hz": 1,
+        "PHOTO 5Hz": 1,
+        "Photo/HV mark": 504,
+        "RESET condition": 1,
+        "Swallowing": 1,
+        "closed eyes": 4,
+        "open eyes": 4
+      },
+      "normalized_event_label_counts": {
+        "cal mode": 1,
+        "closed eyes": 4,
+        "open eyes": 4,
+        "photo 10hz": 1,
+        "photo 15hz": 1,
+        "photo 20hz": 1,
+        "photo 5hz": 1,
+        "photo/hv mark": 504,
+        "reset condition": 1,
+        "swallowing": 1
+      },
+      "mapping_status_counts": {
+        "direct": 9,
+        "direct_hv_support": 4,
+        "direct_no_window_match": 2,
+        "direct_photic_block": 4,
+        "inferred_photic_block": 500
+      }
+    }
+  }
+}

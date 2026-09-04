@@ -66,6 +66,92 @@ blocks:
         jacobian_near_singular_rate: 0.1
       require_true:
         - eig_ok
+  jacobian_metrics_3d_recording:
+    enabled: true
+    grain: subject_condition
+    subject_aggregation_policy: identity
+    aggregation_keys: [subject_id, condition]
+    metrics: [mean_spectral_abscissa, mean_numerical_abscissa, mean_reactivity_gap, stable_reactive_fraction]
+    metric_tiers:
+      primary: [mean_spectral_abscissa, mean_numerical_abscissa, mean_reactivity_gap, stable_reactive_fraction]
+      secondary: [mean_symmetric_rate_min, mean_henrici_departure]
+      qc: [n_windows_total, n_windows_metrics_valid, jacobian_metrics_valid_fraction]
+    validity:
+      min:
+        n_windows_metrics_valid: 50
+  jacobian_metrics_9d_recording:
+    enabled: true
+    grain: subject_condition
+    subject_aggregation_policy: identity
+    aggregation_keys: [subject_id, condition]
+    metrics: [mean_spectral_abscissa, mean_numerical_abscissa, mean_reactivity_gap, stable_reactive_fraction]
+    metric_tiers:
+      primary: [mean_spectral_abscissa, mean_numerical_abscissa, mean_reactivity_gap, stable_reactive_fraction]
+      secondary: [mean_symmetric_rate_min, mean_henrici_departure]
+      qc: [n_windows_total, n_windows_metrics_valid, jacobian_metrics_valid_fraction]
+    validity:
+      min:
+        n_windows_metrics_valid: 50
+  finite_time_response_3d_recording_horizon:
+    enabled: true
+    grain: subject_condition
+    subject_aggregation_policy: identity
+    aggregation_keys: [subject_id, condition]
+    horizon_steps: 4
+    metrics: [mean_g_max, mean_d_resp, mean_c_1]
+    metric_tiers:
+      primary: [mean_g_max, mean_d_resp, mean_c_1]
+      secondary: [mean_gamma_1, mean_log_g_max]
+      qc: [n_sequences_valid, n_sequences_candidate]
+    validity:
+      min:
+        n_sequences_valid: 50
+      require_true: [finite_ok]
+  finite_time_response_9d_recording_horizon:
+    enabled: true
+    grain: subject_condition
+    subject_aggregation_policy: identity
+    aggregation_keys: [subject_id, condition]
+    horizon_steps: 4
+    metrics: [mean_g_max, mean_d_resp, mean_c_1]
+    metric_tiers:
+      primary: [mean_g_max, mean_d_resp, mean_c_1]
+      secondary: [mean_gamma_1, mean_log_g_max, mean_transfer_cross, mean_transfer_self]
+      qc: [n_sequences_valid, n_sequences_candidate]
+    validity:
+      min:
+        n_sequences_valid: 50
+      require_true: [finite_ok]
+  transition_residual_summary_3d_recording:
+    enabled: true
+    grain: subject_condition
+    subject_aggregation_policy: identity
+    aggregation_keys: [subject_id, condition]
+    metric_tiers:
+      qc: [n_transitions_valid, transition_residual_mean_norm]
+  transition_residual_summary_9d_recording:
+    enabled: true
+    grain: subject_condition
+    subject_aggregation_policy: identity
+    aggregation_keys: [subject_id, condition]
+    metric_tiers:
+      qc: [n_transitions_valid, transition_residual_mean_norm]
+  transition_q_proxy_3d_recording:
+    enabled: true
+    grain: subject_condition
+    subject_aggregation_policy: identity
+    aggregation_keys: [subject_id, condition]
+    metric_tiers:
+      qc: [trace_Q, q_logdet_regularized, effective_rank]
+  transition_q_proxy_9d_recording:
+    enabled: true
+    grain: subject_condition
+    subject_aggregation_policy: identity
+    aggregation_keys: [subject_id, condition]
+    metric_tiers:
+      qc: [trace_Q, q_logdet_regularized, effective_rank]
+  local_dynamics_availability:
+    enabled: false
   global_mnps_jacobian_9d_block_jacobian:
     enabled: true
   regional_3d:

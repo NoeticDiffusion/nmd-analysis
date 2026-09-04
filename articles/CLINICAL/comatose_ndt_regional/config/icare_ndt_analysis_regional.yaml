@@ -1,0 +1,30 @@
+dataset: icare_coma_regional
+description: "Regional coma-layer adapter config for I-CARE EEG channel-group H5 summaries"
+
+input:
+  h5_root: null
+
+coordinate_contract: subject_anchored
+
+output:
+  directory: "../articles/CLINICAL/comatose_ndt_regional/results/mnps_summary"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: true
+  skip_disabled_analyses: true
+  continue_on_analysis_error: false
+
+flags:
+  sleep_data_contrast: false
+
+modality_rules: {}
+
+analyses:
+  regional_3d: true
+  regional_mnps_jacobian_3d: true
+  regional_reachability_cones_3d: true

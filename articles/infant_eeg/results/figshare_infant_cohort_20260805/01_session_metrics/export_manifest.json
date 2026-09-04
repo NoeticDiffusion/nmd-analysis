@@ -1,0 +1,52 @@
+{
+  "data_root": "J:\\repos\\NoeticDiffusion\\data\\raw\\neuralmanifolddynamics_figshare_infant_eeg_20260805_102438",
+  "n_h5": 70,
+  "n_subjects": 22,
+  "n_subjects_with_two_or_more_visits": 20,
+  "coordinate_contract": "cohort_anchored",
+  "primary_endpoints": [
+    "frobenius_norm_median",
+    "rotation_norm_median",
+    "trace_median",
+    "spectral_radius_median",
+    "tube_log_det_median",
+    "tube_d_eff_median",
+    "tube_kappa_median",
+    "tube_dir_entropy_median",
+    "tube_rotation_median"
+  ],
+  "reachability_config": {
+    "space": "3d",
+    "k": 12,
+    "method": "ridge",
+    "ridge_alpha": 0.001,
+    "cv_folds": 5,
+    "super_window_size": 3,
+    "jitter": 1e-06,
+    "cov_estimator": "empirical",
+    "mnps_dim_cap": null,
+    "eig_floor_scale": 0.0,
+    "standardize": "none",
+    "standardize_eps": 1e-06,
+    "sigma0_eps": 0.0,
+    "horizon": 3,
+    "max_points": 2000,
+    "persistence_window": 11,
+    "persistence_mode": "all",
+    "persistence_baseline_quantile": 0.5,
+    "persistence_low_alpha": 0.8,
+    "persistence_recover_alpha": 0.9,
+    "persistence_hysteresis_window": 11,
+    "agg": "median",
+    "eps": 1e-12,
+    "knn_scope": "all",
+    "geometry_gate_9d_enabled": true,
+    "geometry_gate_9d_on_degenerate_axes": true,
+    "geometry_gate_9d_on_zero_retained_jacobian": true
+  },
+  "geometry_status_counts": {
+    "ok": 68,
+    "adjusted": 2
+  },
+  "jacobian_9d_available_sessions": 70
+}

@@ -1,0 +1,241 @@
+#import "template_eLife.typ": *
+
+#show: netn-template.with(
+  title: "Walking-State Geometry Separates Parkinson Disease from Controls More Clearly Than Paired Rest-to-Walk Reconfiguration",
+  short-title: "Parkinson Walking Geometry",
+  subtitle: "A mixed-contract NeuralManifoldDynamics analysis of ds007526",
+  authors: (
+    (name: "Robin Langell", affil: 1),
+  ),
+  affiliations: (
+    "Langell Konsult AB, Vallentuna, Sweden",
+  ),
+  corresponding-author: "Robin Langell, hello@noeticdiffusion.com",
+  keywords: (
+    "Parkinson disease",
+    "walking EEG",
+    "EEG",
+    "NeuralManifoldDynamics",
+    "MNPS",
+    "reachability",
+    "trajectory geometry",
+  ),
+  article-type: "Research Article",
+  abstract: [
+    The walking EEG export `ds007526` contains two different inference problems that should not be forced into one coordinate contract. `PD walk vs HC walk` is a between-subject disease-state question and is therefore evaluated here in `cohort_anchored` space, whereas `PD walk vs rest` is a within-subject task-reconfiguration question and is therefore evaluated in `subject_anchored` space. We analyzed `277` processed runs from `144` participants (`116` Parkinson disease, `28` healthy controls), using the refreshed bundle `data/raw/neuralmanifolddynamics_ds007526_20260610_121725`. In the base standard family, `BH-FDR q < 0.05` retained `4` cohort-walk rows, `3` Parkinson paired rows, and `1` healthy-control paired context row. The cohort-walk headline was concentrated in the `d` family: global walk `d_n_mean` (`d = 0.766`, `q = 0.030`), `d_n_median` (`d = 0.746`, `q = 0.030`), `d_mean` (`d = 0.711`, `q = 0.036`), and `d_median` (`d = 0.718`, `q = 0.036`). A targeted subject-anchor dispersion extension that added within-run `IQR` and `MAD` summaries sharpened the paired Parkinson branch more strongly than the original central-tendency-only pass, led by `m_a_iqr` (`d_z = 0.472`, `q = 6.55e-4`), `d_iqr` (`d_z = 0.403`, `q = 7.28e-4`), `d_mad` (`d_z = 0.412`, `q = 7.28e-4`), together with `d_n_mean` (`d_z = 0.409`, `q = 7.28e-4`). The secondary healthy-control paired context remained dominated by `m_a_mean` (`d_z = 0.888`, `q = 0.0176`). The same dispersion extension also revealed strong rest-side clinical associations, especially global `d_s_iqr` with age (`rho = -0.377`, `q = 8.38e-4`) and CTT (`rho = -0.351`, `q = 0.00489`), plus parietal-occipital `e_iqr` with CTT (`rho = 0.439`, `q = 1.25e-4`). Supplement-level supportive layers still showed a rest-weighted global reachability branch and an exploratory compact-summary trajectory layer. The present bundle did not expose `conventional_eeg`, so no classical comparator claim is made. Within this export surface, walking in a cohort-shared frame separates Parkinson disease from controls more clearly than paired rest-to-walk reconfiguration, but the paired Parkinson branch becomes materially stronger once dispersion summaries are included.
+  ],
+  author-summary: [
+    This paper asks a simpler Parkinson walking question than the earlier ON/OFF manuscript family. The between-group question is whether Parkinson participants differ from controls during walking, which is a cohort-anchor problem. The paired question is whether Parkinson participants change from rest to walk, which is a subject-anchor problem. Once that split is enforced, the main signal is clear: Parkinson walk runs separate from healthy-control walk runs on four corrected global `d`-family rows. A targeted `IQR`/`MAD` dispersion extension then sharpens the paired Parkinson branch more than the original central-tendency-only pass, led by `m_a_iqr`, `d_iqr`, and `d_mad`, all at `q < 0.001`. Healthy-control walk-vs-rest change is real, but treated only as context. The strongest `IQR`/`MAD` clinical associations are rest-side, especially global `d_s_iqr` and regional parietal-occipital `e_iqr` relations with age, CTT, and `UPDRS total`.
+  ],
+  author-contributions: [RL: Conceptualization, Methodology, Analysis, Writing, and Editing.],
+  funding-info: [Funding information will be inserted in the submission version.],
+  data-availability: [
+    Data were analyzed from the local NeuralManifoldDynamics export `data/raw/neuralmanifolddynamics_ds007526_20260610_121725`. Article-facing exports for this manuscript are stored under `articles/CLINICAL/parkinson_walking/results/parkinson_walking_20260610/article_exports_121725`, including `focal_rows.csv`, `context_rows.csv`, `supportive_rows.csv`, `exploratory_rows.csv`, `retained_counts.csv`, `evidence_ledger.csv`, and `article_evidence_summary.md`. The corresponding figures are generated under `articles/CLINICAL/parkinson_walking/figures/20260610_article`. Supplementary methods, data tables, review-facing caveats, and clinical translation are provided in `S1_Supplementary_methods.typ`, `S2_Supplementary_data.typ`, `S3_Supplementary_QC_Robustness.typ`, and `S4_Supplementary_Clinical.typ`.
+  ],
+  competing-interests: [The author declares no competing interests, subject to final confirmation at submission.],
+)
+
+= Introduction
+
+Walking EEG in Parkinson disease presents two linked but non-identical questions. One question is whether Parkinson participants remain geometrically distinct from healthy controls while walking. That is a between-subject disease-state comparison. The other question is whether the same Parkinson participants reconfigure from rest to walk. That is a within-subject paired comparison. The present article treats those as different inference contracts rather than as one pooled effect. This is the same design principle that stabilized the Parkinson ON/OFF paper, but here it is applied to a simpler and more clinically intuitive behavioral contrast.
+
+The broader EEG literature already suggests that Parkinson disease is expressed as both altered resting-state organization and altered large-scale dynamics rather than as one universal scalar biomarker.@wang2020eegreview @oldedubbelink2013slowing @swann2015synchrony More recent dynamical and microstate-oriented work likewise points toward altered flexibility, abnormal temporal structure, and disease-linked reorganization of whole-brain electrophysiology.@sorrentino2021flexible @chu2023microstate Those observations motivate a geometry-first reading of the walking dataset, but they also caution against treating the walking question and the paired rest-to-walk question as interchangeable.
+
+In this article, Noetic Diffusion Theory provides the broader dynamical framing, while NeuralManifoldDynamics provides the operational measurement contract used to export auditable coordinates, Jacobian summaries, and reachability summaries.@langell2025_6 @langell2026_mndm The analysis then adds one article-local exploratory trajectory layer above those exported surfaces, following the same general logic used in other state-space and neural-manifold work: separate where the system sits, how local flow deforms, what short-horizon future capacity looks like, and how the realized path actually moves.@vyas2020population @mitchellheggs2023manifold
+
+#netn-box(title: [Primary design principle])[
+  `cohort_anchored` is primary for the between-subject disease-state question: `PD walk vs HC walk`.
+
+  `subject_anchored` is primary for the within-subject task-reconfiguration question: `PD walk vs rest`.
+
+  `HC walk vs rest` is retained as secondary context, not as an equal-weight headline.
+]
+
+= Cohort and analysis design
+
+The refreshed export contains `277` processed runs from `144` unique participants:
+
+- `116` Parkinson disease (`PD`) participants,
+- `28` healthy controls (`HC`),
+- `144` rest runs,
+- and `133` walk runs.
+
+The walk disease-state comparison therefore uses `23` `HC` walk runs and `110` `PD` walk runs. The paired task-reconfiguration branch uses `110` `PD` rest/walk pairs. The secondary `HC` paired context uses `23` healthy-control rest/walk pairs.
+
+Four linked layers were used:
+
+1. global `MNPS` and Jacobian summaries in the standard article-local contrast stack;
+2. regional `MNPS` / `MNJ` summaries;
+3. article-local wrappers into `ndt_analysis.reachability_cones` for global and regional reachability summaries;
+4. an exploratory compact-summary trajectory layer emphasizing entropy-rate, irreversibility, noetic-action terms, curvature, tortuosity, and path length.
+
+The article-facing retained inventory is intentionally compact (@tab-retained-branches). The count table below refers to the base standard family; the targeted `IQR`/`MAD` dispersion extension is reported separately in the Results and `S2`.
+
+#figure(
+  kind: table,
+  clean-table(
+    columns: (1.65fr, 0.95fr, 0.95fr, 0.95fr),
+    align: left,
+    inset: 4pt,
+    table.header([*Branch*], [*Rows total*], [*`q < 0.05`*], [*`q < 0.1`*]),
+    [`Cohort walk standard`], [`37`], [`4`], [`4`],
+    [`PD paired standard`], [`37`], [`3`], [`4`],
+    [`HC paired context`], [`37`], [`1`], [`3`],
+    [`Cohort walk regional`], [`128`], [`2`], [`11`],
+    [`Cohort rest reachability`], [`82`], [`9`], [`13`],
+    [`Cohort rest trajectory`], [`24`], [`4`], [`7`],
+  ),
+  caption: [Article-facing retained counts by branch in the base standard family. The main text also reports a targeted paired `IQR`/`MAD` dispersion extension, but those rows are kept outside this compact base-family inventory so the original branch counts remain auditable.]
+) <tab-retained-branches>
+
+= Methods
+
+== Noetic Diffusion and NeuralManifoldDynamics framing
+
+The exported `3D` state is treated here as `x_t = [m_t, d_t, e_t]^T`, with the stratified `9D` extension treated as a fixed versioned chart inherited from the upstream NeuralManifoldDynamics contract rather than as an article-specific latent fit.@langell2026_mndm The present article therefore does not claim to discover a new manifold. It evaluates already exported coordinates, Jacobian summaries, and reachability summaries under a contract-aware reporting rule.
+
+Operationally, the standard layers separate:
+
+- `MNPS`: where the state sits in `3D` or `9D`,
+- Jacobian / `MNJ` summaries: how local deformation changes around the current point,
+- reachability summaries: how broad or constrained short-horizon future geometry appears under local linearization,
+- and exploratory trajectory summaries: how the realized path moves through the exported chart.
+
+== Contract logic
+
+The mixed-contract rule is the core design choice.
+
+- `PD walk vs HC walk` is a between-subject comparison and therefore uses `cohort_anchored` coordinates.
+- `PD walk vs rest` is a within-subject paired comparison and therefore uses `subject_anchored` coordinates.
+- `HC walk vs rest` follows the same paired logic, but remains secondary context.
+
+This article therefore does *not* claim that one anchor is globally superior. It claims that the inferential question determines the appropriate contract.
+
+== Standard and wrapper execution
+
+The article-local support stack used `src/parkinson_walking_support.py` together with the `run_parkinson_walking_*` scripts already present in the repository. The standard layer supplied global `3D`, global `9D`, global Jacobian, and paired/task contrast tables. A targeted rerun then extended the same stack with within-run `IQR` and `MAD` summaries for global and regional `MNPS` / Jacobian streams, allowing a dispersion-focused read without overwriting the base standard family. The regional layer supplied network-level `MNPS` and Jacobian summaries for frontal, central, temporal, and parietal-occipital groups. The reachability wrapper pointed into `ndt_analysis.reachability_cones.py` and `ndt_analysis.reachability_core.py`, while the classical EEG wrapper confirmed that the current bundle does not expose the `conventional_eeg` extension and therefore cannot support article-facing classical-comparator claims from this export.
+
+The compact-summary trajectory layer was run as exploratory context only. In the present dataset it remained rest-dominant and did not outrun the main standard walk rows.
+
+== Statistical boundary
+
+All contrast and association families were corrected with `BH-FDR` inside their respective script-defined families. The main-text threshold is `q < 0.05`. The `q < 0.1` layer is retained in `S2` only for transparency and follow-up work. No primary endpoint was preregistered, so all focal rows should be read as article-facing representatives selected from the corrected retained inventory rather than as preregistered endpoints.
+
+= Results
+
+== Eight focal rows at `q < 0.05`
+
+The revised main article is intentionally restricted to eight rows (@tab-seven-effects): four cohort-anchor walk disease-state rows and four subject-anchor Parkinson rows, with the paired branch now centered on the stronger dispersion extension.
+
+#figure(
+  kind: table,
+  clean-table(
+    columns: (1.45fr, 0.95fr, 1.3fr, 1.45fr, 0.95fr, 0.95fr, 0.8fr, 0.8fr),
+    align: left,
+    inset: 4pt,
+    table.header([*Contrast*], [*Contract*], [*Layer*], [*Row*], [*Left med*], [*Right med*], [*`d`*], [*`q`*]),
+    [`HC walk vs PD walk`], [`cohort`], [`global MNPS`], [`d_n_mean`], [`0.179`], [`1.003`], [`0.766`], [`0.030`],
+    [`HC walk vs PD walk`], [`cohort`], [`global MNPS`], [`d_n_median`], [`0.0834`], [`0.987`], [`0.746`], [`0.030`],
+    [`HC walk vs PD walk`], [`cohort`], [`global MNPS`], [`d_mean`], [`-0.873`], [`0.0496`], [`0.711`], [`0.036`],
+    [`HC walk vs PD walk`], [`cohort`], [`global MNPS`], [`d_median`], [`-1.021`], [`-0.00832`], [`0.718`], [`0.036`],
+    [`PD walk vs rest`], [`subject`], [`global MNPS`], [`d_n_mean`], [`0.00369`], [`0.110`], [`0.409`#super[z]], [`7.28e-4`],
+    [`PD walk vs rest`], [`subject`], [`dispersion`], [`m_a_iqr`], [`1.161`], [`1.285`], [`0.472`#super[z]], [`6.55e-4`],
+    [`PD walk vs rest`], [`subject`], [`dispersion`], [`d_iqr`], [`0.794`], [`0.928`], [`0.403`#super[z]], [`7.28e-4`],
+    [`PD walk vs rest`], [`subject`], [`dispersion`], [`d_mad`], [`0.400`], [`0.455`], [`0.412`#super[z]], [`7.28e-4`],
+  ),
+  caption: [The eight focal rows emphasized in the revised main text. The four cohort-anchor walk rows come from the base standard family. The four paired Parkinson rows come from the subject-anchor base-plus-dispersion extension, where `IQR` and `MAD` summaries sharpened the paired branch. Left and right medians follow the contrast order named in the first column. The `d` column reports Cohen's `d` for the unpaired walk disease-state rows and Cohen's `d_z` (marked `z`) for the paired Parkinson rows.]
+) <tab-seven-effects>
+
+These eight rows were selected because they satisfy three criteria simultaneously: survival at the stricter corrected threshold, non-redundant coverage of the two primary inferential questions, and direct article-facing interpretability without forcing regional or exploratory layers into headline status.
+
+== Cohort-anchor walk disease-state separation
+
+The strongest article-facing signal is the cohort-anchor `PD walk vs HC walk` branch. All four retained global rows come from the `d` family, and all point in the same direction: Parkinson walk runs sit higher on `d_n_mean`, `d_n_median`, `d_mean`, and `d_median` than healthy-control walk runs. The strongest row is `d_n_mean` (`d = 0.766`, `q = 0.030`), followed closely by `d_n_median` (`d = 0.746`, `q = 0.030`), `d_median` (`d = 0.718`, `q = 0.036`), and `d_mean` (`d = 0.711`, `q = 0.036`).
+
+This concentration is useful rather than disappointing. It means the disease-state walk contrast is not scattered across weak, heterogeneous metrics. It is coherent in one family. The simplest bounded interpretation is that walking exposes a stable disease-state offset in the exported `d`-family geometry when the comparison is asked in the correct cohort-shared frame. Subject-level distributions for the four retained walk rows are shown in @fig-cohort-walk.
+
+#figure(
+  image("figures/20260610_article/cohort_walk_focals.png", width: 98%),
+  caption: [Subject-level distributions for the four retained cohort-anchor `PD walk vs HC walk` rows. The disease-state walk headline is concentrated in the global `d` family rather than being spread thinly across unrelated metric families.]
+) <fig-cohort-walk>
+
+Regional support exists but is not needed to make the primary point. The strongest regional walk replications are frontal `d_n_mean` (`d = 1.062`, `q = 0.0049`) and frontal `d_n_median` (`d = 1.051`, `q = 0.0049`), both directionally consistent with the global walk headline. Because those rows are network-level sensor-group summaries rather than source-localized effects, they are treated as support for topographic concentration rather than as independent anatomical claims.
+
+== Subject-anchor PD walk versus rest
+
+The paired Parkinson branch is stronger than the original central-tendency-only pass suggested. In the base standard family, `d_n_mean`, `d_mean`, and `jac9_anisotropy_abs_eig_median` remain retained. But once within-run dispersion summaries are added in a targeted extension, the clearest paired rows become `m_a_iqr` (`d_z = 0.472`, `q = 6.55e-4`), `d_iqr` (`d_z = 0.403`, `q = 7.28e-4`), and `d_mad` (`d_z = 0.412`, `q = 7.28e-4`), with `d_n_mean` (`d_z = 0.409`, `q = 7.28e-4`) still co-leading. The paired branch therefore looks like a real within-subject task reconfiguration whose strongest markers are not only mean- or median-shift rows, but also dispersion rows.
+
+That distinction matters. The stronger `q` values in the paired branch still do not erase the cohort walk disease-state headline, but they do materially sharpen the paired Parkinson story. The safer revised reading is that Parkinson walk-vs-rest change is present, internally coherent, and better captured by a mix of location and dispersion summaries than by central tendency alone. Subject-level paired distributions are shown in @fig-pd-paired.
+
+#figure(
+  image("figures/20260610_article/pd_walk_vs_rest_focals.png", width: 92%),
+  caption: [Subject-level paired distributions for the updated focal `PD walk vs rest` rows under the subject-anchor contract. `d_n_mean` remains retained from the base standard family, but the strongest paired rows are the `IQR`/`MAD` dispersion summaries `m_a_iqr`, `d_iqr`, and `d_mad`.]
+) <fig-pd-paired>
+
+== Healthy-control context and supportive layers
+
+The secondary healthy-control paired context is led by one retained row, `m_a_mean` (`d_z = 0.888`, `q = 0.0176`), with two nearby contextual rows at `q < 0.1`: `m_mean` and `d_l_mean`. This indicates that healthy controls do change from rest to walk, but in a different and more `m`-weighted pattern than the Parkinson paired branch. Because the paper is not about normative motor-state geometry per se, these rows are kept contextual rather than headline.
+
+#figure(
+  image("figures/20260610_article/hc_walk_vs_rest_context.png", width: 92%),
+  caption: [Secondary-context paired distributions for `HC walk vs rest`. The healthy-control branch is real but is intentionally not given equal headline weight with the cohort walk disease-state and Parkinson paired branches.]
+) <fig-hc-context>
+
+Supportive layers add three bounded observations. First, the reachability wrapper is strongest not in walk but in rest: `9` global rest rows survive `q < 0.05`, led by `pred_err_h2` (`d = -0.634`, `q = 0.023`) and `tube_log_det_mean` (`d = -0.557`, `q = 0.023`). Second, the original central-tendency clinical association surface is again dominated by rest-side `d_s_mean` structure. Third, the `IQR`/`MAD` extension reveals an equally strong rest-side dispersion-association surface. In the cohort-anchor global layer, rest `d_s_iqr` tracks age (`rho = -0.377`, `q = 8.38e-4`) and CTT (`rho = -0.351`, `q = 0.00489`), while in the regional cohort layer parietal-occipital rest `e_iqr` tracks CTT (`rho = 0.439`, `q = 1.25e-4`). Even the subject-anchor regional extension remains non-null, led by temporal rest `e_iqr` versus `UPDRS total` (`rho = -0.338`, `q = 0.031`). The strongest `IQR`/`MAD` rho panels are shown in @fig-iqr-mad-rho.
+
+#figure(
+  image("figures/20260610_article/iqr_mad_rho_panels.svg", width: 98%),
+  caption: [Strongest `IQR`/`MAD` clinical association panels from the dispersion extension. The dominant pattern is still rest-side, but it is not restricted to one metric family: global `d_s_iqr`, regional parietal-occipital `e_iqr`, and subject-anchor temporal `e_iqr` all show corrected associations with age, CTT, or `UPDRS total`.]
+) <fig-iqr-mad-rho>
+
+The exploratory compact-summary trajectory layer does retain four rest `HC vs PD` rows at `q < 0.05`, led by `noetic_action_kinetic` (`d = -0.687`, `q = 0.012`) and `path_length` (`d = -0.671`, `q = 0.012`), but it remains rest-weighted and is therefore treated as hypothesis-generating rather than as a competing headline. Supplementary tables provide the full retained surfaces.
+
+= Discussion
+
+The main advantage of this manuscript is inferential alignment. Once the walking disease-state question is asked in a cohort-shared frame and the rest-to-walk question is asked in a subject-shared frame, the dataset tells a simpler story than a one-contract analysis would suggest.
+
+First, walking is the clearest disease-state surface in this export. The primary `PD walk vs HC walk` branch retains four corrected global rows, all concentrated in the `d` family, and two stronger frontal replications in the regional layer. That is not a diffuse or accidental pattern. It is a compact disease-state walk geometry.
+
+Second, the paired Parkinson branch is stronger once dispersion is allowed into the summary family. The original base-standard pass retained three rows, but the targeted `IQR`/`MAD` extension added three sharper paired rows (`m_a_iqr`, `d_iqr`, and `d_mad`), all with `q < 0.001`. The paper therefore supports a revised but still bounded interpretation: Parkinson participants do reconfigure from rest to walk, and the clearest paired signatures include dispersion rather than central tendency alone, but the walking disease-state separation from controls still remains the broader between-subject headline.
+
+Third, rest remains clinically informative even in a walking-centered paper. Both the original central-tendency rho surface and the new `IQR`/`MAD` rho surface are dominated by rest-side structure, and the reachability wrapper is likewise strongest in rest. That combination suggests that baseline geometry and baseline future-capacity structure may carry more disease-burden information than the walk disease-state contrast alone. The walk branch is the cleanest between-group discriminator; the rest branch is the richer clinical-association surface.
+
+Fourth, the absence of the `conventional_eeg` extension matters. Because the current export does not expose classical comparator sidecars, this article cannot make benchmark claims against relative power, Hjorth, or related classical EEG features. That is a limitation of the current bundle, not a proof that the geometric rows are unmatched by classical summaries.
+
+The resulting paper is therefore narrower than a generic "walking EEG biomarker" manuscript. Within this processed export, the best-supported statement is that walking exposes a coherent Parkinson disease-state offset in cohort space, whereas paired Parkinson rest-to-walk change is real and stronger than the original central-tendency-only pass suggested once dispersion summaries are included.
+
+= Limitations
+
+1. The paper is exploratory. The main text is restricted to `q < 0.05`, but no focal row was preregistered.
+2. The current export does not expose `conventional_eeg`, so no classical-comparator benchmark can be made from this bundle.
+3. Regional rows are sensor-group summaries, not source-localized anatomical estimates.
+4. The reachability and clinical association surfaces are strongest in rest, not walk, and should not be over-read as direct support for the walk headline.
+5. The compact-summary trajectory layer remains exploratory and rest-weighted in this dataset.
+6. The results are bounded to one processed export and do not yet constitute external replication.
+
+= Conclusion
+
+This mixed-contract walking analysis is strongest when kept simple but not when it is artificially restricted. In the current `ds007526` export, `PD walk vs HC walk` still yields the clearest compact disease-state headline in cohort space. But the paired `PD walk vs rest` branch becomes materially stronger once within-run dispersion summaries are included, especially `m_a_iqr`, `d_iqr`, and `d_mad`. Healthy-control walk-vs-rest change is present but secondary, and rest-side reachability plus `IQR`/`MAD` clinical associations provide additional disease-burden structure rather than replacing the walk headline. The present bundle therefore supports a bounded conclusion: walking-state geometry separates Parkinson disease from controls more clearly than paired rest-to-walk reconfiguration, but the paired Parkinson branch is stronger and more dispersion-weighted than the original central-tendency-only pass suggested.
+
+
+= Acknowledgements
+
+This work emerged through structured correspondence among human and AI collaborators; large language models from OpenAI, Anthropic, and Google assisted in literature synthesis, drafting, peer review, and editorial refinement. We also gratefully acknowledge the original investigators, clinical teams, participants, and data stewards who created, curated, and shared the public datasets and metadata that made these analyses possible.
+
+= Contact
+
+Robin Langell - hello(at)noeticdiffusion.com
+
+= Licensing
+
+Licensing, stewardship, and any related trademark notes are summarized at `https://noeticdiffusion.com/license.html` and do not alter the scientific claims or reproducibility boundaries discussed here.
+
+= Data and Code Availability
+
+Reference implementations and analysis pipelines:
+`https://github.com/NoeticDiffusion`
+
+Datasets and related public bundles:
+`https://github.com/NoeticDiffusion/NeuralManifoldDynamics-dataset`
+
+#bibliography("parkinson_walking_geometry.bib")

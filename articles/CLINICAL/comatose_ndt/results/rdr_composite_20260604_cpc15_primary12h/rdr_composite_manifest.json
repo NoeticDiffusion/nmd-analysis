@@ -1,0 +1,76 @@
+{
+  "timeline_dir": "J:\\repos\\NoeticDiffusion\\articles\\CLINICAL\\comatose_ndt\\results\\timeline_analysis_20260602_combined_combat_corrected_primary12h",
+  "mnps_dir": "J:\\repos\\NoeticDiffusion\\articles\\CLINICAL\\comatose_ndt\\results\\mnps_summary_20260602_combined_combat_corrected_primary12h_cpc15",
+  "trajectory_part1_dir": "J:\\repos\\NoeticDiffusion\\articles\\CLINICAL\\comatose_geometric_trajectory\\results\\trajectory_metrics_20260601_part1_primary12h",
+  "trajectory_part2_dir": "J:\\repos\\NoeticDiffusion\\articles\\CLINICAL\\comatose_geometric_trajectory\\results\\trajectory_metrics_20260601_part2_primary12h",
+  "output_dir": "J:\\repos\\NoeticDiffusion\\articles\\CLINICAL\\comatose_ndt\\results\\rdr_composite_20260604_cpc15_primary12h",
+  "primary_time_bin": "0_12h",
+  "good_cpc": 1,
+  "poor_cpc": 5,
+  "n_subjects_joined": 277,
+  "n_splits": 5,
+  "n_repeats": 20,
+  "random_state": 20260604,
+  "n_permutations": 2000,
+  "path_lambda": 0.25,
+  "core_feature_specs": {
+    "reach_tube_d_eff_median": [
+      "reachability_cones",
+      "tube_d_eff_median"
+    ],
+    "reach_tube_capture_gate_median": [
+      "reachability_cones",
+      "tube_capture_gate_median"
+    ],
+    "mnj3d_spectral_radius_median": [
+      "global_mnps_jacobian_3d",
+      "spectral_radius_median"
+    ],
+    "mnj3d_frobenius_norm_median": [
+      "global_mnps_jacobian_3d",
+      "frobenius_norm_median"
+    ],
+    "mnj9d_spectral_radius_median": [
+      "global_mnps_jacobian_9d",
+      "spectral_radius_median"
+    ]
+  },
+  "trajectory_feature_specs": {
+    "trajectory_3d_noetic_action": [
+      "trajectory_geometry_subject_anchored_3d",
+      "noetic_action"
+    ]
+  },
+  "score_orientation": {
+    "score_tube_d_eff_median": {
+      "raw_feature": "reach_tube_d_eff_median",
+      "sign": 1.0,
+      "note": "higher raw value expected in CPC1"
+    },
+    "score_tube_capture_gate_median": {
+      "raw_feature": "reach_tube_capture_gate_median",
+      "sign": -1.0,
+      "note": "lower raw value expected in CPC1"
+    },
+    "score_mnj3d_spectral_radius_median": {
+      "raw_feature": "mnj3d_spectral_radius_median",
+      "sign": -1.0,
+      "note": "lower raw value expected in CPC1"
+    },
+    "score_mnj3d_frobenius_norm_median": {
+      "raw_feature": "mnj3d_frobenius_norm_median",
+      "sign": -1.0,
+      "note": "lower raw value expected in CPC1"
+    },
+    "score_mnj9d_spectral_radius_median": {
+      "raw_feature": "mnj9d_spectral_radius_median",
+      "sign": -1.0,
+      "note": "lower raw value expected in CPC1"
+    },
+    "score_trajectory_3d_noetic_action": {
+      "raw_feature": "trajectory_3d_noetic_action",
+      "sign": -1.0,
+      "note": "lower raw value expected in CPC1"
+    }
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "schema": "illusionGame_EAP.phase0_audit.v1",
+  "audit_date": "2026-07-12",
+  "scope": {
+    "completed": "Read-only audit of existing ds004587 BIDS source and completed NMD export.",
+    "not_completed": [
+      "No NMD pipeline was run.",
+      "No external data were changed.",
+      "No source code, manuscript, or Cursor plan was changed."
+    ]
+  },
+  "dataset": {
+    "id": "ds004587",
+    "name": "IllusionGameEEG_data",
+    "version": "1.0.0",
+    "doi": "10.18112/openneuro.ds004587.v1.0.0",
+    "canonical_received_root": "K:\\ExternalReceivedDatasets\\openneuro\\received\\ds004587"
+  },
+  "run": {
+    "id": "neuralmanifolddynamics_ds004587_20260711_235903",
+    "canonical_run_root": "K:\\ExternalReceivedDatasets\\openneuro\\processed_ds004587_full\\ds004587\\neuralmanifolddynamics_ds004587_20260711_235903",
+    "audited_copy_root": "J:\\repos\\NoeticDiffusion\\data\\raw\\neuralmanifolddynamics_ds004587_20260711_235903",
+    "manifest_created_at": "2026-07-12T00:02:27+00:00",
+    "pipeline_git_revision": "ba91e65bf809b087f02b601b10404a13cdde4f52",
+    "status": "completed",
+    "command": "all --dataset ds004587 --config mndm/config/config_ingest_ds004587.yaml --data-dir K:/ExternalReceivedDatasets/openneuro/received --out-dir K:/ExternalReceivedDatasets/openneuro/processed_ds004587_full --n-jobs 1 --mem-budget-gb 8",
+    "provenance_hashes_sha256": {
+      "run_manifest.json": "5e2915163f923b3f442994a7d6ecfbaf7a39391bb7b8d9b6b33e3f23dc5f871f",
+      "config_ingest_ds004587.yaml": "e0a9e659c8e308d23e34783fd64db643a5fbbaac88a9254d0fc00af12710874a",
+      "features_snapshot.json": "d8a164c29d011880fe69082cfb73f9a297e309aa78cc83efc9390f690a73a21d",
+      "command_used.txt": "74c74b291ad5c042e290cbeab2bbd26cb5981de60ecb60572d4a19e43c2b6a8e"
+    }
+  },
+  "artifact_inventory": {
+    "run_root_files": {
+      "h5": 57,
+      "summary_json": 57,
+      "qc_summary_json": 57,
+      "qc_reliability_json": 57,
+      "run_manifest": true,
+      "config": true,
+      "features_snapshot": true,
+      "normalization_report": true,
+      "regional_mnps_csv": 1,
+      "block_jacobian_csv": 0
+    },
+    "exported_subjects": 47,
+    "exported_runs": 57,
+    "exported_task_values": ["illusion_game"],
+    "exported_condition_values": [],
+    "exported_windows": {
+      "total": 10251,
+      "per_run_min": 26,
+      "per_run_median": 215,
+      "per_run_max": 273
+    },
+    "present_in_all_h5": {
+      "mnps_3d": true,
+      "mnps_9d": true,
+      "mnj_3d": true,
+      "mnj_9d": true,
+      "subject_anchored_coords_3d": true,
+      "subject_anchored_coords_9d": true,
+      "raw_features": true,
+      "robust_z_features": true,
+      "regional_mnps": true
+    },
+    "absent_from_all_h5": {
+      "feature_anchors": true,
+      "anchor_state": true,
+      "anchor_quality": true,
+      "anchor_coupling": true,
+      "cohort_anchored_coordinates": true,
+      "time_reference": true,
+      "labels_or_stage": true,
+      "events": true,
+      "event_windows": true,
+      "block_native_windows": true,
+      "block_jacobians": true
+    },
+    "raw_feature_contract": {
+      "feature_count": 145,
+      "physiology_features_verified": [
+        "ecg_hr_bpm",
+        "ecg_hrv_rmssd_ms",
+        "ecg_hrv_sdnn_ms",
+        "phi_cardiac_mean",
+        "hep_amplitude",
+        "resp_anchor_index",
+        "phi_resp_mean",
+        "resp_rate_bpm",
+        "ppg_quality_score",
+        "cardioresp_coherence"
+      ],
+      "note": "These are window-level feature columns, not the missing formal anchor_state or event-alignment contract."
+    }
+  },
+  "canonical_bids_inventory": {
+    "total_files": 1605,
+    "subjects": 103,
+    "ig_eeg_vhdr_subjects": 103,
+    "ig_events_subjects": 103,
+    "ig_physio_subjects": 101,
+    "rest_physio_subjects": 101,
+    "ig_behavior_subjects": 100,
+    "rest_behavior_subjects": 103,
+    "rest_eeg_vhdr_subjects": 0,
+    "missing_ig_and_rest_physiology_subjects": ["sub-FFE111", "sub-FFE116"],
+    "missing_ig_behavior_subjects": ["sub-FFE117", "sub-FFE139", "sub-FFE146"],
+    "multi_run_subjects": {
+      "sub-FFE007": {"eeg_runs": 2, "event_files": 2},
+      "sub-FFE111": {"eeg_runs": 6, "event_files": 6},
+      "sub-FFE121": {"eeg_runs": 6, "event_files": 6}
+    },
+    "available_raw_trial_fields": [
+      "rt",
+      "response",
+      "correct",
+      "type",
+      "illusion_strength",
+      "illusion_difference",
+      "block",
+      "block_number",
+      "trial_number"
+    ],
+    "events_contract": {
+      "files": 114,
+      "representative_columns": ["onset", "duration", "trial_type", "value", "sample"],
+      "representative_file": "sub-FFE001/ses-01/eeg/sub-FFE001_ses-01_task-IG_run-01_events.tsv",
+      "finding": "The representative event file contains only the recording-start marker; it is not itself a trial-label table."
+    }
+  },
+  "analysis_capability": {
+    "geometry_within_existing_ig_export": "available",
+    "window_level_anchor_feature_geometry_association_within_ig": "technically feasible only after a separate QC/analysis implementation; not audited as synchronized or inferentially valid here",
+    "primary_paired_rest_vs_illusion_neural_geometry": "not possible from current export or canonical source because no rest EEG recording exists",
+    "formal_anchor_state_or_anchor_quality_analysis": "not possible from current export",
+    "event_or_trial_aligned_illusion_strength_analysis": "not possible from current export",
+    "behavior_moderation": "not possible from current export; raw IG behavior exists for 100 subjects but lacks an exported alignment contract"
+  },
+  "required_next_action": {
+    "reingest_required": true,
+    "why": [
+      "The completed export contains no labels, events, event_windows, time_reference, block_windows, anchor_state, anchor_quality, or anchor_coupling artifacts.",
+      "The manifest indexes only illusion_game and no condition labels, despite BIDS behavioral files containing trial-level fields."
+    ],
+    "reingest_cannot_resolve": [
+      "The canonical BIDS source has no rest EEG .vhdr files; re-ingestion can export rest physiology but cannot create rest neural geometry.",
+      "EEG-to-behavior/physiology clock alignment must be validated from raw timing evidence rather than assumed from matching filenames."
+    ],
+    "decision": "Do not begin the planned rest-versus-illusion neural contrast. Re-ingest only after specifying label/event and physiology-clock export requirements; separately decide whether to reframe the primary question or obtain rest EEG."
+  },
+  "inclusion_exclusion_policy": {
+    "unit": "subject-run for current IG-only geometry; paired subject only where both required modalities and conditions truly exist",
+    "retain": "IG EEG runs with export geometry validity and the required analysis-specific QC.",
+    "exclude_missing_physiology": ["sub-FFE111", "sub-FFE116"],
+    "exclude_behavior_moderation_only": ["sub-FFE117", "sub-FFE139", "sub-FFE146"],
+    "multi_run_policy": "Do not pool duplicate or special runs by filename alone. Predeclare a single-run selection or run-level model; audit sub-FFE007 (2), sub-FFE111 (6), and sub-FFE121 (6) before analysis.",
+    "rest_policy": "Exclude all subjects from a paired rest-versus-illusion neural analysis under the currently available source, because rest EEG is absent for every subject."
+  },
+  "evidence_files": [
+    "run_manifest.json",
+    "config_ingest_ds004587.yaml",
+    "features_snapshot.json",
+    "normalization_report.json",
+    "K:\\ExternalReceivedDatasets\\openneuro\\received\\ds004587"
+  ]
+}

@@ -1128,6 +1128,15 @@ def _build_adapters_impl(config_path: Path) -> Dict[str, LegacyAnalysisAdapter]:
             "regional_reachability_cones_3d", _rows_regional_reachability_cones_3d
         ),
     }
+    # Imported lazily to keep this compatibility module free of import cycles.
+    from .local_dynamics import collectors as local_dynamics_collectors
+
+    adapters.update(
+        {
+            analysis_type: LegacyAnalysisAdapter(analysis_type, collect_rows)
+            for analysis_type, collect_rows in local_dynamics_collectors().items()
+        }
+    )
     if cfg.flags.sleep_data_contrast:
         adapters.update(
             {

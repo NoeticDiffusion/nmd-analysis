@@ -1,0 +1,86 @@
+# Zenodo draft manifest for this article folder.
+# python -m zenodo deposit articles/RVC_SLEEP --dry-run
+
+id: rvc_sleep
+aliases:
+  - RVC_SLEEP
+  - spindle_dn_timing
+  - Rhythmic Variance Control at Sleep Spindles
+
+name: "Sleep Spindles Briefly Shift Cortical Network Geometry in Two Independent Overnight EEG Datasets"
+subtitle: "A timing-locked change in how far the EEG state sits from an integration–segregation balance; a third dataset did not confirm the same test, and pre-spindle heart and breathing state did not detectably moderate the effect"
+
+description: >-
+  <p>Sleep spindles are short thalamocortical bursts during N2 sleep. This
+  article asks whether they coincide with a brief change in the geometric
+  structure of cortical EEG. Each 30 s window is summarized with a
+  nine-coordinate Meta-Noetic Phase Space (MNPS) chart: mobility, deviation
+  from an integration–segregation balance, and entropy/complexity.</p>
+  <p>The primary test compared each spindle with its own pre-event
+  baseline, weighting subjects equally, in three overnight recordings
+  (ANPHY, N=27; BOAS, analysis N=110–112; RichSleep, N=24). In ANPHY and
+  BOAS the balance-deviation coordinate rose at the spindle (+0.106 and
+  +0.165; permutation FDR q=0.009 and 0.011). The same timing test in
+  RichSleep was inconclusive (q=0.72; 160 paired events). A broader
+  comparison with matched non-spindle N2 windows is baseline-sensitive
+  and is not used as a substitute timing confirmation.</p>
+  <p>Pre-spindle heart-rate and breathing state did not detectably change
+  the size of this EEG-only effect under tonic composite anchors,
+  including a dual-arm cardiorespiratory index in RichSleep, or under two
+  lower-powered phase-resolved tests. This is a two-dataset timing result
+  plus a scoped null, not a three-dataset mechanism confirmation.</p>
+
+keywords:
+  custom:
+    - cortical geometry
+    - integration-segregation balance
+    - within-spindle timing
+    - cardiorespiratory coupling
+    - sleep spindles
+    - overnight EEG
+  mesh:
+    - mesh:D004569 # Electroencephalography
+    - mesh:D012890 # Sleep
+    - mesh:D012894 # Sleep Stages
+    - mesh:D015203 # Reproducibility of Results
+    - mesh:D006339 # Heart Rate
+    - mesh:D008962 # Models, Theoretical
+    - mesh:D017711 # Nonlinear Dynamics
+    - mesh:D004594 # Electrophysiology
+  euroscivoc:
+    - euroscivoc:1005 # Computational neuroscience
+    - euroscivoc:1055 # Dynamical systems
+    - euroscivoc:1215 # Signal processing
+    - euroscivoc:1059 # Mathematical model
+    - euroscivoc:357 # Statistics and probability
+    - euroscivoc:1061 # Numerical analysis
+
+files:
+  manuscript: Sleep Spindles Briefly Shift Cortical Network Geometry in Two Independent Overnight EEG Datasets.typ
+  supplements:
+    pattern: "^S[1-6]_.*\\.typ$"
+  include_compiled: true
+  include_source: false
+  extra:
+    - references.bib
+  exclude:
+    - "^template_eLife\\.typ$"
+    - "^manuscript\\.pdf$"
+    - "^manuscript\\.typ$"
+    - ".*Three-Dataset Replication\\.txt$"
+
+zenodo:
+  record_id: 22206108
+  version_doi: "10.5281/zenodo.22206108"
+  concept_doi: "10.5281/zenodo.22206107"
+  deposition_id: null
+
+metadata:
+  publication_type: preprint
+  version: "0.1"
+  notes: >-
+    Two-dataset A2r d_n timing result (ANPHY, BOAS). RichSleep A2r of the
+    same estimand is inconclusive. Tonic EAP composite-anchor moderation
+    was not detected under the models tested. Not a three-dataset RVC
+    mechanism confirmation. Claim scope revised 2026-08-30 after
+    adversarial self-review (pr_01 major / pr_02 minor).

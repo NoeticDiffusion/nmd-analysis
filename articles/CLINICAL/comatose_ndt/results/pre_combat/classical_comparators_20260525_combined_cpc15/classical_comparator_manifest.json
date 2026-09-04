@@ -1,0 +1,51 @@
+{
+  "timeline_dir": "H:\\SourceRepo2\\NoeticDiffusion\\articles\\CLINICAL\\comatose_ndt\\results\\timeline_analysis_20260525_combined_cpc15_primary12h",
+  "primary_time_bin": "0_12h",
+  "good_cpc": 1,
+  "poor_cpc": 5,
+  "comparator_specs": [
+    [
+      "MNPS 3D",
+      "mnps_path_length",
+      "MNPS path length"
+    ],
+    [
+      "MNPS 3D",
+      "mnps_step_norm_median",
+      "MNPS step norm"
+    ],
+    [
+      "MNPS 3D",
+      "mnps_displacement",
+      "MNPS displacement"
+    ],
+    [
+      "MNPS 9D",
+      "coords_9d_global_std_mean",
+      "9D global std mean"
+    ],
+    [
+      "MNJ",
+      "jacobian_fro_median",
+      "MNJ Frobenius norm"
+    ],
+    [
+      "MNJ",
+      "jacobian_spectral_radius_median",
+      "MNJ spectral radius"
+    ],
+    [
+      "MNJ",
+      "jacobian_trace_median",
+      "MNJ trace"
+    ],
+    [
+      "MNJ",
+      "jacobian_condition_median",
+      "MNJ condition"
+    ]
+  ],
+  "unavailable_notes": {
+    "coords_9d_global_std_mean": "9D summaries were omitted from the locked export because the upstream ingest used a temporary stability override with `mnps_9d.enabled: false` after duplicated / degenerate 9D coordinate columns triggered a fail-fast validation stop. This was a data-integrity safeguard to avoid silently writing misleading 9D Jacobian / trajectory summaries, not evidence that 9D lacks value."
+  }
+}

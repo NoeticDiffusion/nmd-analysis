@@ -1,0 +1,98 @@
+# Zenodo draft manifest for this article folder.
+# python -m zenodo deposit ndt_v2 --dry-run
+#
+# This is NDT 1.0, intended as the next version of the existing identity
+# record (concept 10.5281/zenodo.17367307; latest v.0.8 is 20112950).
+# Create a New version in the Zenodo UI, then:
+#   python -m zenodo deposit ndt_v2 --deposition-id <draft-id>
+# S6 is internal and is not uploaded.
+
+id: ndt_v2
+aliases:
+  - NDT 1.0
+  - NDT v2
+  - NoeticDiffusionTheory_v2
+  - Noetic Diffusion Theory: Neural State, Dynamical Accessibility, and the Geometry of Possible Futures
+
+name: "Noetic Diffusion Theory: Neural State, Dynamical Accessibility, and the Geometry of Possible Futures"
+subtitle: "A multiscale framework for rhythmically and contextually controlled neural dynamics"
+
+description: >-
+  <p>Noetic Diffusion Theory (NDT) proposes that neural states relevant to
+  cognition and consciousness are characterized not only by present
+  configuration, but by the structured distribution of futures available from
+  that configuration. This property is <em>dynamical accessibility</em>: a
+  control-dependent stochastic law over how activity tends to move, how
+  fluctuations spread, which destinations remain open, and how the system
+  responds to perturbation. Drift, diffusion geometry, local reactivity,
+  short-horizon predictive spread, basin commitment, and finite-amplitude
+  resilience are non-equivalent. Reduced coordinates need not be sufficient
+  statistics for future dynamics; matched present states can have different
+  future laws. Measurement charts are operational interfaces, not the theory.
+  Three bounded empirical anchors (spindles, coma, DANDI 000458) constrain
+  layers. NDT is not a consciousness scalar.</p>
+
+keywords:
+  custom:
+    - Noetic Diffusion Theory
+    - dynamical accessibility
+    - neural dynamics
+    - state-space geometry
+    - stochastic diffusion
+    - measurement contracts
+    - consciousness
+  mesh:
+    - mesh:D008962 # Models, Theoretical
+    - mesh:D017711 # Nonlinear Dynamics
+    - mesh:D013269 # Stochastic Processes
+    - mesh:D003243 # Consciousness
+    - mesh:D004569 # Electroencephalography
+    - mesh:D001931 # Brain Mapping
+    - mesh:D015203 # Reproducibility of Results
+  euroscivoc:
+    - euroscivoc:1005 # Computational neuroscience
+    - euroscivoc:1007 # Cognitive neuroscience
+    - euroscivoc:1055 # Dynamical systems
+    - euroscivoc:1059 # Mathematical model
+    - euroscivoc:357 # Statistics and probability
+
+files:
+  manuscript: Noetic Diffusion Theory - Neural State, Dynamical Accessibility, and the Geometry of Possible Futures.typ
+  compiled_manuscript: Noetic Diffusion Theory - Neural State, Dynamical Accessibility, and the Geometry of Possible Futures.pdf
+  supplements:
+    pattern: "^S[1-5]_.*\\.typ$"
+  include_compiled: true
+  include_source: false
+  extra:
+    - references.bib
+  exclude:
+    - "^template_eLife\\.typ$"
+    - "^manuscript\\.pdf$"
+    - "^manuscript\\.typ$"
+    - "^S6_.*$"
+    - "^S4_Supplementary_Clinical.*"
+    - "^S4_Non_technical_explaination\\.txt$"
+
+zenodo:
+  record_id: 20112950
+  version_doi: "10.5281/zenodo.20112950"
+  concept_doi: "10.5281/zenodo.17367307"
+  deposition_id: null
+
+metadata:
+  publication_type: workingpaper
+  version: "1.0"
+  notes: >-
+    NDT 1.0 theoretical framework, intended as the next version of concept
+    10.5281/zenodo.17367307 (public v.0.8 is 10.5281/zenodo.20112950). C1
+    alone is not distinctive; empirical content is C2 and C3. Three empirical
+    anchors only (spindles, coma, DANDI 000458). S6 is internal and is not
+    part of this package. Not a consciousness scalar, bedside score, or NCC
+    identity theory.
+  related_identifiers:
+    - identifier: "10.5281/zenodo.20112950"
+      relation: isNewVersionOf
+      resource_type: publication
+    - identifier: "10.5281/zenodo.17367307"
+      relation: isVersionOf
+      resource_type: publication

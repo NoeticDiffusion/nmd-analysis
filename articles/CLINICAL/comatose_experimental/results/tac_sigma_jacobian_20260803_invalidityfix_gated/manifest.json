@@ -1,0 +1,33 @@
+{
+  "processed_roots": [
+    "data\\raw\\neuralmanifolddynamics_physionet_icare_2_1_20260605_202236",
+    "data\\raw\\neuralmanifolddynamics_physionet_icare_2_1_20260605_210700"
+  ],
+  "timeline_dir": "articles\\CLINICAL\\comatose_ndt\\results\\timeline_analysis_20260606_combined_invalidityfix_primary12h",
+  "output_dir": "articles\\CLINICAL\\comatose_experimental\\results\\tac_sigma_jacobian_20260803_invalidityfix_gated",
+  "good_cpc": 1,
+  "poor_cpc": 5,
+  "primary_time_bin": "0_12h",
+  "sigma_window": 20,
+  "sigma_step": 5,
+  "n_runs": 3467,
+  "n_subjects": 281,
+  "n_9d_usable_runs": 1337,
+  "n_9d_gated_runs": 2130,
+  "geometry_contract_gate": {
+    "enabled": true,
+    "rules": [
+      "gate runs with non-empty coords_9d degenerate_axes",
+      "gate runs with jacobian_9d windows_retained <= 0"
+    ]
+  },
+  "output_metrics": [
+    "tac6_3d_sigma_velocity_median",
+    "tac6_9d_sigma_velocity_median",
+    "tac8_3d_cone_twist_median",
+    "tac8_9d_cone_twist_median",
+    "tac10_9d_cross_band_flux_median",
+    "tac10_9d_within_band_flux_median",
+    "tac10_9d_cross_band_ratio_median"
+  ]
+}

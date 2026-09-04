@@ -1,0 +1,64 @@
+dataset: ds006036
+description: "Focused photic dementia pilot: subject x frequency response interactions"
+
+input:
+  cleaned_root: null
+
+output:
+  directory: "../data/analysis/dementia_ds006036_20260812_130118"
+  filename_pattern: "ds006036_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+
+runtime:
+  fail_on_missing_input: false
+  continue_on_error: false
+
+qc:
+  require_finite_ok: true
+  exclude_not_testable: true
+  exclude_validity_limited: false
+
+design:
+  grain: subject_frequency
+  subject_column: subject_id
+  condition_column: frequency_hz
+  group_column: group
+  frequency_levels_hz: [5, 10, 15, 20]
+  horizon_steps: 4
+  minimum_metric_support: 2
+  complete_case_frequency_profile: true
+
+statistics:
+  permutation_n: 1000
+  random_seed: 6036
+  fdr_family: primary_9d_ftr_interactions
+
+primary_metrics:
+  - mean_log_g_max
+  - mean_d_resp
+  - mean_c_1
+
+secondary_metrics:
+  jacobian_9d:
+    - mean_spectral_abscissa
+    - mean_numerical_abscissa
+    - mean_reactivity_gap
+    - stable_reactive_fraction
+  reference_3d:
+    ftr:
+      - mean_log_g_max
+      - mean_d_resp
+      - mean_c_1
+    jacobian:
+      - mean_spectral_abscissa
+      - mean_numerical_abscissa
+      - mean_reactivity_gap
+      - stable_reactive_fraction
+
+model_fidelity:
+  metric: transition_residual_mean_norm
+  grain: subject_frequency
+  stratify_by: [group, frequency_hz]
