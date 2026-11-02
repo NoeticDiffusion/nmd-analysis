@@ -28,38 +28,12 @@
   ],
 )
 
-#let langell-year = (
-  "langell2025ndt": "2026a",
-  "langell2026_dandi000458": "2026b",
-  "langell2026_ibl2": "2026c",
-  "langell2026_truth_known": "2026d",
-  "langell2026_thalamic_access": "2026e",
-  "langell2026_trn_geometry": "2026f",
-  "langell2026_ta_rolon": "2026g",
-  "langell2026_hels_a": "2026h",
-  "langell2026_slow_branch": "2026i",
-  "langell2026_rvc_spindles": "2026j",
-  "langell2026_coma_v011": "2026k",
-  "langell2026_avb_omission": "2026l",
-  "langell2026_dandi000574": "2026m",
-  "langell2026_ndt_theories": "2026n",
-)
-
-// Keep APA year-letters identical to the main article.
-#show cite: it => {
-  let k = str(it.key)
-  if k.starts-with("<") { k = k.slice(1, k.len() - 1) }
-  if k in langell-year {
-    [#hide(it) (Langell, #langell-year.at(k))]
-  } else {
-    it
-  }
-}
+#import "langell_citations.typ": langell-cite
+#show cite: langell-cite
 
 #show bibliography: it => {
-  show "(2026b, )": [(2026g, )]
-  show "(2026b). Rhythmic": [(2026g). Rhythmic]
-  show "(2026c). Recovery-Linked": [(2026h). Recovery-Linked]
+  show "(2026b). Sleep Spindles": [(2026j). Sleep Spindles]
+  show "(2026c). Recovery-Linked": [(2026k). Recovery-Linked]
   show "(2026d). Trial-aligned": [(2026b). Trial-aligned]
   it
 }

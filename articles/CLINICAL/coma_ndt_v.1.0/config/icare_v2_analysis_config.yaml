@@ -1,0 +1,37 @@
+bundle_id: "20260904_225047"
+dataset_id: physionet_icare_2_1
+confirmatory_status: exploratory_pending_part2
+coordinate_contract: subject_anchored
+
+paths:
+  raw_root: "J:/repos/nmd-analysis/data/raw/neuralmanifolddynamics_physionet_icare_2_1_20260904_225047"
+  output_root: "J:/repos/nmd-analysis/articles/CLINICAL/coma_ndt_v.1.0/results/full"
+  smoke_output_root: "J:/repos/nmd-analysis/articles/CLINICAL/coma_ndt_v.1.0/results/smoke"
+
+cohort:
+  good_cpc: 1
+  poor_cpc: 5
+  good_label: CPC1
+  poor_label: CPC5
+
+timing:
+  primary_scheme: primary_12h
+  hourly_scheme: hourly_12h
+  primary_window: "0_12h"
+  assignment: run_midpoint_from_anchor_hours
+
+reachability:
+  k: 25
+  method: ridge
+  ridge_alpha: 0.001
+  super_window_size: 3
+  horizons: [1, 2, 4]
+  jitter: 1.0e-6
+  eps: 1.0e-12
+
+diffusion:
+  epsilon: 1.0e-12
+
+statistics:
+  bh_alpha: 0.05
+  min_group_n: 2

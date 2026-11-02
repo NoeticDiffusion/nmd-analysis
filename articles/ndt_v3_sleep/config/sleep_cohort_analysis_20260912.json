@@ -1,0 +1,106 @@
+{
+  "schema": "ndt.sleep.cohort_delivery_config.v1",
+  "config_date": "2026-09-12",
+  "status": "frozen_ready_for_current_ingest_manifest",
+  "study_role": "descriptive_full_local_cohort_development",
+  "preregistration": false,
+  "dataset_id": "ds005555",
+  "source": {
+    "manifest_path": null,
+    "manifest_sha256": null,
+    "manifest_required": true,
+    "ingest_inventory_path": "H:/SourceRepo2/NeuralManifoldDynamics/project/v3/sleep_dataset_delivery_20260912/ingest_inventory.json",
+    "ingest_execution_manifest_path": "H:/SourceRepo2/NeuralManifoldDynamics/project/v3/sleep_dataset_delivery_20260912/execution_manifest_full.json",
+    "processed_root": "J:/repos/nmd-analysis/.w/sleep_dataset_delivery_20260912/processed",
+    "participant_tables": {
+      "tsv": {
+        "path": "K:/ExternalReceivedDatasets/openneuro/ds005555/participants.tsv",
+        "sha256": "0591b6323bd101af1c6871053aea4351a6cdd12e08f2aeff9a084b4692a03110"
+      },
+      "json": {
+        "path": "K:/ExternalReceivedDatasets/openneuro/ds005555/participants.json",
+        "sha256": "c9773720c63abb296b7d1f4a9205dbc88b566b7073ad5178783f8ada3d2cb63e"
+      }
+    },
+    "selection": "current continuous full-night dynamical-families producer manifest supplied by ingest; inventory and completed execution manifest are required",
+    "require_continuous_fullnight": true,
+    "reject_stage_sampled_historical_runs": true,
+    "require_one_h5_and_sha256_per_expected_recording": true,
+    "require_unique_subject_recording_identity": true,
+    "require_outcome_for_every_expected_entry": true,
+    "expected_subject_count": 128,
+    "expected_unique_participant_count": 100,
+    "expected_subject_ids": {"prefix": "sub-", "numeric_min": 1, "numeric_max": 128},
+    "prior_development_subjects": ["sub-1", "sub-99"],
+    "historical_development2_inputs": [
+      "sub-99 and sub-1 H5 files from the 2026-09-10 independent/development2 work; excluded as source files. Fresh current H5s for these recording IDs remain in the 128-recording cohort and are flagged prior_development2."
+    ]
+  },
+  "reference": {
+    "coordinate_layer": "subject_anchored",
+    "coordinate_reference": "recording_global",
+    "full_signal_support": "unknown_unless_explicitly_recorded",
+    "stage_purity_status": "not_assessed",
+    "per_stage_refit": false,
+    "canonical_mnps": {
+      "3d_order": ["m", "d", "e"],
+      "9d_order": ["m_a", "m_e", "m_o", "d_n", "d_l", "d_s", "e_e", "e_s", "e_m"]
+    }
+  },
+  "labels": {
+    "known": {"0": "Wake", "1": "N1", "2": "N2", "3": "N3", "4": "REM"},
+    "code8": "Code8",
+    "other_or_missing": "Unknown",
+    "unknown_policy": "retain_separate_exclude_from_known_stage_contrast"
+  },
+  "endpoints": [
+    {"family": "local_jacobian", "dimension": 3, "metrics": ["spectral_abscissa", "numerical_abscissa", "reactivity_gap"]},
+    {"family": "local_jacobian", "dimension": 9, "metrics": ["spectral_abscissa", "numerical_abscissa", "reactivity_gap"]},
+    {"family": "diffusion_geometry", "dimension": 3, "metrics": ["D_total", "d_diff", "c_diff"]}
+  ],
+  "aggregation": {
+    "row_unit": "recording_window",
+    "subject_unit": "unique_participant_pid",
+    "stage_statistics": ["n", "median", "q25", "q75"],
+    "subject_contrast": "N2_median_minus_Wake_median",
+    "contrast_requires_one_used_finite_row_per_group": true,
+    "cohort_statistics": ["n_participants", "median", "q25", "q75"],
+    "cohort_aggregation_unit": "participant_level_medians_or_contrasts_after_recording_aggregation",
+    "pool_epochs": false,
+    "p_values": false,
+    "qualification": "not_evaluated_null"
+  },
+  "inventory_only_families": [
+    "finite_time_response",
+    "transition_residuals",
+    "transition_residual_covariance_proxy",
+    "stochastic_reachability",
+    "destination",
+    "resilience",
+    "independent_drift",
+    "A_bD",
+    "R_b_over_a"
+  ],
+  "missingness": {
+    "preserve_states": ["missing", "unavailable", "not_testable", "invalid", "failed", "unknown"],
+    "zero_substitution": false,
+    "imputation": false
+  },
+  "outputs": {
+    "root": "results/sleep_cohort_20260912",
+    "refuse_nonempty": true,
+    "expected": [
+      "analysis_manifest.json",
+      "source_outcomes.json",
+      "endpoint_rows.json",
+      "recording_stage_summaries.json",
+      "recording_n2_minus_wake.json",
+      "participant_stage_summaries.json",
+      "participant_n2_minus_wake.json",
+      "cohort_stage_summaries.json",
+      "cohort_n2_minus_wake.json",
+      "family_inventory.json"
+    ]
+  },
+  "claim_status": "no_biological_claim"
+}

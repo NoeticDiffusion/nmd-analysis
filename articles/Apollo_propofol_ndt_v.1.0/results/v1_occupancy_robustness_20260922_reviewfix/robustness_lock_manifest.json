@@ -1,0 +1,521 @@
+{
+  "schema": "apollo_propofol_ndt_v1.occupancy_robustness_lock.v1",
+  "analysis_version": "apollo_occupancy_robustness_20260922_v1",
+  "created_at": "2026-09-22T07:20:22.252622+00:00",
+  "computational_lock": {
+    "status": "LOCKED",
+    "criteria": "inputs, source code, plan, outputs hashed; tests and bounded run complete"
+  },
+  "scientific_confirmatory_lock": {
+    "status": "OPEN",
+    "reason": "post-hoc exploratory branch; independent G3 review and confirmatory G4 remain outstanding"
+  },
+  "measurement_boundary": "existing eight spectral features and original baseline-fixed occupancy eligibility; no MNPS definition change",
+  "variants": {
+    "reference": "full_mad",
+    "leave_one_feature_out": [
+      "loo_eeg_delta",
+      "loo_eeg_theta",
+      "loo_eeg_alpha",
+      "loo_eeg_beta",
+      "loo_eeg_gamma",
+      "loo_eeg_alpha_theta",
+      "loo_eeg_beta_alpha",
+      "loo_eeg_sample_entropy"
+    ],
+    "scale_alternatives": [
+      "scale_sd",
+      "scale_iqr"
+    ]
+  },
+  "parameters": {
+    "features": [
+      "eeg_delta",
+      "eeg_theta",
+      "eeg_alpha",
+      "eeg_beta",
+      "eeg_gamma",
+      "eeg_alpha_theta",
+      "eeg_beta_alpha",
+      "eeg_sample_entropy"
+    ],
+    "baseline_phase": "pre_drug_baseline",
+    "ordered_later_phases": [
+      "first_protocol_sedation",
+      "later_protocol_sedation",
+      "recovery"
+    ],
+    "dt_min": 3.8,
+    "dt_max": 4.2,
+    "mad_floor": 1e-08,
+    "iqr_normal_consistency": 1.3489795003921634,
+    "randomness": "none",
+    "participant_unit": true,
+    "eligibility_policy": "reference full-MAD mask reused by every variant"
+  },
+  "inputs": {
+    "labels": {
+      "path": "J:\\repos\\nmd-analysis\\articles\\Apollo_propofol_ndt_v.1.0\\results\\ingest_20260920\\g1_recording_labels.csv",
+      "sha256": "29ed9600b6b2e7e434468e886dfb316601f32c888da7c2663a0c68eaf0f63b85"
+    },
+    "support": {
+      "path": "J:\\repos\\nmd-analysis\\articles\\Apollo_propofol_ndt_v.1.0\\results\\ingest_20260920\\g2_recording_support.csv",
+      "sha256": "f3123b37a8a3745def7f4755fe573e162acfb0ca36bd5ac29ac2f1e9c3a32955"
+    },
+    "config": {
+      "path": "J:\\repos\\nmd-analysis\\articles\\Apollo_propofol_ndt_v.1.0\\config\\ndt-analysis-apollo-propofol-v1.yaml",
+      "sha256": "22ae6d5d9740876dcdf1087494dedbf5d2bb2e63046d6f4f909b410a60476309"
+    },
+    "preanalysis_plan": {
+      "path": "J:\\repos\\nmd-analysis\\articles\\Apollo_propofol_ndt_v.1.0\\preregistration\\addendum_20260922_occupancy_robustness.md",
+      "sha256": "11aac18276df4591b23819ef4c70cec1c371a7e51468e2b04a47dca9dd96ede7"
+    },
+    "frozen_occupancy_inputs": {
+      "root": "J:\\repos\\nmd-analysis\\articles\\Apollo_propofol_ndt_v.1.0\\results\\v1_occupancy_20260921",
+      "files": {
+        "occupancy_subject.csv": "d8d094c8165c2816642b0dc749e93e858150555c0fe909668c378f6cf2c74f82",
+        "occupancy_contrasts.csv": "97b5d070db5bf1bc5fbb66a9ab741a371f6bbf5bc751c4c0d6a2ff74b64eb3c3",
+        "occupancy_part1_manifest.json": "2a1352360c73fd8a42605667072d0634733c045316d5a6e69baac8ab4661659e"
+      }
+    },
+    "h5_files": [
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-002_sedation_rest_run-003_acq-135\\sub-002_sedation_rest_run-003_acq-135.h5",
+        "relative_to_h5_root": "sub-002_sedation_rest_run-003_acq-135\\sub-002_sedation_rest_run-003_acq-135.h5",
+        "sha256": "1635513f690ae01807a9495d920052ddc2a2c9a568d3b8a76bb04139bca993ba"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-002_sedation_rest_run-003_acq-16\\sub-002_sedation_rest_run-003_acq-16.h5",
+        "relative_to_h5_root": "sub-002_sedation_rest_run-003_acq-16\\sub-002_sedation_rest_run-003_acq-16.h5",
+        "sha256": "0721a0d6c030d41d37b28ec7b19662a41ad9315892258b0c20266230a663ee7f"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-002_sedation_rest_run-006_acq-135\\sub-002_sedation_rest_run-006_acq-135.h5",
+        "relative_to_h5_root": "sub-002_sedation_rest_run-006_acq-135\\sub-002_sedation_rest_run-006_acq-135.h5",
+        "sha256": "8d94540a4b5daec6ced8afdfdd4f6cc4bd349d3a70902c24c8eb4fb5bf44716d"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-002_sedation_rest_run-014_acq-135\\sub-002_sedation_rest_run-014_acq-135.h5",
+        "relative_to_h5_root": "sub-002_sedation_rest_run-014_acq-135\\sub-002_sedation_rest_run-014_acq-135.h5",
+        "sha256": "897e359f90ab4d11a9747cee76de1d34304cebe6a7aa848e4436cfcb9916257c"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-003_sedation_rest_run-003_acq-142\\sub-003_sedation_rest_run-003_acq-142.h5",
+        "relative_to_h5_root": "sub-003_sedation_rest_run-003_acq-142\\sub-003_sedation_rest_run-003_acq-142.h5",
+        "sha256": "2209dc61f89f58ef062bdb01c5d2daf42c5f8c5aa93b55f40b30ac7cc9e5e2a4"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-003_sedation_rest_run-008_acq-142\\sub-003_sedation_rest_run-008_acq-142.h5",
+        "relative_to_h5_root": "sub-003_sedation_rest_run-008_acq-142\\sub-003_sedation_rest_run-008_acq-142.h5",
+        "sha256": "8f6f4a1ca9c6bc29e2749749c93ee3956187fbbfd965a5c232ba524478f68f7d"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-003_sedation_rest_run-021_acq-142\\sub-003_sedation_rest_run-021_acq-142.h5",
+        "relative_to_h5_root": "sub-003_sedation_rest_run-021_acq-142\\sub-003_sedation_rest_run-021_acq-142.h5",
+        "sha256": "ab4b7e1a28be16e11e25e2db4652861b616c1fe83a3dc73b96f6d3225ad75337"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-003_sedation_rest_run-026_acq-142\\sub-003_sedation_rest_run-026_acq-142.h5",
+        "relative_to_h5_root": "sub-003_sedation_rest_run-026_acq-142\\sub-003_sedation_rest_run-026_acq-142.h5",
+        "sha256": "058f8e7b0870f070f030425130770127b98960a57f93030f3ac8e5fe597c55b5"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-005_sedation_rest_run-004_acq-095\\sub-005_sedation_rest_run-004_acq-095.h5",
+        "relative_to_h5_root": "sub-005_sedation_rest_run-004_acq-095\\sub-005_sedation_rest_run-004_acq-095.h5",
+        "sha256": "56d3ab88f2ed5ef5c0f1a171c93c2912cc03ffb495100d3d339ac62758be7a9a"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-005_sedation_rest_run-009_acq-095\\sub-005_sedation_rest_run-009_acq-095.h5",
+        "relative_to_h5_root": "sub-005_sedation_rest_run-009_acq-095\\sub-005_sedation_rest_run-009_acq-095.h5",
+        "sha256": "2e48f2c384777857de254ed8d23e4aa0aecd73c2443921bfbd2f6c438d1420b1"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-005_sedation_rest_run-022_acq-095\\sub-005_sedation_rest_run-022_acq-095.h5",
+        "relative_to_h5_root": "sub-005_sedation_rest_run-022_acq-095\\sub-005_sedation_rest_run-022_acq-095.h5",
+        "sha256": "4197ea02b3597b9f8642e5951fdf0186af3855bf8abb07f9bd5271a784833d28"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-005_sedation_rest_run-027_acq-095\\sub-005_sedation_rest_run-027_acq-095.h5",
+        "relative_to_h5_root": "sub-005_sedation_rest_run-027_acq-095\\sub-005_sedation_rest_run-027_acq-095.h5",
+        "sha256": "ee6f0784d631bac1b398bf582b4f8f948b786fb5cf27f36c6e3c2cde13cee1a4"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-006_sedation_rest_run-003_acq-093\\sub-006_sedation_rest_run-003_acq-093.h5",
+        "relative_to_h5_root": "sub-006_sedation_rest_run-003_acq-093\\sub-006_sedation_rest_run-003_acq-093.h5",
+        "sha256": "aac75cd62a9fcd59054a6bbac0fafb77ff42016a9c20f16f09eece5342f5aec8"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-006_sedation_rest_run-008_acq-093\\sub-006_sedation_rest_run-008_acq-093.h5",
+        "relative_to_h5_root": "sub-006_sedation_rest_run-008_acq-093\\sub-006_sedation_rest_run-008_acq-093.h5",
+        "sha256": "d4831f895c8870e4b592c0406e0626166d16a0288f306284f1ef43ce7b140367"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-006_sedation_rest_run-013_acq-093\\sub-006_sedation_rest_run-013_acq-093.h5",
+        "relative_to_h5_root": "sub-006_sedation_rest_run-013_acq-093\\sub-006_sedation_rest_run-013_acq-093.h5",
+        "sha256": "ba6b9dca747553356aa22634ffc63595fa4d3acfaf222facd8e22abad7b755ab"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-006_sedation_rest_run-026_acq-093\\sub-006_sedation_rest_run-026_acq-093.h5",
+        "relative_to_h5_root": "sub-006_sedation_rest_run-026_acq-093\\sub-006_sedation_rest_run-026_acq-093.h5",
+        "sha256": "97f02f286a001c677ff9d16b309a019aa1919de34544a39a2aab1051ed73d17e"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-007_sedation_rest_run-003_acq-133\\sub-007_sedation_rest_run-003_acq-133.h5",
+        "relative_to_h5_root": "sub-007_sedation_rest_run-003_acq-133\\sub-007_sedation_rest_run-003_acq-133.h5",
+        "sha256": "00c7d0bda4910afc6349d78759ebe57d19488bb835d62bb0f9fbbfe4f84e14bc"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-007_sedation_rest_run-008_acq-133\\sub-007_sedation_rest_run-008_acq-133.h5",
+        "relative_to_h5_root": "sub-007_sedation_rest_run-008_acq-133\\sub-007_sedation_rest_run-008_acq-133.h5",
+        "sha256": "2d76496d6fb5f1386ac455cd11e1f5fd217ac807b4f12dc75c9ddedc26a78897"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-007_sedation_rest_run-021_acq-133\\sub-007_sedation_rest_run-021_acq-133.h5",
+        "relative_to_h5_root": "sub-007_sedation_rest_run-021_acq-133\\sub-007_sedation_rest_run-021_acq-133.h5",
+        "sha256": "42f191301116d06b78c4c9a6c4c70e72a760244dd35e39d7ae380d18553621ec"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-007_sedation_rest_run-027_acq-133\\sub-007_sedation_rest_run-027_acq-133.h5",
+        "relative_to_h5_root": "sub-007_sedation_rest_run-027_acq-133\\sub-007_sedation_rest_run-027_acq-133.h5",
+        "sha256": "74d52e63ac7ef9acffb45dfeca81e021ca7403a3942dd1ccd526e9bad19f1844"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-008_sedation_rest_run-004_acq-095\\sub-008_sedation_rest_run-004_acq-095.h5",
+        "relative_to_h5_root": "sub-008_sedation_rest_run-004_acq-095\\sub-008_sedation_rest_run-004_acq-095.h5",
+        "sha256": "727d07f67da43b3c15df89ebe1d90536fb24a5abdd8a58592d62f16cb450e7d3"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-008_sedation_rest_run-010_acq-095\\sub-008_sedation_rest_run-010_acq-095.h5",
+        "relative_to_h5_root": "sub-008_sedation_rest_run-010_acq-095\\sub-008_sedation_rest_run-010_acq-095.h5",
+        "sha256": "2f3d9f063b9486acb4270579a546cbb57c7055152bef4733b8a8c838c1503a45"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-008_sedation_rest_run-015_acq-095\\sub-008_sedation_rest_run-015_acq-095.h5",
+        "relative_to_h5_root": "sub-008_sedation_rest_run-015_acq-095\\sub-008_sedation_rest_run-015_acq-095.h5",
+        "sha256": "aadabba8501738920d1ac55aa2e315933f65b0b6d70e862afaea2933a871637e"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-008_sedation_rest_run-028_acq-095\\sub-008_sedation_rest_run-028_acq-095.h5",
+        "relative_to_h5_root": "sub-008_sedation_rest_run-028_acq-095\\sub-008_sedation_rest_run-028_acq-095.h5",
+        "sha256": "e60590346f4d4d6733267b42730f2ed6da91a0894f60365165273506fa2c45d2"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-009_sedation_rest_run-003_acq-135\\sub-009_sedation_rest_run-003_acq-135.h5",
+        "relative_to_h5_root": "sub-009_sedation_rest_run-003_acq-135\\sub-009_sedation_rest_run-003_acq-135.h5",
+        "sha256": "dab452382a40c2c9a1917ffe87d2ee7c3de72729c185676521adf84a569d4c7a"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-009_sedation_rest_run-008_acq-135\\sub-009_sedation_rest_run-008_acq-135.h5",
+        "relative_to_h5_root": "sub-009_sedation_rest_run-008_acq-135\\sub-009_sedation_rest_run-008_acq-135.h5",
+        "sha256": "29c5c0a649f474c65c1239fbbe5640fc954e1d8bef0f3bf78d04c253542f4e00"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-009_sedation_rest_run-021_acq-135\\sub-009_sedation_rest_run-021_acq-135.h5",
+        "relative_to_h5_root": "sub-009_sedation_rest_run-021_acq-135\\sub-009_sedation_rest_run-021_acq-135.h5",
+        "sha256": "0a5eaaeb46335c39fd0f43a8daf8b62a2fb6fa5d3da1aa7f3659597dec2b1e94"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-009_sedation_rest_run-026_acq-135\\sub-009_sedation_rest_run-026_acq-135.h5",
+        "relative_to_h5_root": "sub-009_sedation_rest_run-026_acq-135\\sub-009_sedation_rest_run-026_acq-135.h5",
+        "sha256": "bb5d2f6ebbcca3dc032d1c9e2b7b2442592e6b3ed1f5cf3d775ef122ef6ac919"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-010_sedation_rest_run-005_acq-130\\sub-010_sedation_rest_run-005_acq-130.h5",
+        "relative_to_h5_root": "sub-010_sedation_rest_run-005_acq-130\\sub-010_sedation_rest_run-005_acq-130.h5",
+        "sha256": "eb964f11157d2693a1a8e70c3945c43e747a410ee92155babff65d971a221f80"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-010_sedation_rest_run-010_acq-130\\sub-010_sedation_rest_run-010_acq-130.h5",
+        "relative_to_h5_root": "sub-010_sedation_rest_run-010_acq-130\\sub-010_sedation_rest_run-010_acq-130.h5",
+        "sha256": "42ef06383a6f19c39560c348621aaf8c3840c69a15d8796b33dcf0d19ce77917"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-010_sedation_rest_run-015_acq-130\\sub-010_sedation_rest_run-015_acq-130.h5",
+        "relative_to_h5_root": "sub-010_sedation_rest_run-015_acq-130\\sub-010_sedation_rest_run-015_acq-130.h5",
+        "sha256": "2385a575da7f25f4f2cd26277e1848794db32413f4d228dd6a18df4b2944131c"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-010_sedation_rest_run-028_acq-130\\sub-010_sedation_rest_run-028_acq-130.h5",
+        "relative_to_h5_root": "sub-010_sedation_rest_run-028_acq-130\\sub-010_sedation_rest_run-028_acq-130.h5",
+        "sha256": "c0d652acf1d88ff7b5eb81f516523c146af5ccf786fd10dc974f607d417fb8f0"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-013_sedation_rest_run-003_acq-132\\sub-013_sedation_rest_run-003_acq-132.h5",
+        "relative_to_h5_root": "sub-013_sedation_rest_run-003_acq-132\\sub-013_sedation_rest_run-003_acq-132.h5",
+        "sha256": "3ad64d97e732b452e8a9f95877b5ccc284c2d375b2e2a0e02d59d6219cfec473"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-013_sedation_rest_run-008_acq-132\\sub-013_sedation_rest_run-008_acq-132.h5",
+        "relative_to_h5_root": "sub-013_sedation_rest_run-008_acq-132\\sub-013_sedation_rest_run-008_acq-132.h5",
+        "sha256": "067e077423407b60638481fc0336167b7acd88936a3feb508861635f069c8e9e"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-013_sedation_rest_run-013_acq-132\\sub-013_sedation_rest_run-013_acq-132.h5",
+        "relative_to_h5_root": "sub-013_sedation_rest_run-013_acq-132\\sub-013_sedation_rest_run-013_acq-132.h5",
+        "sha256": "d2f50c5e1fc1905506fabf2ec83e1441d6d76aef710d488c75e6301e04017831"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-013_sedation_rest_run-026_acq-132\\sub-013_sedation_rest_run-026_acq-132.h5",
+        "relative_to_h5_root": "sub-013_sedation_rest_run-026_acq-132\\sub-013_sedation_rest_run-026_acq-132.h5",
+        "sha256": "a5960862a107a432c4fb3c5454f63d2fc43872e1e688426be7fc461e2f2826a6"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-014_sedation_rest_run-007_acq-125\\sub-014_sedation_rest_run-007_acq-125.h5",
+        "relative_to_h5_root": "sub-014_sedation_rest_run-007_acq-125\\sub-014_sedation_rest_run-007_acq-125.h5",
+        "sha256": "1203577e706460bbc6afe18cc7a28e6b4b7b154689d7c3f357793af97eec3deb"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-014_sedation_rest_run-011_acq-132\\sub-014_sedation_rest_run-011_acq-132.h5",
+        "relative_to_h5_root": "sub-014_sedation_rest_run-011_acq-132\\sub-014_sedation_rest_run-011_acq-132.h5",
+        "sha256": "e42a946b973bda926f4675148745297ade439decb4c97a5e8a842187c9bf4787"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-014_sedation_rest_run-016_acq-132\\sub-014_sedation_rest_run-016_acq-132.h5",
+        "relative_to_h5_root": "sub-014_sedation_rest_run-016_acq-132\\sub-014_sedation_rest_run-016_acq-132.h5",
+        "sha256": "4ec50a3c6532e2039ff7f5b3f669f0207d91ce2444d0ac1379cbd08b0ed2f0ce"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-014_sedation_rest_run-031_acq-132\\sub-014_sedation_rest_run-031_acq-132.h5",
+        "relative_to_h5_root": "sub-014_sedation_rest_run-031_acq-132\\sub-014_sedation_rest_run-031_acq-132.h5",
+        "sha256": "6ec4f1f064e17473ff71ed362cc422551010da7a83fac203f61e7ff75fe51831"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-018_sedation_rest_run-003_acq-140\\sub-018_sedation_rest_run-003_acq-140.h5",
+        "relative_to_h5_root": "sub-018_sedation_rest_run-003_acq-140\\sub-018_sedation_rest_run-003_acq-140.h5",
+        "sha256": "5a82954e9cdf05d9c78862a300199b977097d6cf5f0b0e4a60b33a77eacce419"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-018_sedation_rest_run-009_acq-140\\sub-018_sedation_rest_run-009_acq-140.h5",
+        "relative_to_h5_root": "sub-018_sedation_rest_run-009_acq-140\\sub-018_sedation_rest_run-009_acq-140.h5",
+        "sha256": "ac1a15c6e3f85a0dcdc3324f3353ee1ef5480f79498682925474e0f1c8106977"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-018_sedation_rest_run-014_acq-140\\sub-018_sedation_rest_run-014_acq-140.h5",
+        "relative_to_h5_root": "sub-018_sedation_rest_run-014_acq-140\\sub-018_sedation_rest_run-014_acq-140.h5",
+        "sha256": "db10672561816eaecd41e9b7bcfab4a131de4fbba188219505701e23fba25e97"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-018_sedation_rest_run-027_acq-140\\sub-018_sedation_rest_run-027_acq-140.h5",
+        "relative_to_h5_root": "sub-018_sedation_rest_run-027_acq-140\\sub-018_sedation_rest_run-027_acq-140.h5",
+        "sha256": "4eb9b4f150aeb7b45ae83b047e415a14c396293927a8c4bc9763832328329658"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-020_sedation_rest_run-004_acq-131\\sub-020_sedation_rest_run-004_acq-131.h5",
+        "relative_to_h5_root": "sub-020_sedation_rest_run-004_acq-131\\sub-020_sedation_rest_run-004_acq-131.h5",
+        "sha256": "e26d2a49081c18dd7609eeb9a36e59036b01732285f8796cb1a3f3d177fbc90c"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-020_sedation_rest_run-009_acq-131\\sub-020_sedation_rest_run-009_acq-131.h5",
+        "relative_to_h5_root": "sub-020_sedation_rest_run-009_acq-131\\sub-020_sedation_rest_run-009_acq-131.h5",
+        "sha256": "e50b2e21e2ae6e0e56dac59f549e23b7cb798154babc035106a58fe80eba324e"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-020_sedation_rest_run-022_acq-131\\sub-020_sedation_rest_run-022_acq-131.h5",
+        "relative_to_h5_root": "sub-020_sedation_rest_run-022_acq-131\\sub-020_sedation_rest_run-022_acq-131.h5",
+        "sha256": "b76a84a24c1016df352e238505c6c309a38d7ee787d6baeafcea139cb2122546"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-020_sedation_rest_run-027_acq-131\\sub-020_sedation_rest_run-027_acq-131.h5",
+        "relative_to_h5_root": "sub-020_sedation_rest_run-027_acq-131\\sub-020_sedation_rest_run-027_acq-131.h5",
+        "sha256": "86fe56d5a7bd27b6edf54a54840df605e3e60f141bb9af34feb4c1cfedfec313"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-022_sedation_rest_run-003_acq-154\\sub-022_sedation_rest_run-003_acq-154.h5",
+        "relative_to_h5_root": "sub-022_sedation_rest_run-003_acq-154\\sub-022_sedation_rest_run-003_acq-154.h5",
+        "sha256": "4f79f6d6e9f5462b7daeeec607695e7ff62d32a1955c6a052c0c26778174d02a"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-022_sedation_rest_run-004_acq-132\\sub-022_sedation_rest_run-004_acq-132.h5",
+        "relative_to_h5_root": "sub-022_sedation_rest_run-004_acq-132\\sub-022_sedation_rest_run-004_acq-132.h5",
+        "sha256": "448aae645574542d0878358c7487409fb4964c718e160df0792f648e15e4038f"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-022_sedation_rest_run-009_acq-132\\sub-022_sedation_rest_run-009_acq-132.h5",
+        "relative_to_h5_root": "sub-022_sedation_rest_run-009_acq-132\\sub-022_sedation_rest_run-009_acq-132.h5",
+        "sha256": "119c143ba94766badbb67a51679f2006bb807841fc7b0bc01ced90bdc1201a29"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-022_sedation_rest_run-014_acq-132\\sub-022_sedation_rest_run-014_acq-132.h5",
+        "relative_to_h5_root": "sub-022_sedation_rest_run-014_acq-132\\sub-022_sedation_rest_run-014_acq-132.h5",
+        "sha256": "43dfcf8758b07fdb334383e2776612dece1c0107c492e177514ea0a0b348fc3b"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-023_sedation_rest_run-003_acq-094\\sub-023_sedation_rest_run-003_acq-094.h5",
+        "relative_to_h5_root": "sub-023_sedation_rest_run-003_acq-094\\sub-023_sedation_rest_run-003_acq-094.h5",
+        "sha256": "cbde63206bc08a556f6e282128eba921a912768758d2db03bab074639468ec71"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-023_sedation_rest_run-008_acq-094\\sub-023_sedation_rest_run-008_acq-094.h5",
+        "relative_to_h5_root": "sub-023_sedation_rest_run-008_acq-094\\sub-023_sedation_rest_run-008_acq-094.h5",
+        "sha256": "0d3057d04ad6ad3876099fa61a9721133aef68d7cfa4705cc6bb55d0a50da6a9"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-023_sedation_rest_run-022_acq-094\\sub-023_sedation_rest_run-022_acq-094.h5",
+        "relative_to_h5_root": "sub-023_sedation_rest_run-022_acq-094\\sub-023_sedation_rest_run-022_acq-094.h5",
+        "sha256": "20ac3ecb7c4f6307468ed9d569c4d41c195904bd6b0c78ed6fcec2b994103e9d"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-023_sedation_rest_run-027_acq-094\\sub-023_sedation_rest_run-027_acq-094.h5",
+        "relative_to_h5_root": "sub-023_sedation_rest_run-027_acq-094\\sub-023_sedation_rest_run-027_acq-094.h5",
+        "sha256": "616aec2a967b97c442e2baa18fd8c78dac94b766cee2c15201ff840d9565c3ef"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-024_sedation_rest_run-003_acq-134\\sub-024_sedation_rest_run-003_acq-134.h5",
+        "relative_to_h5_root": "sub-024_sedation_rest_run-003_acq-134\\sub-024_sedation_rest_run-003_acq-134.h5",
+        "sha256": "5312d898ffbc3be234d5baf0cb596f197845772d6c144d7f69f057cf7737581e"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-024_sedation_rest_run-010_acq-134\\sub-024_sedation_rest_run-010_acq-134.h5",
+        "relative_to_h5_root": "sub-024_sedation_rest_run-010_acq-134\\sub-024_sedation_rest_run-010_acq-134.h5",
+        "sha256": "227d0b494c65ffdb526ae39e44726a8339632a514e0dbee2839ef8e1c8a590a3"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-024_sedation_rest_run-015_acq-134\\sub-024_sedation_rest_run-015_acq-134.h5",
+        "relative_to_h5_root": "sub-024_sedation_rest_run-015_acq-134\\sub-024_sedation_rest_run-015_acq-134.h5",
+        "sha256": "2de6100a0a3e3f56d320850805320fc38499941c303a227931f8a896c138bfa3"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-024_sedation_rest_run-028_acq-134\\sub-024_sedation_rest_run-028_acq-134.h5",
+        "relative_to_h5_root": "sub-024_sedation_rest_run-028_acq-134\\sub-024_sedation_rest_run-028_acq-134.h5",
+        "sha256": "2bd56fc1a72882c251b3e71057a61b964a2ee9c4d49a63f1c46dd7f634825ddb"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-025_sedation_rest_run-003_acq-133\\sub-025_sedation_rest_run-003_acq-133.h5",
+        "relative_to_h5_root": "sub-025_sedation_rest_run-003_acq-133\\sub-025_sedation_rest_run-003_acq-133.h5",
+        "sha256": "5d8e96b1451a70e0df4bd5afdc24e7b7aea651db7756479d40c0c97939b3c4e1"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-025_sedation_rest_run-008_acq-133\\sub-025_sedation_rest_run-008_acq-133.h5",
+        "relative_to_h5_root": "sub-025_sedation_rest_run-008_acq-133\\sub-025_sedation_rest_run-008_acq-133.h5",
+        "sha256": "b145de156e7662b2c8a640048fbc61252a91debaa284ed6d28bf6b3dc2bcb2c0"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-025_sedation_rest_run-021_acq-133\\sub-025_sedation_rest_run-021_acq-133.h5",
+        "relative_to_h5_root": "sub-025_sedation_rest_run-021_acq-133\\sub-025_sedation_rest_run-021_acq-133.h5",
+        "sha256": "0167ae8e373b0fda9c20b3e81c575245178b2a6829dd10e7d70a949326e1ed98"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-025_sedation_rest_run-026_acq-133\\sub-025_sedation_rest_run-026_acq-133.h5",
+        "relative_to_h5_root": "sub-025_sedation_rest_run-026_acq-133\\sub-025_sedation_rest_run-026_acq-133.h5",
+        "sha256": "dd03554e1e3f0789ed027adaf8dd31b3bb273d0d08abf8b1428bb0c089921cba"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-026_sedation_rest_run-003_acq-132\\sub-026_sedation_rest_run-003_acq-132.h5",
+        "relative_to_h5_root": "sub-026_sedation_rest_run-003_acq-132\\sub-026_sedation_rest_run-003_acq-132.h5",
+        "sha256": "d94aa1ded2219d182336681bc83f4a9534ce2cd8a59c071517ce2cd5a4d8c959"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-026_sedation_rest_run-008_acq-132\\sub-026_sedation_rest_run-008_acq-132.h5",
+        "relative_to_h5_root": "sub-026_sedation_rest_run-008_acq-132\\sub-026_sedation_rest_run-008_acq-132.h5",
+        "sha256": "d6c0bcf997106ecb96423fc5fe37d4407a95d9bd7a6189f882a8801eb8cc7126"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-026_sedation_rest_run-013_acq-132\\sub-026_sedation_rest_run-013_acq-132.h5",
+        "relative_to_h5_root": "sub-026_sedation_rest_run-013_acq-132\\sub-026_sedation_rest_run-013_acq-132.h5",
+        "sha256": "51ed3b5fbb18979eae020f79a265f1f3a831f9e07cbb26f37d31e327479907db"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-026_sedation_rest_run-026_acq-132\\sub-026_sedation_rest_run-026_acq-132.h5",
+        "relative_to_h5_root": "sub-026_sedation_rest_run-026_acq-132\\sub-026_sedation_rest_run-026_acq-132.h5",
+        "sha256": "7d0e32825571b0d1341732f8800aedb1348ba36c2954cd851e8047737209d5c0"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-027_sedation_rest_run-001_acq-104\\sub-027_sedation_rest_run-001_acq-104.h5",
+        "relative_to_h5_root": "sub-027_sedation_rest_run-001_acq-104\\sub-027_sedation_rest_run-001_acq-104.h5",
+        "sha256": "feac3bdc5f32c30a18ff968c1e708774bd7651ec18f661b52a95bd846a8264da"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-027_sedation_rest_run-010_acq-104\\sub-027_sedation_rest_run-010_acq-104.h5",
+        "relative_to_h5_root": "sub-027_sedation_rest_run-010_acq-104\\sub-027_sedation_rest_run-010_acq-104.h5",
+        "sha256": "8ba266d03a8afc2cb2c347696e32b54c2b0c74cdc6a9dfb5211f6fe33d7579c6"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-027_sedation_rest_run-023_acq-104\\sub-027_sedation_rest_run-023_acq-104.h5",
+        "relative_to_h5_root": "sub-027_sedation_rest_run-023_acq-104\\sub-027_sedation_rest_run-023_acq-104.h5",
+        "sha256": "336c40ec6adf2a87555077f7b48742dfe6f38b23ca4b25c32a8101ac13114e80"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-027_sedation_rest_run-028_acq-104\\sub-027_sedation_rest_run-028_acq-104.h5",
+        "relative_to_h5_root": "sub-027_sedation_rest_run-028_acq-104\\sub-027_sedation_rest_run-028_acq-104.h5",
+        "sha256": "888f73d547284e2f0c598083f207e88e1f3af3a9f7a2b26469457a41ee232a70"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-028_sedation_rest_run-004_acq-092\\sub-028_sedation_rest_run-004_acq-092.h5",
+        "relative_to_h5_root": "sub-028_sedation_rest_run-004_acq-092\\sub-028_sedation_rest_run-004_acq-092.h5",
+        "sha256": "3279a39a62762132708b8930c371133d8addfdc5c1d04864d1fd32cd1e36401b"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-028_sedation_rest_run-011_acq-092\\sub-028_sedation_rest_run-011_acq-092.h5",
+        "relative_to_h5_root": "sub-028_sedation_rest_run-011_acq-092\\sub-028_sedation_rest_run-011_acq-092.h5",
+        "sha256": "f8992abf20e2fa4b88d525c85125adb2672548e4fd5824c8a3c5f0bad392d480"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-028_sedation_rest_run-016_acq-092\\sub-028_sedation_rest_run-016_acq-092.h5",
+        "relative_to_h5_root": "sub-028_sedation_rest_run-016_acq-092\\sub-028_sedation_rest_run-016_acq-092.h5",
+        "sha256": "4611bd3bf25cd2a35b9ec5103cbc1d2d91106895ccc3380151f5a1f760969c89"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-028_sedation_rest_run-029_acq-092\\sub-028_sedation_rest_run-029_acq-092.h5",
+        "relative_to_h5_root": "sub-028_sedation_rest_run-029_acq-092\\sub-028_sedation_rest_run-029_acq-092.h5",
+        "sha256": "f26a4628e950f8e1bbded7a2e494b859ace3ab9c24f3dd2c562809eae185a7dd"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-029_sedation_rest_run-005_acq-142\\sub-029_sedation_rest_run-005_acq-142.h5",
+        "relative_to_h5_root": "sub-029_sedation_rest_run-005_acq-142\\sub-029_sedation_rest_run-005_acq-142.h5",
+        "sha256": "449acdfe7f82663c20473b49fecf89b1de7ae4cfc00b235188a7e0ee4b012dc3"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-029_sedation_rest_run-010_acq-142\\sub-029_sedation_rest_run-010_acq-142.h5",
+        "relative_to_h5_root": "sub-029_sedation_rest_run-010_acq-142\\sub-029_sedation_rest_run-010_acq-142.h5",
+        "sha256": "4fc7ad14bc93e4085fcfd060b7aa7901af5a291aadf2155ad32dcc9018778a0e"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-029_sedation_rest_run-023_acq-142\\sub-029_sedation_rest_run-023_acq-142.h5",
+        "relative_to_h5_root": "sub-029_sedation_rest_run-023_acq-142\\sub-029_sedation_rest_run-023_acq-142.h5",
+        "sha256": "9a2359a8ab4f04f1b55cfde46739a4a2ef56d3f01310ddc99df9a57b3d527f70"
+      },
+      {
+        "path": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713\\sub-029_sedation_rest_run-028_acq-142\\sub-029_sedation_rest_run-028_acq-142.h5",
+        "relative_to_h5_root": "sub-029_sedation_rest_run-028_acq-142\\sub-029_sedation_rest_run-028_acq-142.h5",
+        "sha256": "a372646e5b5deb377e17266579d0b34f3144ec0f338f6445330365b51cda557a"
+      }
+    ]
+  },
+  "reference_reproduction": {
+    "frozen_path": "J:\\repos\\nmd-analysis\\articles\\Apollo_propofol_ndt_v.1.0\\results\\v1_occupancy_20260921\\occupancy_subject.csv",
+    "frozen_sha256": "d8d094c8165c2816642b0dc749e93e858150555c0fe909668c378f6cf2c74f82",
+    "tolerance": 1e-10,
+    "n_expected_cells": 80,
+    "n_compared_cells": 80,
+    "max_abs_diff": 3.552713678800501e-15,
+    "pass": true,
+    "status": "PASS"
+  },
+  "source_code_sha256": {
+    "src\\apollo_occupancy_robustness.py": "73997e79dd02ad50806cf7ba77144f741b81f6423b11cc47d127fd0ca6078fc8",
+    "src\\apollo_occupancy_part1.py": "d6c9d5a84ea2ec8c79a6bc7b8d194e4d078d6dea7eff5120710dd2adada7a34d",
+    "src\\apollo_c3_anchor_part1.py": "594b8f2ee1b2bb4a0edb8965417f00aec93abcb71fbb1238704b622dda31fc16",
+    "src\\apollo_c3_match.py": "472182e007992251633af8aa53f89372407842d8c9f1d1a3c794d2a77f1905be",
+    "src\\apollo_c3_panel.py": "67fd97622c9342587d58e1f060ff7b3f0dae6f9f21caee5227fffe2838aae997",
+    "src\\apollo_occupancy_panel.py": "5fc67f351130ff427d6af42f483dacf01225dfb5be111ee8a1058770ed061554",
+    "src\\apollo_stage_part1.py": "e9eec9314153056ca288ad4a884ff12dfde95444146a2fd82f1c14dba508ff0c",
+    "src\\apollo_stats.py": "6b07f79902f00ed279a6d81d16ac173eaf4248a6b3ce204f9f9f8a4d28dc2a70"
+  },
+  "outputs_sha256": {
+    "feature_contributions.csv": "fd73935f92fb6e122df7e88e03e9f25f8dc426b6b505f4215d43f7a65c8504a4",
+    "reference_reproduction.csv": "1ef933a4bc85db118c955c68801c91b07a0bad0656a95d6754731aaf10cafe31",
+    "robustness_contrasts.csv": "927354432c853fcead520851b8f842c6467fa3bcbf502b85b83a02df7b0336d5",
+    "robustness_part1.md": "4b88743fb35984f97a2ecc6b0d76f259bfc2c4a3f89787df229ae77c3e6b4719",
+    "robustness_subject_phase.csv": "df6ef94a67efc26f694a05bab508127beb5d227a5fb58b11c53f688b45104bcf",
+    "support_audit.csv": "fc71ac414e6e0b5027379870cde07a787d5e396566fcf857e22bb6052e511dd8"
+  },
+  "summary": {
+    "n_subjects": 20,
+    "n_subject_phase_rows": 880,
+    "n_successful_variant_rows": 880,
+    "n_failed_variant_rows": 0,
+    "n_contribution_rows": 640,
+    "n_support_audit_rows": 80
+  },
+  "claim_boundary": "descriptive computational robustness only; not G3/G4 and no biological claim"
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "ndt.sleep.independent_descriptive_check.v1",
+  "frozen_utc": "2026-09-10T11:45:20.028241+00:00",
+  "development_pilot": true,
+  "preregistration": false,
+  "selection_rule": "Numerically smallest available BIDS subject other than sub-99 with PSG EDF and human-scored events TSV; no selection on stage counts, coordinates or differences; verify pid differs before treating it as another participant. Report failure rather than replace after outcomes.",
+  "selected_subject": "sub-1",
+  "participant_pid": "89",
+  "reference_subject": "sub-99",
+  "reference_pid": "66",
+  "participants_sha256": "0591b6323bd101af1c6871053aea4351a6cdd12e08f2aeff9a084b4692a03110",
+  "unit": "participant; recording summaries kept separate",
+  "preprocessing": "same verified fullnight 30/30-second config, force fresh features, no per-stage fit",
+  "eligibility": "same recorded known stage plus finite complete 3D/9D vector and true existing producer masks",
+  "descriptive_check": "For every canonical 3D and 9D coordinate report N2 minus Wake medians separately in both participants; compare sign without p-values, pooled estimates, post-hoc selection or tuning. Zero is reported as zero; absent/unsupported contrast null. Report all stage medians and denominators.",
+  "support_limits": "not_assessed stage purity, unknown effective filter support; no stage Q/WQ/diffusion or population qualification",
+  "measurement_contract_unchanged": true
+}

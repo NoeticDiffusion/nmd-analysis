@@ -14,6 +14,7 @@ aa_template/
   S4_Supplementary_Clinical.typ       clinician-facing summary template
   S5_Glossary.typ                     shared glossary template
   S6_Changelog.typ                    internal development / revision history
+  S7_Supplementary_formal_verification.typ  formal verification supplement
   references.bib                      starter bibliography (section-comment layout)
   README.md                           this file
   figures/                            figures (+ figures/conceptual/ for conceptual panels)

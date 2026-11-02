@@ -38,6 +38,7 @@ from .block_native import (
 )
 from .analysis_config import BlockNativeAnalysisConfig, BlockNativeQCConfig, load_analysis_config
 from .pipeline import run_dataset_pipeline
+from .signal_support import read_signal_support
 from .regional_geometry import compute_regional_geometry
 from .regional_mnps import (
     NetworkMNPS,
@@ -57,6 +58,7 @@ __all__ = [
     "AnalysisAdapter",
     "build_adapters",
     "run_dataset_pipeline",
+    "read_signal_support",
     "run_cleaned_analysis_pipeline",
     # embodied anchor surface (H5 reader)
     "AnchorState",

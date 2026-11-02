@@ -1,0 +1,94 @@
+experiment_id: VECTOR-INTEGRATION-001
+protocol_version: 1
+date: 2026-10-10
+status: exploratory_bounded_architecture_test
+source:
+  dataset: OpenNeuro ds005555
+  participants: numeric IDs 1 through 20, fixed before extraction
+  prefix_sec: 160
+  sample_rate_hz: 256
+  labels: [PSG_F3, PSG_F4, PSG_C3, PSG_C4, PSG_O1, PSG_O2]
+  realization: VECTOR-INTEGRATION-001.SCALP6_CAUSAL_FIR.v1
+  rationale: >-
+    Prior pilot included PSG_EOG and PSG_EMG, although the sidecar declares them
+    EEG. This explicitly selected scalp-six realization avoids treating those
+    labels as scalp sensors; it is not Core19 or numerically equivalent to the
+    historical eight-sensor pilot. No signal definition is changed in ingest.
+  filter: 513-tap Hamming firwin 1-45 Hz lfilter; no resampling/rereferencing
+  reference: recorded M1 left mastoid, verified in each participant EEG JSON
+  bad_intervals: unknown, retained as QC
+measurements:
+  fast_ids: [M1, M2, E1, E2]
+  fast_order: [PCV, TP, OI, SC]
+  fast_window_sec: 4
+  fast_end_sec: 8 through 160 in steps of 4, after filter warmup
+  extended_ids: [M3, D1, D3, E3]
+  extended_order: [AR, NIE, RD, ED]
+  extended_window_sec: 20
+  extended_end_sec: 112 through 156 in steps of 4, including control windows
+  AR_reduction: >-
+    median of the nine adjacent 2-second RMS-block changes, separately named
+    AR.median_adjacent_changes_20s.v1 analysis reduction. Original nine values
+    and estimator details remain in measurements.jsonl.
+  future_support: all estimator windows and FIR support end at or before origin
+  fidelity: >-
+    Fast/extended membership and 20 s support are provisional. This tests a
+    fixed candidate architecture, not optimal timescales or 4 s fidelity.
+prediction:
+  horizons_sec: [4, 8]
+  origins_sec: 128 through the last origin supported by horizon within 160 s
+  history: 24 complete contiguous 4-second states, spanning 96 s
+  comparison_rows: same rows for all models; no imputation or zero filling
+  folds: leave one participant out
+  training: all scaling and regression fitted on training participants only
+  ridge_alpha: 100
+  rationale: >-
+    Fixed stronger shrinkage than MNJ-PRED-002 for 96 history inputs and a small
+    sample; predict corrections to persistence to preserve a simple anchor.
+    No held-out tuning or search. A fixed model is not a calibrated optimum.
+  models:
+    A0_persistence: repeat current fast state
+    A1_AR1: coordinate-wise pooled direct horizon AR1, Ridge alpha 1
+    A2_AR2: coordinate-wise pooled direct horizon AR2, Ridge alpha 1
+    B_fast: full 96-second fast-state history, Ridge delta from persistence
+    C_fast_extended: B plus current trailing20s context
+    D_wrong_context: B plus same-person context ending 16 s earlier
+    E_conventional: >-
+      Same 96 s history of median channel relative delta/theta/alpha/beta power
+      and Hjorth mobility/complexity, plus current trailing20s descriptors;
+      Ridge delta from persistence. Fixed conventional comparator, no tuning.
+    C_drop_context: four separate leave-one-extended-measurement-out models
+    B_drop_fast: >-
+      Four separate leave-one-fast-input-history-out models; all targets kept.
+      Every target retains its own current-state persistence anchor; these
+      are history-input ablations, not complete removal of the construct.
+  context_control: >-
+    Wrong-time context, not permutation evidence. Both correct and wrong
+    context windows lie entirely inside B's 96 s raw history span; no future
+    windows or other held-out participant's context used. One displacement
+    cannot exclude slow autocorrelation or all possible confounds.
+reporting:
+  inference_unit: participant
+  metrics: pooled RMSE, per-axis RMSE, participant macro RMSE
+  primary_contrasts: [B_minus_C, D_minus_C]
+  secondary_contrasts: [A0_minus_C, A1_minus_C, A2_minus_C, E_minus_C]
+  uncertainty: paired participant bootstrap, 5000 replicates, seed 3103201
+  interpretation: >-
+    C must improve over B and D on held-out participants to support this fixed
+    integration architecture. Descriptive intervals, no multiplicity-adjusted
+    confirmatory significance. Report all models, coordinates and ablations.
+verification:
+  - synthetic recovery of known linear AR baseline
+  - support/gap/missing-coordinate and row-alignment tests
+  - future raw-signal perturbation at 120 s on sub-1, fast and extended unchanged
+  - full eight-signal prefix hashes agree with prior pilot before explicit scalp-six selection
+limits:
+  - no full cohort or additional MNJ EEG extraction
+  - no stage/event-change analysis, test-retest, or biological qualification
+  - RMSE here is not the sole criterion for replacing MNPS
+  - no canonical MNPS 3D/9D definitions or export contracts changed
+  - >-
+    FIR support extends 2 s before each feature window, with 1 s uncompensated
+    group delay. Immediate 4 s target and origin share raw filter support;
+    the 8 s target avoids that immediate overlap. Window-local PCV remains
+    causally available at the right edge, with unqualified boundary fidelity.

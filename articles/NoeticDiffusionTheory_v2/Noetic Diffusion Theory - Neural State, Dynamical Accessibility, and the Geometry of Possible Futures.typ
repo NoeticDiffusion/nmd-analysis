@@ -22,7 +22,7 @@
     "consciousness",
     "measurement contracts",
   ),
-  article-type: "Research Article — theoretical framework",
+  article-type: "Hypothesis and Theory — presubmission draft",
   abstract: [
     Noetic Diffusion Theory (NDT) proposes that neural states relevant to cognition and consciousness are characterized not only by their current configuration, but also by the structured distribution of futures available from that configuration. NDT formalizes this property as dynamical accessibility: a control-dependent stochastic law governing how neural activity tends to move, how fluctuations spread, which nearby states remain probable, which longer-term destinations are favoured, and how the system responds to perturbation. Deterministic drift, diffusion geometry, local stability and reactivity, short-horizon predictive spread, basin commitment, and finite-amplitude resilience therefore describe non-equivalent aspects of the same evolving system. These properties may dissociate even when present measured states are similar, because rhythm, context, history, thalamocortical interactions, bodily state, and slower physiological constraints can reshape future transition structure without simply relocating the system in state space. NDT accordingly predicts that reduced state coordinates need not be sufficient statistics for future neural dynamics, and that matched present states can exhibit different future laws under different control conditions. Measurement charts are treated as operational interfaces to latent dynamics rather than as the theory itself. NDT is intended as a falsifiable framework for neural organization across wakefulness, sleep, altered states and pathology; it does not define a scalar of consciousness or explain why neural activity is accompanied by experience. Its central question is therefore not only where the brain is, but what it can still become.
   ],
@@ -48,6 +48,11 @@ theory of why neural activity is accompanied by experience
 neural state's *dynamical accessibility*: the geometry of a control-dependent
 law over possible futures, not merely a set of reachable points. A reduced
 chart location is not assumed to be a sufficient statistic for that law.
+
+Selected mathematical components of NDT have been formalized and kernel-checked
+in Lean 4 under explicit finite-dimensional and nondegeneracy assumptions; the
+formalization supports the theory's architecture but does not validate empirical
+accessibility or biological mechanism (Supplementary Note S7).
 
 That object is distinct from several things with which it is easily confused.
 NDT is not a consciousness scalar. It is not identical to Meta--Noetic Phase
@@ -593,16 +598,20 @@ destination, and after a perturbation that is no longer infinitesimal.
 *Stochastic short-horizon reachability* asks how probability mass over nearby
 future states spreads under $K^h$. It is a covariance-based approximation to
 finite-horizon *predictive spread*, not classical control-theoretic
-reachability and not a Gramian of a structural connectome. A local stochastic
-linearization
+reachability and not a Gramian of a structural connectome. A short-horizon,
+locally frozen-coefficient stochastic linearization about the reference state
+at time $t$ uses $A_t$, $b_t$, and $Q_t$ held fixed over the propagation
+horizon:
 
 $ x_(t+1) = A_t x_t + b_t + epsilon_t, quad epsilon_t tilde (0, Q_t) $ <eq:linearization>
 
-induces the covariance recursion
+induces the locally frozen-coefficient covariance recursion
 
 $ Sigma_t^((h+1)) = A_t Sigma_t^((h)) A_t^top + Q_t, $ <eq:reachability>
 
-with $Sigma_t^((0)) = 0$. Eigenvalues of $Sigma_t^((h))$ yield volume,
+with $Sigma_t^((0)) = 0$. This recursion approximates short-horizon covariance
+propagation under the local linear model; it is not the general time-varying
+transition law. Eigenvalues of $Sigma_t^((h))$ yield volume,
 anisotropy, and effective-dimension summaries of a *predictive-spread
 ellipsoid*. That ellipsoid is not an unqualified reachable set: it describes
 second-moment spread under a local linearization, not the support of every
@@ -1242,10 +1251,10 @@ responsiveness, arousal, spectral power, and standard complexity, does
 $ K_h^x (dot | x_t, "experience") != K_h^x (dot | x_t, "no experience") $ <eq:p8>
 
 @bajwa2025repeated? A positive result would license a stronger claim about
-mind-relevant accessibility. A negative result would keep NDT as a theory of
-enabling state dynamics and make Network Neuroscience the cleaner venue. The
-present manuscript does not promote P8 as already answered by coma geometry
-or complexity scores (@tab:orthogonal).
+mind-relevant accessibility. A negative result would constrain any stronger
+claim about mind-relevant accessibility. The present manuscript does not
+promote P8 as already answered by coma geometry or complexity scores
+(@tab:orthogonal).
 
 #netn-box(title: [Hierarchical failure])[
   Falsification of one subsystem does not falsify dynamical accessibility as a
@@ -1375,9 +1384,8 @@ what it can still become.
 
 = Acknowledgements
 
-Dataset contributors, pipeline authors, and archival records will be
-acknowledged in full at submission. The empirical constraints in @sec:empirical
-depend on public sleep recordings @wei2024_anphy_sleep @ds005555_1_1_1, the
+The empirical constraints in @sec:empirical depend on public sleep recordings
+@wei2024_anphy_sleep @ds005555_1_1_1, the
 I-CARE consortium EEG database @amorim2023icare, and DANDI 000458
 @dandi000458.
 

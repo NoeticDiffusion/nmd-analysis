@@ -1,0 +1,64 @@
+# Zenodo draft manifest for this article folder.
+# python -m zenodo deposit hels_a --dry-run
+
+id: aa_template
+aliases:
+  - AA Template
+  - AA Template Article
+
+name: "Title of the article"
+subtitle: "Subtitle of the article"
+
+# max 80 words
+description: >-
+  <p>Description of the article</p>
+
+# find keywords in zenodo\helper folder! This is just examples:
+keywords:
+  # Examples:
+  custom:
+    - access operator
+    - committor
+    - fixed landscape
+    - truth-known simulation
+    - context-conditioned dynamics
+    - stochastic differential equation
+    - HELS-A
+    - fail-closed gates
+  mesh:
+    - Computer Simulation
+    - Models, Theoretical
+    - Nonlinear Dynamics
+    - Stochastic Processes
+    - Reproducibility of Results
+  euroscivoc:
+    - Computational neuroscience
+    - Dynamical systems
+    - Numerical analysis
+    - Statistics and probability
+    - Mathematical model
+
+files:
+  manuscript: manuscript.typ # check for main article
+  supplements:
+    pattern: "^S[1-6]_.*\\.typ$"
+  include_compiled: true
+  include_source: false
+  extra:
+    - references.bib
+  exclude:
+    - "^template_eLife\\.typ$"
+    - "^manuscript\\.pdf$"
+    - "^manuscript\\.typ$"
+
+zenodo:
+  record_id: null
+  version_doi: null
+  concept_doi: null
+  deposition_id: null
+
+metadata:
+  publication_type: preprint
+  version: "0.1"
+  notes: >-
+    Notes, if needed

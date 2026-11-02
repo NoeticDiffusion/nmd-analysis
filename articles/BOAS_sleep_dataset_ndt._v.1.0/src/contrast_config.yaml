@@ -1,0 +1,56 @@
+# Copy this file into a new article and replace the dataset and contrast values.
+# Relative paths are resolved from this YAML file's directory.
+analysis:
+  id: replace_with_analysis_id
+  description: "Descriptive condition contrast; scientific qualification is not assessed here."
+
+# Folder containing the configured input table. Use an absolute path or a path
+# relative to this YAML file. The starter value points to a future repo-level data folder.
+dataset_folderpath: "../../../data/replace_with_dataset"
+input_file: "subject_level_metrics.csv"
+input_format: auto # auto, csv, or parquet; auto uses the file extension.
+
+# Input must be long format: one row per unit, condition, and measure.
+columns:
+  unit_id: subject_id
+  condition: condition
+  measure: metric
+  value: value
+
+# Leave empty to include every measure found after filtering, or name a fixed set.
+measures: []
+
+# Optional exact-match filters. Each value can be a scalar or a list of values.
+filters: {}
+# Example:
+# filters:
+#   session: ["ses-01"]
+#   cohort: "patient"
+
+# Contrast direction is always condition_b minus condition_a.
+# Use "paired" only when each unit can be matched across both conditions.
+# Use "independent" for distinct units in the two groups.
+contrasts:
+  - id: intervention_minus_control
+    condition_a: control
+    condition_b: intervention
+    design: paired
+
+outputs:
+  folderpath: "../results/contrast_example"
+  summary_file: contrast_summary.csv
+  paired_units_file: paired_unit_differences.csv
+  manifest_file: contrast_manifest.json
+
+# Optional expected unit-condition inventory for coverage auditing.
+# Store one expected unit/condition assignment per row; include both rows for
+# every expected unit in a paired comparison. Add the configured measure column
+# to specify expected measures per assignment; otherwise all measures are expected.
+# The inventory should already reflect the same cohort/session filters above.
+coverage:
+  expected_inventory_file: null # relative to this YAML file; CSV or Parquet
+  inventory_format: auto
+  summary_file: coverage_summary.csv
+  issues_file: coverage_issues.csv
+  unexpected_file: coverage_unexpected.csv
+  manifest_file: coverage_manifest.json

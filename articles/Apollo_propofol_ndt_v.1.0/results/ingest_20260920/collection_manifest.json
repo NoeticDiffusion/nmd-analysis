@@ -1,0 +1,210 @@
+{
+  "schema": "apollo_propofol_ndt_v1.collection.v1",
+  "created_at": "2026-09-21T04:56:03.513681+00:00",
+  "claim_status": "no_biological_claim",
+  "scientific_qualification": "not_assessed",
+  "confirmatory_contrasts": false,
+  "h5_root": "J:\\repos\\nmd-analysis\\data\\raw\\neuralmanifolddynamics_Sedation-RestingState_20260918_075713",
+  "n_h5": 80,
+  "n_subjects": 20,
+  "expected_n_h5": 80,
+  "expected_n_subjects": 20,
+  "pinned_relative": "sub-002_sedation_rest_run-003_acq-135/sub-002_sedation_rest_run-003_acq-135.h5",
+  "pinned_sha256": "1635513f690ae01807a9495d920052ddc2a2c9a568d3b8a76bb04139bca993ba",
+  "gates": {
+    "G0": "pass",
+    "G1": "labels_joined",
+    "G2": "audited",
+    "G3": "synthetic_helpers_only; independent code review not run",
+    "G4": "not_locked"
+  },
+  "g1": {
+    "gate": "G1",
+    "status": "labels_joined",
+    "datainfo_path": "J:\\repos\\nmd-analysis\\articles\\Apollo_propofol_ndt_v.1.0\\metadata\\datainfo.mat",
+    "datainfo_sha256": "ea8824f3ca9bd2eef0cdee3a7e1402dcc9e599f9688290cc382ae8e1a21f5608",
+    "default_datainfo_path": "J:\\repos\\nmd-analysis\\articles\\Apollo_propofol_ndt_v.1.0\\metadata\\datainfo.mat",
+    "label_source": "Cambridge Apollo datainfo.mat column 2 (1=baseline, 2=mild sedation, 3=moderate sedation, 4=recovery); not inferred from H5 run/acq order; moderate sedation is not automatically unresponsiveness",
+    "legacy_alias_map": {
+      "1": "awake",
+      "2": "sedated",
+      "3": "unresponsive",
+      "4": "recovery"
+    },
+    "n_datainfo_rows": 80,
+    "n_unparsed_names": 0,
+    "unparsed_names": [],
+    "duplicate_keys": [],
+    "note": "H5 condition=sedation is not a protocol phase. Missing labels stay missing. nmd_analysis.propofol_depth.ORDER_TO_CONDITION maps order 3 to 'unresponsive'; the Cambridge table encodes moderate sedation there. Package columns depth_window_start/stop/score are remapped to concentration, mean RT, and n_correct_responses. Article G1 parses names such as '02-2010-anest 20100210 135.003' as subject + acq.run; the date token is kept as metadata and is not a join key. The package name parser is not used as the join source.",
+    "package_column_remap": {
+      "depth_window_start": "measured_concentration_ug_per_l",
+      "depth_window_stop": "mean_reaction_time_ms",
+      "depth_score": "n_correct_responses"
+    },
+    "mat_keys": [
+      "datainfo"
+    ],
+    "n_mat_rows": 80,
+    "n_subjects": 20,
+    "depth_order_counts": {
+      "1": 20,
+      "2": 20,
+      "3": 20,
+      "4": 20
+    },
+    "n_recordings": 80,
+    "n_matched": 80,
+    "n_unmatched": 0,
+    "n_subjects_with_baseline_and_first_sedation": 20,
+    "subjects_missing_primary_phases": [],
+    "h5_condition_values": [
+      "sedation"
+    ],
+    "confirmatory_contrasts": false
+  },
+  "g2": {
+    "gate": "G2",
+    "status": "audited",
+    "claim_status": "no_biological_claim",
+    "scientific_qualification": "not_assessed",
+    "confirmatory_contrasts": false,
+    "counts": {
+      "n_recordings": 80,
+      "n_read_ok": 80,
+      "n_regular_grid": 80,
+      "n_nonpositive_dt": 0,
+      "n_h1_h2_support_included": 80
+    },
+    "unique_metadata": {
+      "provenance__normalization__status": [
+        "disabled"
+      ],
+      "provenance__normalization__method": [
+        "combat"
+      ],
+      "provenance__anchoring__primary_coordinate_contract": [
+        "subject_anchored"
+      ],
+      "feature_fit_scopes": [
+        "local_input_frame_rows_selected_by_original_finite_feature_mask"
+      ],
+      "support_signature__v1__coordinates__e_m__source": [
+        "fallback"
+      ],
+      "support_signature__v1__coordinates__e_m__semantic_equivalence": [
+        "false"
+      ],
+      "signal_support_temporal_status": [
+        "unknown"
+      ],
+      "diffusion_computation_status": [
+        "computed"
+      ],
+      "destination_computation_status": [
+        "not_testable"
+      ],
+      "resilience_computation_status": [
+        "not_testable"
+      ]
+    },
+    "n_propagator_steps_counts": [
+      [
+        "101",
+        9
+      ],
+      [
+        "103",
+        2
+      ],
+      [
+        "58",
+        1
+      ],
+      [
+        "63",
+        1
+      ],
+      [
+        "71",
+        3
+      ],
+      [
+        "73",
+        3
+      ],
+      [
+        "78",
+        2
+      ],
+      [
+        "81",
+        1
+      ],
+      [
+        "83",
+        1
+      ],
+      [
+        "86",
+        4
+      ],
+      [
+        "88",
+        5
+      ],
+      [
+        "91",
+        4
+      ],
+      [
+        "93",
+        10
+      ],
+      [
+        "96",
+        17
+      ],
+      [
+        "98",
+        17
+      ]
+    ],
+    "common_phase_anchor_documented": false,
+    "scaling_gate": {
+      "primary_contract_values": [
+        "subject_anchored"
+      ],
+      "normalization_status_values": [
+        "disabled"
+      ],
+      "h1_h2_amplitude_claim_status": "exploratory_local_chart_geometry",
+      "note": "subject_anchored local fits do not license confirmatory absolute amplitude decrease. H1/H2 remain gated until a documented cross-phase anchor exists."
+    },
+    "read_errors": []
+  },
+  "ingest_status": "skipped",
+  "ingest_error": null,
+  "extraction": null,
+  "audit_files": null,
+  "config_path": "J:\\repos\\nmd-analysis\\articles\\Apollo_propofol_ndt_v.1.0\\config\\ndt-analysis-apollo-propofol-v1.yaml",
+  "config_sha256": "22ae6d5d9740876dcdf1087494dedbf5d2bb2e63046d6f4f909b410a60476309",
+  "runtime": {
+    "python": "3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "code_provenance": {
+    "collect": {
+      "path": "J:\\repos\\nmd-analysis\\articles\\Apollo_propofol_ndt_v.1.0\\src\\apollo_collect.py",
+      "sha256": "c5c09213b69d02f6f5e149086c1cc82957202f8a4c900d089787c43f03e22085"
+    },
+    "pipeline": {
+      "path": "J:\\repos\\nmd-analysis\\nmd-analysis\\nmd_analysis\\pipeline.py",
+      "sha256": "43dd80c99b60bf15e3832c010043780f54a4c9e54b3b97cd02da67debf2d6414"
+    },
+    "v3_audit": {
+      "path": "J:\\repos\\nmd-analysis\\nmd-analysis\\nmd_analysis\\v3_audit.py",
+      "sha256": "369952b79140294312924bef2738df1080350332dc9ffb9c9c7f8d76741ede8a"
+    }
+  },
+  "note": "Collection writes identity, labels, support and nmd-analysis parquet tables. It does not compute paired condition contrasts, sign tests, effect sizes or classifiers."
+}

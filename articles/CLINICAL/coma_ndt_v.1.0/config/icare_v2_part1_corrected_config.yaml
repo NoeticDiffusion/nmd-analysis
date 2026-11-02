@@ -1,0 +1,45 @@
+# Part1 (0-12h), re-ingested 2026-09-11 with the Jacobian fit-fidelity gate,
+# ComBat harmonization (batch_key=hospital), cohort-anchored coords, and the
+# conventional_eeg pack. Same 161-subject population as bundle
+# 20260904_225047 (+1 extra grouped subject), restricted at ingest to
+# filename hours 000-012 via exclude_files. Supersedes bundle 20260904_225047
+# for Family B (that bundle's F_reactive result was an ungated-fit artifact;
+# see handover/ingest_jacobian_fidelity_handover.md).
+bundle_id: "20260911_125829"
+dataset_id: physionet_icare_2_1
+confirmatory_status: exploratory_discovery_part1_corrected
+coordinate_contract: subject_anchored
+
+paths:
+  raw_root: "J:/repos/nmd-analysis/data/raw/neuralmanifolddynamics_physionet_icare_2_1_20260911_125829"
+  output_root: "J:/repos/nmd-analysis/articles/CLINICAL/coma_ndt_v.1.0/results/part1_corrected"
+  smoke_output_root: "J:/repos/nmd-analysis/articles/CLINICAL/coma_ndt_v.1.0/results/part1_corrected_smoke"
+
+cohort:
+  good_cpc: 1
+  poor_cpc: 5
+  good_label: CPC1
+  poor_label: CPC5
+
+timing:
+  primary_scheme: primary_12h
+  hourly_scheme: hourly_12h
+  primary_window: "0_12h"
+  assignment: run_midpoint_from_anchor_hours
+
+reachability:
+  k: 25
+  method: ridge
+  ridge_alpha: 0.001
+  super_window_size: 3
+  horizons: [1, 2, 4]
+  jitter: 1.0e-6
+  eps: 1.0e-12
+
+diffusion:
+  epsilon: 1.0e-12
+
+statistics:
+  bh_alpha: 0.05
+  min_group_n: 2
+  min_testable_group_n: 10

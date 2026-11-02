@@ -1,0 +1,47 @@
+{
+  "schema": "mnps_bench_002_metadata_scope_freeze.v1",
+  "created_utc": "2026-10-08",
+  "status": "selected_before_any_ds003838_mnps_feature_outputs",
+  "dataset": "OpenNeuro ds003838 v1.0.6",
+  "dataset_doi": "10.18112/openneuro.ds003838.v1.0.6",
+  "dataset_release_uri": "https://openneuro.org/datasets/ds003838/versions/1.0.6",
+  "participant_source_file": "participants.tsv from the DOI-pinned OpenNeuro v1.0.6 release",
+  "participant_source_pin": "Use the immutable OpenNeuro v1.0.6 dataset release; the moving GitHub main/master branch is not the roster source of record.",
+  "selected_scope": "Within-participant digit-span serial-recall instruction versus passive listening, matched within 5-, 9-, and 13-digit load; event-anchored encoding through common 3-second retention; exclude retrieval speech and ITI.",
+  "analysis_unit": "participant x load x condition",
+  "candidate_screen_roster_n": 65,
+  "inclusion_manifest": "bench_002_outcome_blind_inclusion_manifest.csv",
+  "inclusion_manifest_sha256": "84AA7E679832D60852F9611BEBDB98ED6F0688B7EE276305761D196B9D2ABC0D",
+  "scope_report_sha256": "A0509EF97E7D5F302EE401E594E993A12AA35954EA117EC4E656208C6C1B6C3A",
+  "feature_outcome_values_examined": false,
+  "published_neural_condition_results_examined": true,
+  "confirmatory_claim_allowed": false,
+  "primary_mnj_inclusion": false,
+  "primary_mnj_exclusion_reason": "Metadata describes event-defined trials, not a verified 120-180 seconds of uninterrupted same-condition dynamics.",
+  "technical_inclusion_rule": "Screen source participants with EEG_excluded=no for paired event files and requested channel realizations. Freeze estimator-specific support/computability rules; impose no global duration gate; emit each computable measurement and use a named common-support intersection only for paired model comparisons.",
+  "scope_report": "bench_002_source_audit_v1_20261008.md",
+  "source_metadata": [
+    "https://doi.org/10.18112/openneuro.ds003838.v1.0.6",
+    "https://openneuro.org/datasets/ds003838/versions/1.0.6",
+    "https://github.com/OpenNeuroDatasets/ds003838",
+    "https://github.com/OpenNeuroDatasets/ds003838/blob/main/sub-032/eeg/sub-032_task-memory_eeg.json",
+    "https://github.com/OpenNeuroDatasets/ds003838/blob/main/sub-032/eeg/sub-032_task-rest_eeg.json",
+    "https://github.com/OpenNeuroDatasets/ds003838/blob/main/sub-032/eeg/sub-032_task-memory_events.json",
+    "https://doi.org/10.1038/s41597-022-01414-2",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9206021/"
+  ],
+  "preliminary_metadata_check": {
+    "scope": "sub-032 sample files from moving GitHub mirror only",
+    "task_memory_eeg_json": "RecordingDuration 7395.32 s; continuous mixed task; 63 EEG channels; FCz reference; Fpz ground; 1000 Hz",
+    "task_rest_eeg_json": "RecordingDuration 227.081 s (~3 min 47 s); task-rest file. The sidecar repeats TaskName mixed and the digit-span TaskDescription, while the data descriptor describes a nominal four-minute eyes-closed rest recording; reconcile the label and duration against the DOI-pinned release before using as rest.",
+    "event_dictionary": "per-digit control/memory markers encode load and item position; memory markers include recall correctness",
+    "not_verified": ["all 65 participants", "ordered channel labels and set hashes", "per-recording reference consistency", "sequence identity across conditions", "exact audio offsets and sample-window boundaries", "task-rest sidecar label mismatch against the data descriptor"],
+    "feature_outcomes_examined": false
+  },
+  "scope": {
+    "primary_arms": ["conventional spectral", "raw MNPS 2.0 inputs", "historical MNPS 2.0", "full MNPS v3.1", "fast-four MNPS v3.1"],
+    "participant_split": "group all load-condition rows by participant",
+    "outcome_summary": "paired participant AUC differences and participant bootstrap intervals, plus per-load within-participant changes",
+    "measurement_outputs": "preserve window support, trial and block boundaries, missingness, reference, ordered sensor labels and realization identity"
+  }
+}

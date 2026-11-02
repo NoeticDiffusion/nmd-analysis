@@ -1,0 +1,23 @@
+import Noetic.CovarianceEllipsoidPushForward
+open scoped Matrix
+#check Matrix.inv_mul
+#check Matrix.mul_inv
+#check Matrix.inv_transpose
+#check Matrix.transpose_mul
+#check Matrix.mul_transpose
+#check Matrix.mulVec_mulVec
+#check Matrix.mulVec_mul
+#check Matrix.mulVec_transpose
+#check Matrix.transpose_mulVec
+#check Matrix.vecMul_vecMul
+#check Matrix.mulVec_vecMul
+#check Matrix.isUnit_iff_isUnit_det
+#check IsUnit.mul_val
+#check IsUnit.unit_spec
+#check Matrix.inv_eq_nonsingInv
+#check Matrix.mul_nonsing_inv
+#check Matrix.nonsing_inv_mul
+#check Matrix.nonsing_inv
+#check Matrix.nonsingInv
+#check Matrix.nonsingInv_mul
+#check Matrix.mul_nonsingInv

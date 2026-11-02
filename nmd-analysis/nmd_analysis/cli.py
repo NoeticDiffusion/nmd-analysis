@@ -81,6 +81,45 @@ def analyze(
     typer.echo(json.dumps(result, indent=2))
 
 
+@app.command("v3-audit")
+def v3_audit(
+    config: Path = typer.Option(..., "--config", exists=True, dir_okay=False),
+    input_root: Path = typer.Option(..., "--input-root", exists=True, file_okay=False),
+    output_root: Path = typer.Option(..., "--output-root", file_okay=False),
+    workers: int = typer.Option(1, "--workers", min=1),
+) -> None:
+    """Extract a v3 pilot and report support/missingness, without contrasts."""
+    import hashlib
+
+    from .v3_audit import write_audit
+
+    result = run_dataset_pipeline(
+        config_path=config, input_root=input_root,
+        output_root=output_root, workers=workers,
+    )
+    result["config_path"] = str(config.resolve())
+    result["config_sha256"] = hashlib.sha256(config.read_bytes()).hexdigest()
+    result["audit_files"] = write_audit(result, output_root)
+    typer.echo(json.dumps(result, indent=2))
+    if result.get("errors") or not result.get("written_files"):
+        raise typer.Exit(code=1)
+
+
+@app.command("signal-support-audit")
+def signal_support_audit(
+    input_h5: list[Path] = typer.Option(..., "--input-h5", exists=True, file_okay=True, dir_okay=False),
+    output_root: Path = typer.Option(..., "--output-root", file_okay=False, dir_okay=True),
+) -> None:
+    """Audit explicit H5 signal-support provenance without epoch pooling."""
+    from .signal_support_audit import audit_signal_support
+    try:
+        result = audit_signal_support(input_h5, output_root)
+    except Exception as exc:
+        typer.echo(str(exc), err=True)
+        raise typer.Exit(code=1)
+    typer.echo(json.dumps(result, indent=2))
+
+
 @app.command("spindle-events")
 def spindle_events(
     event_root: Path = typer.Option(..., "--event-root", exists=True, file_okay=False, dir_okay=True),

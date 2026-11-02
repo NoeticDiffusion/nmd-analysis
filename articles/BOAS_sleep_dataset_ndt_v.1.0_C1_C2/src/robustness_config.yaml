@@ -1,0 +1,53 @@
+# Compare contrast_summary.csv outputs from the primary and sensitivity runs.
+# All paths are absolute or relative to this YAML file.
+analysis:
+  id: replace_with_robustness_analysis_id
+  description: "Descriptive comparison of precomputed primary and sensitivity contrasts."
+
+primary:
+  id: primary
+  file: "../results/contrast_example/contrast_summary.csv"
+  unit_support_file: "../results/contrast_example/paired_unit_differences.csv"
+
+# Each variant must be computed using an explicitly documented article-specific
+# sensitivity specification and written to its own result table.
+variants:
+  - id: replace_with_variant_id
+    description: "Describe the changed support, preprocessing, or estimator specification."
+    file: "../results/contrast_variant_example/contrast_summary.csv"
+    unit_support_file: "../results/contrast_variant_example/paired_unit_differences.csv"
+
+# Keys must uniquely identify rows in every table.
+keys:
+  - contrast_id
+  - measure
+
+# Descriptive contrast estimates and support counts from contrast_analysis.py.
+effect_columns:
+  - mean_difference_b_minus_a
+  - median_difference_b_minus_a
+support_columns:
+  - n_units_a
+  - n_units_b
+  - n_finite_a
+  - n_finite_b
+  - n_complete_pairs
+
+# Optional exact participant-support comparison. These keys/status names match
+# contrast_analysis.py's paired_unit_differences.csv output.
+unit_support:
+  keys:
+    - contrast_id
+    - measure
+    - unit_id
+  status_column: unit_status
+  included_statuses:
+    - complete_pair
+
+outputs:
+  folderpath: "../results/robustness_example"
+  effects_file: robustness_effect_comparison.csv
+  support_file: robustness_support_comparison.csv
+  join_audit_file: robustness_key_audit.csv
+  unit_support_audit_file: robustness_unit_support_audit.csv
+  manifest_file: robustness_comparison_manifest.json

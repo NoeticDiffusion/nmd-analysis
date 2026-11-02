@@ -1,0 +1,42 @@
+# Smoke extraction of MNPS / NMDM 3.0.1 I-CARE part1 0-12h.
+# Override paths with --input-root / --output-root. No clinical contrast.
+dataset: physionet_icare_2_1
+coordinate_contract: subject_anchored
+input:
+  h5_root: "data/raw/neuralmanifolddynamics_physionet_icare_2_1_20260917_194039"
+output:
+  directory: data/cleaned/icare_v3_0_1_smoke
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+runtime:
+  fail_on_missing_input: true
+  skip_disabled_analyses: true
+  continue_on_analysis_error: false
+  workers: 1
+flags:
+  sleep_data_contrast: false
+analyses:
+  dynamical_families_availability: true
+  diffusion_geometry_recording: true
+  diffusion_geometry_window: true
+  diffusion_increment_covariance_recording: true
+  destination_recording: true
+  resilience_recording: true
+  chart_drift_recording: true
+  chart_drift_realized_velocity_window: true
+  chart_drift_conditional_mean_window: true
+  chart_drift_lag_diagnostics_window: true
+  one_step_recording: true
+  history_predictive_gain_recording: true
+  history_conditioned_operator_recording: true
+  amplification_window: true
+  turning_window: true
+  local_dynamics_availability: true
+  jacobian_metrics_3d_recording: true
+  jacobian_metrics_9d_recording: true
+  finite_time_response_3d_recording_horizon: true
+  finite_time_response_9d_recording_horizon: true
+  transition_q_proxy_3d_recording: true
+  transition_q_proxy_9d_recording: true
+  stochastic_reachability_3d_recording: true
+  stochastic_reachability_9d_recording: true

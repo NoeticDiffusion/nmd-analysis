@@ -1,0 +1,88 @@
+{
+  "schema": "apollo_propofol_ndt_v1.reproducibility.v1",
+  "generated_on": "2026-09-22",
+  "repository": {
+    "path": "J:\\repos\\nmd-analysis",
+    "branch_at_revision_start": "main",
+    "git_commit_at_revision_start": "d1c7fcedfb92c34162437fe11cdb35aa64620018",
+    "working_tree_status": "dirty; this article revision and unrelated repository changes are uncommitted",
+    "commit_scope_note": "The recorded commit identifies the verified repository base before this revision; it does not contain the current working-tree edits."
+  },
+  "article_root": "articles/Apollo_propofol_ndt_v.1.0",
+  "inputs_and_code": {
+    "config": {
+      "path": "articles/Apollo_propofol_ndt_v.1.0/config/ndt-analysis-apollo-propofol-v1.yaml",
+      "sha256": "22ae6d5d9740876dcdf1087494dedbf5d2bb2e63046d6f4f909b410a60476309"
+    },
+    "labels": {
+      "path": "articles/Apollo_propofol_ndt_v.1.0/metadata/datainfo.mat",
+      "sha256": "ea8824f3ca9bd2eef0cdee3a7e1402dcc9e599f9688290cc382ae8e1a21f5608"
+    },
+    "analysis_source": "articles/Apollo_propofol_ndt_v.1.0/src/",
+    "tests": "articles/Apollo_propofol_ndt_v.1.0/tests/"
+  },
+  "frozen_artifact_manifests": [
+    {
+      "path": "articles/Apollo_propofol_ndt_v.1.0/results/ingest_20260920/collection_manifest.json",
+      "sha256": "878061d99edc849519195e02304ac59a4facad5c3f45766e17c85fffd3442545"
+    },
+    {
+      "path": "articles/Apollo_propofol_ndt_v.1.0/results/ingest_20260920/g0_sidecar_hashes.json",
+      "sha256": "fdaa8902ef76287cae5e9aaa578841f9f5b4efbfa73716431f1f65a471545521"
+    },
+    {
+      "path": "articles/Apollo_propofol_ndt_v.1.0/results/v1_occupancy_20260921/occupancy_part1_manifest.json",
+      "sha256": "2a1352360c73fd8a42605667072d0634733c045316d5a6e69baac8ab4661659e"
+    },
+    {
+      "path": "articles/Apollo_propofol_ndt_v.1.0/results/v1_occupancy_robustness_20260922_reviewfix/robustness_lock_manifest.json",
+      "sha256": "a7aefef151ec4b49920a282e7e6b4dbf5209ebc823c3fd36e7ff4cf1a7b181ab"
+    },
+    {
+      "path": "articles/Apollo_propofol_ndt_v.1.0/results/v1_lor_20260921/lor_part1_manifest.json",
+      "sha256": "a7fe20e6a24bcb2b09d3b74bc47626e5eb9cc7387a0d562fe7e2d9579cf0e17a"
+    },
+    {
+      "path": "articles/Apollo_propofol_ndt_v.1.0/results/v1_c3_anchor_20260921/c3_anchor_part1_manifest.json",
+      "sha256": "71e18828a39ef7104d2ace44945407684e770953bad4a2c2cca3feb922c2bd6b"
+    },
+    {
+      "path": "articles/Apollo_propofol_ndt_v.1.0/results/v1_coverage_20260921/coverage_matrix.json",
+      "sha256": "e4ef2521ccc7411e3854b35cc3b69c066fff2566fd91e0fa52d0906e8c42001f"
+    }
+  ],
+  "robustness_branch": {
+    "analysis_version": "apollo_occupancy_robustness_20260922_v1",
+    "plan": {
+      "path": "articles/Apollo_propofol_ndt_v.1.0/preregistration/addendum_20260922_occupancy_robustness.md",
+      "sha256": "11aac18276df4591b23819ef4c70cec1c371a7e51468e2b04a47dca9dd96ede7"
+    },
+    "lock_manifest": "articles/Apollo_propofol_ndt_v.1.0/results/v1_occupancy_robustness_20260922_reviewfix/robustness_lock_manifest.json",
+    "computational_lock": true,
+    "scientific_confirmatory_lock": false,
+    "summary": "20 participants; 11 variants; 880/880 participant-phase values finite; 0 variant support failures; feature decomposition 640 rows; frozen reference reproduction 80/80 cells, max absolute difference 3.55e-15"
+  },
+  "pr01_geometric_branch": {
+    "analysis_version": "apollo_pr01_geometric_20260922_v1",
+    "plan": "articles/Apollo_propofol_ndt_v.1.0/preregistration/addendum_20260922_pr01_geometric_dissection.md",
+    "manifest": "articles/Apollo_propofol_ndt_v.1.0/results/v1_pr01_geometric_20260922_final2/pr01_geometric_manifest.json",
+    "status": "post-hoc exploratory; frozen primary outputs unchanged",
+    "summary": "centre/spread decomposition, 10% covariance-shrinkage whitening, caliper support curve, and participant-paired bootstrap uncertainty"
+  },
+  "raw_export": {
+    "name": "neuralmanifolddynamics_Sedation-RestingState_20260918_075713",
+    "relative_root_from_repository": "data/raw/neuralmanifolddynamics_Sedation-RestingState_20260918_075713",
+    "n_files": 80,
+    "n_subjects": 20,
+    "pinned_example": {
+      "relative_path": "sub-002_sedation_rest_run-003_acq-135/sub-002_sedation_rest_run-003_acq-135.h5",
+      "sha256": "1635513f690ae01807a9495d920052ddc2a2c9a568d3b8a76bb04139bca993ba"
+    }
+  },
+  "limitations": [
+    "The raw H5 export remains at its repository data path and is not duplicated in this article directory.",
+    "The collection manifest pins one representative H5 file; it does not provide a SHA-256 for every raw H5 file.",
+    "The ingest sidecar hash file covers listed auxiliary artifacts, while the analysis manifests hash their recorded label and occupancy inputs.",
+    "No release archive or additional DOI is claimed for this uncommitted working-tree revision."
+  ]
+}

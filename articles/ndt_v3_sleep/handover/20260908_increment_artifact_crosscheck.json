@@ -1,0 +1,50 @@
+{
+  "schema": "nmdm.sleep.increment_artifact_crosscheck.v1",
+  "status": "PASS",
+  "method": "independent CSV/H5/hash comparison; runner not imported or executed",
+  "checks": {
+    "h5_rows": 1068,
+    "h5_stage_counts": {
+      "0": 275,
+      "1": 20,
+      "2": 642,
+      "3": 15,
+      "4": 107,
+      "8": 9
+    },
+    "adjacent_pool_rows": 1067,
+    "adjacent_pool_index_pairs": "0->1 through 1066->1067",
+    "pool_stage_counts_source_rows": {
+      "0": 275,
+      "1": 20,
+      "2": 641,
+      "3": 15,
+      "4": 107,
+      "8": 9
+    },
+    "pool_stage_counts_match_h5_source_side": true,
+    "pool_h5_stage_fields_match": true,
+    "pool_h5_window_bounds_match": true,
+    "pool_structural_rows": 1067,
+    "same_known_endpoint_rows": 976,
+    "code8_touch_rows": 10,
+    "candidate_rows": 21360,
+    "candidate_rows_expected": "1068 queries x 20 rows",
+    "each_query_has_20_candidates": true,
+    "candidate_query_ids_cover_0_to_1067": true,
+    "candidate_structural_rows": 21360,
+    "full_support_status_all_not_assessed": true,
+    "full_qualified_count_all_null": true,
+    "output_hashes_json_match_files": true
+  },
+  "artifact_hashes": {
+    "all_adjacent_pool.csv": "867933a083b3106ac2d3e5487b2eac82b1f95569d0f9ce256a3873b490c84f57",
+    "audit_manifest.json": "6b5c4a8cdb62d1bdfa4c166312b73bb035ae48fc2d63384fd7cbda4a09ad1145",
+    "increment_rows.csv": "9f2849c9de4a80cbb8b53f70feee56d8ef5e925efab4a31573404fc4ade8dbdc",
+    "pool_stage_counts.csv": "23add80d483aaab74958c8b372485e2696ed92ab144dc8bea79ea9853125b925",
+    "query_support_summary.csv": "3820ca76fa6a9a5c2dac090786dfac323d143340796f880f1c8ea1b2068a0c92",
+    "output_hashes.json": "0c00084cac686d7c67dd9fa38f2efaee3edb3b0ab81f3c753e7f172e5903aa27"
+  },
+  "input_h5_sha256": "3657fd599bbcddb774aa8ae237cb017f0a566c3a21e0877f4b43634d0d98a427",
+  "interpretation": "Structural adjacency and stage endpoint flags agree with H5. The artifact does not establish full temporal support or stage purity; those fields remain not_assessed/null as required."
+}

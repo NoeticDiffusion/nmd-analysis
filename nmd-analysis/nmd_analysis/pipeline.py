@@ -89,9 +89,10 @@ def run_dataset_pipeline(
     adapters = build_adapters(config_file)
     n_workers = _resolve_workers(workers, cfg)
 
-    resolved_input = Path(input_root) if input_root else Path(cfg.h5_root or "")
-    if not str(resolved_input):
+    input_value = input_root if input_root is not None else cfg.h5_root
+    if input_value is None or not str(input_value).strip():
         raise ValueError("No input root provided. Set input.h5_root in config or pass --input-root.")
+    resolved_input = Path(input_value)
     if not resolved_input.exists():
         if cfg.runtime.fail_on_missing_input:
             raise FileNotFoundError(f"Input root does not exist: {resolved_input}")
@@ -111,7 +112,11 @@ def run_dataset_pipeline(
     errors: List[str] = []
 
     allowed = {str(a).strip() for a in (analyses_filter or []) if str(a).strip()}
-    modality_by_file = {h5_path: _read_modality(h5_path) for h5_path in h5_files}
+    modality_by_file = (
+        {h5_path: _read_modality(h5_path) for h5_path in h5_files}
+        if cfg.modality_rules
+        else {}
+    )
 
     for analysis_type, enabled in cfg.analyses.items():
         if allowed and analysis_type not in allowed:

@@ -1,0 +1,111 @@
+{
+  "schema": "ndt.sleep.new_family_analysis_plan.v1",
+  "created_utc": "2026-09-10T14:33:56.941406+00:00",
+  "status": "planned_not_executed",
+  "study_role": "already_inspected_development_artifacts_not_preregistration",
+  "source_inventory": "results/new_family_inventory_20260910/family_metric_inventory.json",
+  "source_h5_sha256": [
+    "217991681011397acd4493cd97cc74e7a982d361a04e6e94d29b40c8261ef8a1",
+    "1eba1d7d9a470647992ab729f26a4ee5cea9249586e7e98cbad814759cff94db"
+  ],
+  "scope": "existing files only; no new ingest, source tuning, participant selection or m/e remediation prerequisite",
+  "E1": {
+    "question": "How do local fitted Jacobian spectral growth and Euclidean reactivity associate descriptively with recorded sleep labels?",
+    "dimensions": [
+      3,
+      9
+    ],
+    "primary_metrics": [
+      "spectral_abscissa",
+      "numerical_abscissa"
+    ],
+    "derived_metric": [
+      "reactivity_gap"
+    ],
+    "mapping": "Use each Jacobian centers array as explicit epoch array positions, validate unique integer bounds, map to actual epoch_id/time/label; never zip to all epochs or bridge nonconsecutive centers.",
+    "support": "fixed producer estimator, finite metric/J, explicit reader status; labeled center is not full neighborhood/filter containment",
+    "units": "inverse derivative time unit; verify derivative dt in seconds before labeling figure s^-1; no conversion inferred from generic attrs",
+    "metric_dependence": "numerical abscissa and reactivity depend on chart metric; 3D/9D and recording references remain separate"
+  },
+  "E2": {
+    "question": "How do the magnitude and anisotropy of existing raw chart increment covariance associate descriptively with query labels?",
+    "dimension": 3,
+    "metrics": [
+      "D_total",
+      "d_diff",
+      "c_diff"
+    ],
+    "mapping": "exact query epoch_id/time/label alignment from canonical diffusion reader; preserve producer valid/support_count and PSD-floor flags",
+    "estimator": "unchanged global state-neighborhood covariance divided by nominal dt; no per-stage neighborhood, residualization or refit",
+    "units": {
+      "D_total": "recording-relative coordinate squared / second at nominal dt30s",
+      "d_diff": "dimensionless",
+      "c_diff": "dimensionless"
+    },
+    "aliases": "do not count diffusion_total/effective_dimension/concentration as additional endpoints"
+  },
+  "shared_summaries": {
+    "stages": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "code8": "separate unknown-source category excluded from known-stage summaries; retain count",
+    "other_unknown": "separate count; no relabeling",
+    "denominators": "each recording/representation/metric separately: stored rows, mapped rows, finite rows, producer support/validity and used rows",
+    "statistics": [
+      "n",
+      "median",
+      "q25",
+      "q75"
+    ],
+    "contrast": "N2 median minus Wake median, for every planned endpoint separately; absent/unsupported group -> null; no selection on observed sign",
+    "cross_participant": "separate relative-reference descriptions, not calibrated effect sizes; no pooling/pvalues/population claims",
+    "figures": [
+      "Jacobian alpha/omega stage distributions in separate3D9D panels plus actual-center timeline without joining gaps",
+      "3D diffusion D_total/d_diff/c_diff by query label with support and floor indicators"
+    ]
+  },
+  "E3": {
+    "question": "Can existing analysis-owned cross-fitted candidate drift be evaluated on held-out increments under an explicit chart contract?",
+    "status": "candidate_protocol_followup; not required for E1/E2",
+    "reuse": [
+      "nmd_analysis.dynamical_families.drift.crossfit_local_chart_b",
+      "m3_reference_smoke.py",
+      "existing M3/CHART synthetic benchmark evidence"
+    ],
+    "reference_smoke_spec": "train increment indices0:600, evaluation700:800, k32,min_support12,embargo60s, estimatorslocal_mean/local_linear; raw30s supports; this is engineering smoke only",
+    "prerequisite_for_new_candidate_run": "pin explicit coordinate layer matching selected analysis object; retain selected source/quality rows, gaps and raw support limitations; never call smoke full independence or Ito identification",
+    "controls": "reuse established oracle/same-sample/shuffled/time-displaced synthetic diagnostics; regression only if code changes; empirical truth/bias cannot be inferred without oracle",
+    "unavailable_now": [
+      "A_bD",
+      "R_b_over_a",
+      "drift_diffusion_alignment"
+    ],
+    "no_substitution": [
+      "MNPS derivative as qualified drift",
+      "Jacobian intercept as drift",
+      "same-sample increment mean as independent drift"
+    ]
+  },
+  "deferred": [
+    "recording-horizon FTR with explicit horizon/gap policy",
+    "recording-grain Q/W_Q and destination/resilience summaries",
+    "9D diffusion absent from current canonical surface",
+    "stage-intrinsic and biological qualification"
+  ],
+  "interpretation_limitations": [
+    "full temporal support unknown",
+    "qualification counts null notzero",
+    "source nonequivalence for e_m and compositee retained as scoped limitation; no universal between-person geometry claim"
+  ],
+  "next_deliverables": [
+    "article-local runner reusing installed readers",
+    "all planned endpoint-by-label tables and source/code/config manifests",
+    "E1/E2 figures",
+    "independent review then clearly marked manuscript results update"
+  ],
+  "stop_rule": "complete E1/E2 bounded descriptive outputs on the two fixed H5s, record missing/unsupported cases, review once; do not make additional source/normalization repair a prerequisite absent a concrete extraction error"
+}

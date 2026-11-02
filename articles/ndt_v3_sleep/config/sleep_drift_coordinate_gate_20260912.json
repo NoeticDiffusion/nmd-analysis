@@ -1,0 +1,211 @@
+{
+  "schema": "ndt.sleep.coordinate_support_gate.v1",
+  "status": "frozen_candidate_coordinate_support_policy",
+  "frozen_spec_sha256": "5b60875f1a2b5957a223877104895747a09fefae237a35c1acceb9296b114910",
+  "spec": {
+    "policy_id": "coordinate_support_policy_20260912",
+    "scope": "bounded sleep drift candidate input-support continuation only",
+    "purpose": "Permit a candidate chart-support check when overall geometry is adjusted solely by an unrelated Jacobian-window condition filter, while preserving the strict reference refusal and all scientific claim limits.",
+    "source_role": "exact two E1/E2 development H5s; read-only; source bytes are pinned by SHA-256",
+    "sources": [
+      {
+        "recording": "sub-99",
+        "path": "H:/SourceRepo2/NeuralManifoldDynamics/project/v3/fullnight_support_20260910/processed/ds005555/neuralmanifolddynamics_ds005555_20260910_112127/sub-99_Sleep_acq-psg/sub-99_Sleep_acq-psg.h5",
+        "sha256": "217991681011397acd4493cd97cc74e7a982d361a04e6e94d29b40c8261ef8a1"
+      },
+      {
+        "recording": "sub-1",
+        "path": "H:/SourceRepo2/NeuralManifoldDynamics/project/v3/independent_sleep_20260910/processed/ds005555/neuralmanifolddynamics_ds005555_20260910_114609/sub-1_Sleep_acq-psg/sub-1_Sleep_acq-psg.h5",
+        "sha256": "1eba1d7d9a470647992ab729f26a4ee5cea9249586e7e98cbad814759cff94db"
+      }
+    ],
+    "overall_geometry_status": {
+      "allowed": ["ok", "adjusted"],
+      "unknown_missing_or_other": "refuse",
+      "status_is_preserved": true
+    },
+    "strict_reference_gate": {
+      "required_status": "ok",
+      "when_overall_status_adjusted": "refuse_strict_reference_and_record_coordinate_gate_separately",
+      "strict_refusal_must_remain_visible": true,
+      "strict_gate_is_not_reclassified_by_this_policy": true
+    },
+    "coordinates": [
+      {
+        "name": "mnps_3d",
+        "dataset_path": "mnps_3d",
+        "coordinate_layer": "mnps_3d",
+        "dimension": 3,
+        "axis_names": ["m", "d", "e"]
+      },
+      {
+        "name": "coords_9d",
+        "dataset_path": "coords_9d/values",
+        "coordinate_layer": "coords_9d/values",
+        "dimension": 9,
+        "axis_names": ["m_a", "m_e", "m_o", "d_n", "d_l", "d_s", "e_e", "e_s", "e_m"]
+      }
+    ],
+    "coordinate_selection": {
+      "must_be_explicit": true,
+      "allowed_names": ["mnps_3d", "coords_9d"],
+      "selected_path_layer_order_shape_and_dimension_must_match_config": true,
+      "unknown_missing_or_inconsistent_selection": "refuse",
+      "subject_specific_allowlist": false
+    },
+    "geometry_evidence": {
+      "required_paths": {
+        "overall_status": "provenance/geometry_contract/status",
+        "policy_version": "provenance/geometry_contract/policy_version",
+        "time_grid_status": "provenance/geometry_contract/time_grid/status",
+        "epochs_before_policy": "provenance/geometry_contract/shared_time_grid/epochs_before_policy",
+        "epochs_retained": "provenance/geometry_contract/shared_time_grid/epochs_retained",
+        "epochs_dropped": "provenance/geometry_contract/shared_time_grid/epochs_dropped",
+        "drop_reason_counts": "provenance/geometry_contract/shared_time_grid/drop_reason_counts",
+        "mnps_3d_degenerate_axes": "provenance/geometry_contract/mnps_3d/degenerate_axes",
+        "mnps_3d_all_nan_axes": "provenance/geometry_contract/mnps_3d/all_nan_axes",
+        "mnps_3d_nonfinite_rows": "provenance/geometry_contract/mnps_3d/nonfinite_row_count",
+        "coords_9d_available": "provenance/geometry_contract/coords_9d/available",
+        "coords_9d_shape_matches_time_grid": "provenance/geometry_contract/coords_9d/shape_matches_time_grid",
+        "coords_9d_degenerate_axes": "provenance/geometry_contract/coords_9d/degenerate_axes",
+        "coords_9d_all_nan_axes": "provenance/geometry_contract/coords_9d/all_nan_axes",
+        "coords_9d_nonfinite_rows": "provenance/geometry_contract/coords_9d/nonfinite_row_count",
+        "coords_9d_nonfinite_rows_retained_on_shared_grid": "provenance/geometry_contract/coords_9d/nonfinite_rows_retained_on_shared_grid",
+        "jacobian_3d_status": "provenance/geometry_contract/jacobian/status",
+        "jacobian_3d_invalid_windows": "provenance/geometry_contract/jacobian/invalid_windows",
+        "jacobian_3d_windows_raw": "provenance/geometry_contract/jacobian/windows_raw",
+        "jacobian_3d_windows_retained": "provenance/geometry_contract/jacobian/windows_retained",
+        "jacobian_3d_condition_number_windows": "provenance/geometry_contract/jacobian/invalid_reason_counts/condition_number_windows",
+        "jacobian_3d_nonfinite_windows": "provenance/geometry_contract/jacobian/invalid_reason_counts/nonfinite_windows",
+        "jacobian_9d_status": "provenance/geometry_contract/jacobian_9d/status",
+        "jacobian_9d_invalid_windows": "provenance/geometry_contract/jacobian_9d/invalid_windows",
+        "jacobian_9d_windows_raw": "provenance/geometry_contract/jacobian_9d/windows_raw",
+        "jacobian_9d_windows_retained": "provenance/geometry_contract/jacobian_9d/windows_retained",
+        "jacobian_9d_condition_number_windows": "provenance/geometry_contract/jacobian_9d/invalid_reason_counts/condition_number_windows",
+        "jacobian_9d_nonfinite_windows": "provenance/geometry_contract/jacobian_9d/invalid_reason_counts/nonfinite_windows"
+      },
+      "common_clean_predicates": [
+        "all required paths exist and have recognized scalar/array types",
+        "policy_version == 'standard_invalidity_v1'",
+        "time_grid.status == 'ok'",
+        "epochs_before_policy is a positive integer and epochs_retained == epochs_before_policy",
+        "epochs_dropped == 0",
+        "shared_time_grid.drop_reason_counts has exactly the recognized keys ['coords_9d_nonfinite_rows_affecting_primary', 'mnps_3d_nonfinite_rows'] and no unknown keys",
+        "every value in shared_time_grid.drop_reason_counts is an integer equal to 0",
+        "mnps_3d.degenerate_axes and mnps_3d.all_nan_axes are empty",
+        "mnps_3d.nonfinite_row_count == 0",
+        "coords_9d.available == true",
+        "coords_9d.shape_matches_time_grid == true",
+        "coords_9d.degenerate_axes and coords_9d.all_nan_axes are empty",
+        "coords_9d.nonfinite_row_count == 0",
+        "coords_9d.nonfinite_rows_retained_on_shared_grid == 0",
+        "jacobian and jacobian_9d invalid_reason_counts have exactly the recognized keys ['condition_number_windows', 'nonfinite_windows'] and no unknown keys",
+        "jacobian.status == 'ok' and invalid_windows == 0 and windows_raw == windows_retained",
+        "jacobian invalid_reason_counts.condition_number_windows == 0 and nonfinite_windows == 0"
+      ],
+      "recognized_reason_keys": {
+        "shared_time_grid_drop_reason_counts": ["coords_9d_nonfinite_rows_affecting_primary", "mnps_3d_nonfinite_rows"],
+        "jacobian_invalid_reason_counts": ["condition_number_windows", "nonfinite_windows"]
+      },
+      "overall_ok_predicate": "overall status == 'ok' and common_clean_predicates hold and jacobian_9d.status == 'ok' and jacobian_9d.invalid_windows == 0 and jacobian_9d.windows_raw == jacobian_9d.windows_retained and jacobian_9d invalid_reason_counts.condition_number_windows == 0 and nonfinite_windows == 0",
+      "adjusted_unrelated_jacobian_predicate": [
+        "overall status == 'adjusted'",
+        "common_clean_predicates hold",
+        "jacobian_9d.status == 'adjusted'",
+        "jacobian_9d.invalid_windows is a positive integer",
+        "jacobian_9d.windows_raw and jacobian_9d.windows_retained are positive integers",
+        "jacobian_9d.windows_raw - jacobian_9d.windows_retained == jacobian_9d.invalid_windows",
+        "jacobian_9d invalid_reason_counts.condition_number_windows == jacobian_9d.invalid_windows",
+        "jacobian_9d invalid_reason_counts.nonfinite_windows == 0",
+        "no other adjusted cause is present or unaccounted for",
+        "all selected coordinate checks, time checks and epoch-support checks hold"
+      ],
+      "any_unknown_missing_inconsistent_or_unaccounted_evidence": "refuse"
+    },
+    "selected_coordinate_checks": {
+      "dataset_exists": true,
+      "two_dimensional_numeric_array": true,
+      "row_count_equals_time_and_epoch_support_row_count": true,
+      "column_count_equals_configured_dimension": true,
+      "axis_names_equal_configured_order": true,
+      "all_values_finite": true,
+      "no_imputation_or_zero_substitution": true,
+      "explicit_path_and_layer_are_serialized": true
+    },
+    "time_and_epoch_support_checks": {
+      "time_path": "time",
+      "epoch_id_path": "epoch_id",
+      "window_start_path": "window_start",
+      "window_end_path": "window_end",
+      "increment_semantics": "x[i] -> x[i+1]",
+      "time_is_finite_strictly_increasing": true,
+      "exact_dt_sec": 30.0,
+      "window_start_end_are_finite_ordered": true,
+      "exact_window_length_sec": 30.0,
+      "windows_are_contiguous": true,
+      "increment_endpoint_support_is_union_of_source_and_destination_windows": true,
+      "support_is_finite_ordered_and_contains_endpoints": true,
+      "support_embargo_must_be_checked_by_candidate_runner": true,
+      "unknown_missing_invalid_or_gap_support": "refuse"
+    },
+    "candidate_split": {
+      "train_increment_range": [0, 600],
+      "evaluation_increment_range": [700, 800],
+      "embargo_sec": 60.0,
+      "n_neighbors": 32,
+      "min_train_support": 12,
+      "estimators": ["local_mean", "local_linear"]
+    },
+    "observed_pinned_evidence": {
+      "purpose": "reference evidence only; these observations are not configurable acceptance thresholds",
+      "sub-99": {
+        "overall_geometry_status": "ok",
+        "time_grid_status": "ok",
+        "epochs_before_policy": 1068,
+        "epochs_retained": 1068,
+        "epochs_dropped": 0,
+        "jacobian_3d": {"windows_raw": 1066, "windows_retained": 1066, "invalid_windows": 0},
+        "jacobian_9d": {"windows_raw": 1066, "windows_retained": 1066, "invalid_windows": 0}
+      },
+      "sub-1": {
+        "overall_geometry_status": "adjusted",
+        "time_grid_status": "ok",
+        "epochs_before_policy": 915,
+        "epochs_retained": 915,
+        "epochs_dropped": 0,
+        "jacobian_3d": {"windows_raw": 913, "windows_retained": 913, "invalid_windows": 0},
+        "jacobian_9d": {
+          "windows_raw": 913,
+          "windows_retained": 856,
+          "invalid_windows": 57,
+          "invalid_reason_counts": {"condition_number_windows": 57, "nonfinite_windows": 0}
+        },
+        "note": "The positive count 57 is observed provenance for this pinned file, not a general acceptance threshold; the rule requires a positive internally consistent condition-number-only count."
+      }
+    },
+    "provenance_requirements": {
+      "source_sha256_before_and_after": true,
+      "overall_geometry_status": true,
+      "strict_reference_gate_status": true,
+      "coordinate_gate_status": true,
+      "coordinate_name_path_layer_axis_order_shape_dtype_and_hash": true,
+      "adjustment_reason_evidence": true,
+      "geometry_evidence_snapshot": true,
+      "time_and_support_evidence": true,
+      "candidate_status": "candidate_not_qualified",
+      "claim_status": "no_biological_claim",
+      "scientific_qualification": "not_assessed",
+      "stage_contrast": "not_run",
+      "ito_drift": "not_identified"
+    },
+    "forbidden_actions": [
+      "do not change the canonical MNPS [m,d,e] or 9D definitions",
+      "do not tune thresholds or refit normalization to obtain acceptance",
+      "do not couple candidate velocity to diffusion or populate a_hat, D_total, d_diff, c_diff, A_bD or R_b_over_a",
+      "do not relabel overall adjusted as overall ok",
+      "do not treat coordinate support acceptance as geometry qualification",
+      "do not make a stage, biological, Ito-drift or drift-diffusion claim",
+      "do not accept a source or coordinate based on subject identity, a hardcoded invalid-window count, or a missing/unknown field"
+    ]
+  }
+}

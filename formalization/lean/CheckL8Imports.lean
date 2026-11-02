@@ -1,0 +1,4 @@
+import Noetic.CovarianceFixedTransitionChain
+#check Matrix.isUnit_iff_isUnit_det
+#check Matrix.det_ne_zero_of_right_inverse
+#check Matrix.PosSemidef.posDef_iff_isUnit

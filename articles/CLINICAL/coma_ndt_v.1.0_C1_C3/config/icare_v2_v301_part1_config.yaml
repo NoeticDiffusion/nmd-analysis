@@ -1,0 +1,39 @@
+# I-CARE part1, MNPS/NMDM 3.0.1 dump (0-12h).
+# L0/L1 CPC1 vs CPC5 discovery panel. Does not replace the 09-11 article
+# tables and does not license Family B, Ito drift, or a locked confirmatory claim.
+bundle_id: "20260917_194039"
+dataset_id: physionet_icare_2_1
+confirmatory_status: exploratory_discovery_part1_v3_0_1
+coordinate_contract: subject_anchored
+
+paths:
+  raw_root: "J:/repos/nmd-analysis/data/raw/neuralmanifolddynamics_physionet_icare_2_1_20260917_194039"
+  output_root: "J:/repos/nmd-analysis/articles/CLINICAL/coma_ndt_v.1.0/results/v3_0_1"
+  smoke_output_root: "J:/repos/nmd-analysis/articles/CLINICAL/coma_ndt_v.1.0/results/v3_0_1_smoke"
+
+cohort:
+  good_cpc: 1
+  poor_cpc: 5
+  good_label: CPC1
+  poor_label: CPC5
+
+timing:
+  primary_scheme: primary_12h
+  hourly_scheme: hourly_12h
+  primary_window: "0_12h"
+  assignment: run_midpoint_from_anchor_hours
+
+diffusion:
+  epsilon: 1.0e-12
+
+# SL-004A freeze (pre-unblinding). Part2 dump is not opened here.
+confirmatory:
+  protocol: SL-004A
+  frame: coords_3d_cohort_anchored
+  neighborhood: reknn_in_same_frame
+  part2_opened: false
+
+statistics:
+  bh_alpha: 0.05
+  min_group_n: 2
+  min_testable_group_n: 10

@@ -10,7 +10,13 @@ AnalysisAdapter = LegacyAnalysisAdapter
 
 def build_adapters(config_path: Path) -> Dict[str, AnalysisAdapter]:
     """Return native nmd-analysis adapter registry."""
-    return _build_adapters_impl(config_path)
+    from .dynamical_families.adapters import collectors
+
+    adapters = _build_adapters_impl(config_path)
+    adapters.update(
+        {name: AnalysisAdapter(name, collect) for name, collect in collectors().items()}
+    )
+    return adapters
 
 
 __all__ = [

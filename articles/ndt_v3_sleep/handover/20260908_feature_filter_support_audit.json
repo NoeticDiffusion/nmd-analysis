@@ -1,0 +1,83 @@
+{
+  "schema": "nmdm.sleep.feature_filter_support_audit.v1",
+  "status": "METHOD_LIMITED",
+  "scope": {
+    "dataset": "ds005555",
+    "subject": "sub-99",
+    "run": "ds005555_float64_verified_20260906 / ..._064207",
+    "read_only": true,
+    "biological_claim": false
+  },
+  "observed_export": {
+    "h5_rows": 1068,
+    "epoch_length_sec": 30.0,
+    "epoch_step_sec": 30.0,
+    "exported_coverage_sec": 32040.0,
+    "raw_recording_duration_sec": 32064.0,
+    "unrepresented_tail_sec": 24.0,
+    "all_core_qc_masks_true": true,
+    "stage_code_8_rows": 9,
+    "stage_code_8_first_start_sec": 20970.0,
+    "stage_code_8_last_start_sec": 21210.0,
+    "stage_code_8_window_bounds_sec": [20970.0, 21240.0],
+    "stage_code_8_semantics": "PSG_disconnection; not relabeled"
+  },
+  "resolved_vs_generic_timebase": {
+    "resolved_epoch": {"length_sec": 30.0, "step_sec": 30.0},
+    "generic_mnps_metadata": {"window_sec": 8.0, "fs_out": 4.0},
+    "interpretation": "generic downstream hint; not the raw feature epoch"
+  },
+  "representations": [
+    {
+      "name": "mnps_3d",
+      "support": "per-epoch feature input; fixed projection; subject anchored; coefficient enumeration is outside this audit",
+      "executed_status": "computed",
+      "temporal_certification": "effective filter/padding support unknown"
+    },
+    {
+      "name": "mnps_9d",
+      "support": "per-epoch feature input; fixed 9D definition; subject anchored; coefficient enumeration is outside this audit",
+      "executed_status": "computed",
+      "temporal_certification": "effective filter/padding support unknown",
+      "e_m_source": "ppg_rate_bpm fallback",
+      "e_m_semantic_equivalence": false
+    }
+  ],
+  "known_dependencies": [
+    {"dependency": "EEG/PPG epoch slicing", "support": "30 s input slice per row; 30 s step"},
+    {"dependency": "robust_z", "support": "recording-global fit over 1068 rows; local anchor", "scope": "known algorithmic nonlocality"},
+    {"dependency": "preprocessing", "support": "continuous raw resample/notch/bandpass/CSD possible by code/config", "effective_support": "unknown from executed provenance"},
+    {"dependency": "disconnection", "support": "code-8 rows retained; no exported signal support exclusion", "status": "stage purity not_assessed"}
+  ],
+  "evidence": [
+    {"id":"accepted_h5","path":"H:/SourceRepo2/NeuralManifoldDynamics/project/v3/ds005555_float64_verified_20260906/ds005555/neuralmanifolddynamics_ds005555_20260906_064207/sub-99_Sleep_acq-psg/sub-99_Sleep_acq-psg.h5","sha256":"3657fd599bbcddb774aa8ae237cb017f0a566c3a21e0877f4b43634d0d98a427","refs":["root attrs and /time,/window_start,/window_end,/features_raw,/features_robust_z,/qc/windows,/support_signature/v1,/provenance/anchoring"]},
+    {"id":"run_manifest","path":"H:/SourceRepo2/NeuralManifoldDynamics/project/v3/ds005555_float64_verified_20260906/ds005555/neuralmanifolddynamics_ds005555_20260906_064207/run_manifest.json","sha256":"91e191503b5a3c489059038c7936a19e666bcf2901644e67fc26bedfcc76f541","refs":["mndm.run_manifest.v2; config.excerpt; git_rev eb0ff86bec842682c60f631a986cbaffc93e27d5"]},
+    {"id":"command","path":"H:/SourceRepo2/NeuralManifoldDynamics/project/v3/ds005555_float64_verified_20260906/ds005555/neuralmanifolddynamics_ds005555_20260906_064207/command_used.txt","sha256":"47c767f2fe7b38fab2500883ff9c1705f55f67f111970376ed558a4f1ca8f042","refs":["all --dataset ds005555 --subject 99 --config ...verified.yaml --h5-mode subject --force-features"]},
+    {"id":"continuous_epoch_config","path":"H:/SourceRepo2/NeuralManifoldDynamics/mndm/config/sources/openneuro/config_ingest_ds005555_dynamical_families_continuous_pilot.yaml","sha256":"f22b4b359431c09513c1ab189e40c08aee984ecbc0278be17573aa51289ba2ff","line_refs":["22"],"refs":["30 s length/step; sampling disabled"]},
+    {"id":"dataset_epoch_config","path":"H:/SourceRepo2/NeuralManifoldDynamics/mndm/config/sources/openneuro/config_ingest_ds005555.yaml","sha256":"78aac00ff5a99e328c352972ab0fa0698b13a5e2cf6c34125f31599074c9a9ba","line_refs":["46"],"refs":["dataset epoch 30 s"]},
+    {"id":"generic_mnps_config","path":"H:/SourceRepo2/NeuralManifoldDynamics/mndm/config/config_ingest_common_eeg.yaml","sha256":"798f53e4fd59e66b17327b60e484a8961d2ef55baab47cbc996f417d393af05e","line_refs":["242","298-320","333","366"],"refs":["normalization, feature pipelines, fs_out/window_sec, super_window, e_m proxy"]},
+    {"id":"eeg_feature_code","path":"H:/SourceRepo2/NeuralManifoldDynamics/mndm/src/mndm/features/eeg.py","sha256":"f7255931901e4a92275041b5149a477c614516c39b8d8b5da7772a12490f0f36","line_refs":["1042-1091","1267-1284","1320-1370","1415-1520"],"refs":["epoch slicing and per-epoch EEG features"]},
+    {"id":"ppg_feature_code","path":"H:/SourceRepo2/NeuralManifoldDynamics/mndm/src/mndm/features/ppg.py","sha256":"d759f5121006f9da802ffd38a3c4b5a28a8a66de8c53f64aea550827f5ef0efa","line_refs":["66-123"],"refs":["PPG bandpass and same epoch indexing"]},
+    {"id":"projection_code","path":"H:/SourceRepo2/NeuralManifoldDynamics/mndm/src/mndm/projection.py","sha256":"a252bbc72fd6da01c8a5f4dde723173c87b1bcbfdf7c8459f081a0bc7c066df3","line_refs":["304-390","497-549"],"refs":["transform pipeline and local robust-z fit unless external anchor"]},
+    {"id":"preprocess_code","path":"H:/SourceRepo2/NeuralManifoldDynamics/mndm/src/mndm/preprocess.py","sha256":"849fbe9c91776fa6e456a05074dc427d6399c9f9500285e1d329520c6b4c9a74","line_refs":["2322-2350","2497-2575","2599-2693"],"refs":["resampling, notch, bandpass, CSD, raw extraction"]},
+    {"id":"proxy_code","path":"H:/SourceRepo2/NeuralManifoldDynamics/mndm/src/mndm/parallel.py","sha256":"e3ae42688b4a1144fd27bdd133167f5ed03c3cc3ba9a6457b940da3143f6131a","line_refs":["281-302"],"refs":["embodied_arousal_proxy fallback/source"]},
+    {"id":"time_context_code","path":"H:/SourceRepo2/NeuralManifoldDynamics/mndm/src/mndm/pipeline/context.py","sha256":"712085bd39db9a0beea79e34d5295f1fa7470ec21460b38ee18a61e64e47b31d","line_refs":["60-72","314-317"],"refs":["fs_out hint and window resolution"]},
+    {"id":"summary_code","path":"H:/SourceRepo2/NeuralManifoldDynamics/mndm/src/mndm/pipeline/summary.py","sha256":"dd57a3c3b0c38b181642fa5e43dd6891436e542279986045c298285b6101a4bc","line_refs":["4343-4364","5833-5834"],"refs":["true bounds vs generic window metadata"]}
+  ],
+  "missing_or_unverified": [
+    "resolved preprocessing record in run manifest/H5",
+    "effective filter length and edge/padding support for MNE filters/resampling/CSD",
+    "executed preprocessing branch/status and raw EDF hash linked to H5",
+    "per-epoch effective support interval or conservative support_status",
+    "signal/disconnection support exclusion mask",
+    "explicit normalization fit population and externally trained/calibrated common-coordinate policy"
+  ],
+  "next_implementation": [
+    "export resolved preprocessing and filter/padding provenance",
+    "compute support_status from verified library metadata or fail closed as unknown",
+    "link disconnection intervals to support masks without bridging",
+    "record normalization population/anchor scope and pre-register an externally trained/calibrated estimator that preserves common coordinates"
+  ]
+}
+
+

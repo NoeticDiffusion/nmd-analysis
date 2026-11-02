@@ -16,6 +16,9 @@
   article-type: "Supplement",
 )
 
+#import "langell_citations.typ": langell-cite
+#show cite: langell-cite
+
 = Source-binding rule
 
 Every empirical number in the main text must point to one canonical companion
@@ -35,7 +38,7 @@ superseded merges are not used. This table is the freeze.
       [Timing $d_n$: ANPHY $+0.106$ ($q=0.009$), BOAS $+0.165$ ($q=0.011$); matched-control specificity incomplete],
     [Coma],
       [Recovery-Linked Neural Geometry After Cardiac-Arrest Coma],
-      [I-CARE PhysioNet 2.1; `20260606_combined_invalidityfix`],
+      [I-CARE PhysioNet 2.1; invalidity-fixed merge, 2026-06-06],
       [$301$ analyzable patients, $5322$ runs; $281$ CPC 1 vs 5 ($141$/$140$); persistence $d=-0.909$ and $0.896$; tube $d=0.838$ ($0.786$ in $0$--$1$ h); AUROC $0.599 -> 0.662$],
     [Meso--macro],
       [Trial-aligned associations between Neuropixels proxies and surface EEG during cortical stimulation in head-fixed mice],
@@ -52,7 +55,7 @@ A corrected-ComBat merge dated `20260602` reported $298$ analyzable patients
 `tube_d_eff_median` $d = 0.638$, and a predictive increment near AUROC
 $0.595 -> 0.687$. That merge is a documented intermediate. The canonical
 article in the canonical coma companion is the *invalidity-fixed* pooled
-synthesis of `20260606`, which restored $301$/$281$ and the AUROC pair
+synthesis of `20260606_combined_invalidityfix`, which restored $301$/$281$ and the AUROC pair
 $0.599 -> 0.662$. Numbers in this article follow that companion, not the ComBat
 intermediate.
 
@@ -115,5 +118,15 @@ The three added matrix rows are likewise not fourth anchors.
   ),
   caption: [Matrix-only constraints imported from the m3-bridge freeze. They bound recoverability; they do not expand the three-anchor spine.],
 ) <tab:s2-matrix>
+
+#show bibliography: it => {
+  show "(2026a). Sleep Spindles": [(2026j). Sleep Spindles]
+  show "(2026b). Recovery-Linked": [(2026k). Recovery-Linked]
+  show "(2026c). Trial-aligned": [(2026b). Trial-aligned]
+  show "(2026d). Omission of an Expected": [(2026l). Omission of an Expected]
+  show "(2026e). A Discrete Trial-to-Trial": [(2026c). A Discrete Trial-to-Trial]
+  show "(2026f). Scalp EEG variance": [(2026m). Scalp EEG variance]
+  it
+}
 
 #bibliography("references.bib", style: "apa")

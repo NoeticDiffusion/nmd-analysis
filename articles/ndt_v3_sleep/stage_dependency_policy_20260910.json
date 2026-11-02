@@ -1,0 +1,69 @@
+{
+  "schema": "ndt.sleep.stage_dependency_policy.v1",
+  "policy_date": "2026-09-10",
+  "status": "allowed_description_with_limitations",
+  "scientific_qualification": "not_assessed",
+  "stage_purity_status": "not_assessed",
+  "full_qualified_count": null,
+  "scope": {
+    "study_role": "development_pilot",
+    "data_already_seen": true,
+    "preregistration": false,
+    "recording_grain": "recording_parent",
+    "population_unit": "participant",
+    "replication_unit": "independent_participant"
+  },
+  "allowed_descriptive_association": {
+    "status": "allowed_description_with_limitations",
+    "coordinate_contract": ["canonical_mnps_3d", "canonical_mnps_9d"],
+    "normalization": {
+      "scope": "recording_parent_global",
+      "fit_once_across_labels": true,
+      "per_stage_fit": false,
+      "cross_participant_units": "relative_standardized_coordinates"
+    },
+    "required_reporting": [
+      "label_counts_and_denominators",
+      "missingness_and_validity_masks",
+      "source_quality_and_code8_provenance",
+      "signal_support_status",
+      "normalization_provenance"
+    ]
+  },
+  "reference_dependency": {
+    "global_fit": "known_recording_nonlocal_dependency",
+    "descriptive_association_automatically_invalid": false,
+    "stage_specific_fit_allowed": false
+  },
+  "intrinsic_stage_dynamics": {
+    "status": "not_assessed",
+    "stage_purity_status": "not_assessed",
+    "full_qualified_count": null,
+    "effective_temporal_support": "unknown",
+    "feature_filter_graph": "incomplete",
+    "recording_q_wq_to_stage": false,
+    "blocked_by": [
+      "unknown_executed_filter_resampling_padding_support",
+      "incomplete_feature_dependency_graph",
+      "source_quality_overlap_requires_explicit_handling",
+      "stage_conditioned_estimator_neighborhood_not_qualified"
+    ]
+  },
+  "source_quality": {
+    "code8_handling": "preserve_literal_source_code_and_interval_provenance",
+    "labels_or_masks_modified": false,
+    "endpoint_labels_prove_purity": false,
+    "arbitrary_guard_margin_allowed": false
+  },
+  "replication": {
+    "required_unit": "independent_participant",
+    "status": "not_run",
+    "cohort_inference": false
+  },
+  "prohibited_claims": [
+    "stage_intrinsic_filter_pure_dynamics",
+    "biological_stage_discrimination",
+    "population_inference",
+    "stage_conditioned_q_wq_or_diffusion_qualification"
+  ]
+}

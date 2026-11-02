@@ -1,0 +1,40 @@
+dataset: ds005555
+coordinate_contract: subject_anchored
+input:
+  h5_root: "H:/SourceRepo2/NeuralManifoldDynamics/project/v3/ds005555_float64_verified_20260906/ds005555/neuralmanifolddynamics_ds005555_20260906_064207/sub-99_Sleep_acq-psg"
+output:
+  directory: articles/ndt_v3_sleep/results/pilot_verified_20260906
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+runtime:
+  fail_on_missing_input: true
+  skip_disabled_analyses: true
+  continue_on_analysis_error: true
+  workers: 1
+flags:
+  sleep_data_contrast: false
+  min_stage_timepoints: 1
+analyses:
+  global_mnps_3d: true
+  global_mnps_9d: true
+  dynamical_families_availability: true
+  diffusion_geometry_recording: true
+  diffusion_geometry_window: true
+  destination_recording: true
+  resilience_recording: true
+  local_dynamics_availability: true
+  jacobian_metrics_3d_recording: true
+  jacobian_metrics_9d_recording: true
+  finite_time_response_3d_recording_horizon: true
+  finite_time_response_9d_recording_horizon: true
+  transition_q_proxy_3d_recording: true
+  transition_q_proxy_9d_recording: true
+  stochastic_reachability_3d_recording: true
+  stochastic_reachability_9d_recording: true
+expected_source:
+  leaf_path: "H:/SourceRepo2/NeuralManifoldDynamics/project/v3/ds005555_float64_verified_20260906/ds005555/neuralmanifolddynamics_ds005555_20260906_064207/sub-99_Sleep_acq-psg/sub-99_Sleep_acq-psg.h5"
+  sha256: 3657fd599bbcddb774aa8ae237cb017f0a566c3a21e0877f4b43634d0d98a427
+  expected_h5_count: 1

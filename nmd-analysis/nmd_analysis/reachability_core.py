@@ -19,10 +19,12 @@ def build_knn_neighborhoods(x: np.ndarray, k: int = 20) -> np.ndarray:
         return np.zeros((t, k), dtype=np.int32)
     x_valid = x[valid_mask]
     distances = cdist(x_valid, x_valid, metric="euclidean")
+    valid_positions = np.full(t, -1, dtype=np.intp)
+    valid_positions[valid_indices] = np.arange(valid_indices.size, dtype=np.intp)
     nn_indices = np.zeros((t, k), dtype=np.int32)
     for i in range(t):
         if valid_mask[i]:
-            v_idx = np.where(valid_indices == i)[0][0]
+            v_idx = valid_positions[i]
             nearest = np.argsort(distances[v_idx])[:k]
             nn_indices[i] = valid_indices[nearest]
         else:
@@ -122,7 +124,7 @@ def estimate_local_linear_model(
         n_samples[w_idx] = X.shape[0]
         if method != "ridge":
             method = "ridge"
-        if X.shape[0] >= cv_folds:
+        if X.shape[0] >= cv_folds and len(alpha_grid) > 1:
             model = RidgeCV(alphas=alpha_grid, cv=min(cv_folds, X.shape[0]), fit_intercept=fit_intercept)
         else:
             model = Ridge(alpha=alpha_grid[0], fit_intercept=fit_intercept)
@@ -157,9 +159,10 @@ def propagate_reachability_covariance(A: np.ndarray, Q: np.ndarray, horizon: int
     dim = A.shape[0]
     sigmas = np.zeros((horizon + 1, dim, dim), dtype=float)
     sigmas[0] = np.eye(dim) * (sigma0**2)
+    jitter_eye = np.eye(dim) * jitter
     for h in range(horizon):
         sigma_next = A @ sigmas[h] @ A.T + Q
-        sigma_next = sigma_next + np.eye(dim) * jitter
+        sigma_next = sigma_next + jitter_eye
         sigmas[h + 1] = sigma_next
     return sigmas
 
@@ -172,11 +175,12 @@ def compute_reachability_metrics(sigmas: np.ndarray, A: np.ndarray, eps: float, 
     d_eff = np.full(horizons, np.nan, dtype=float)
     dir_entropy = np.full(horizons, np.nan, dtype=float)
     dir_entropy_norm = np.full(horizons, np.nan, dtype=float)
+    eps_eye = np.eye(sigmas.shape[-1]) * eps
     for h in range(1, horizons + 1):
         sigma_h = sigmas[h]
         if not np.isfinite(sigma_h).all():
             continue
-        sign, ld = np.linalg.slogdet(sigma_h + np.eye(sigma_h.shape[0]) * eps)
+        sign, ld = np.linalg.slogdet(sigma_h + eps_eye)
         log_det[h - 1] = np.nan if sign <= 0 else 0.5 * ld
         eigvals = np.linalg.eigvalsh(sigma_h)
         eigvals = np.clip(np.sort(eigvals)[::-1], eps, np.inf)
@@ -209,10 +213,12 @@ def compute_reachability_metrics(sigmas: np.ndarray, A: np.ndarray, eps: float, 
 def compute_q_ratio_series(sigmas: np.ndarray, A: np.ndarray, eps: float = 1e-12) -> np.ndarray:
     horizons = sigmas.shape[0] - 1
     q_ratio = np.full(horizons, np.nan, dtype=float)
+    if horizons and not np.isfinite(A).all():
+        return q_ratio
     for h in range(1, horizons + 1):
         sigma_prev = sigmas[h - 1]
         sigma_now = sigmas[h]
-        if not np.isfinite(sigma_prev).all() or not np.isfinite(sigma_now).all() or not np.isfinite(A).all():
+        if not np.isfinite(sigma_prev).all() or not np.isfinite(sigma_now).all():
             continue
         transport = A @ sigma_prev @ A.T
         innovation = sigma_now - transport

@@ -1,0 +1,32 @@
+# V3 extraction/support pilot only. Override the exact run using --input-root.
+# No old I-CARE reachability adapter or biological contrast is enabled here.
+dataset: ds005555
+coordinate_contract: subject_anchored
+input:
+  h5_root: "K:/processed/ds005555_dynamical_families/ds005555/neuralmanifolddynamics_ds005555_20260904_194153"
+output:
+  directory: data/cleaned/ds005555_v3
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+runtime:
+  fail_on_missing_input: true
+  skip_disabled_analyses: true
+  continue_on_analysis_error: false
+  workers: 1
+flags:
+  sleep_data_contrast: false
+analyses:
+  dynamical_families_availability: true
+  diffusion_geometry_recording: true
+  diffusion_geometry_window: true
+  destination_recording: true
+  resilience_recording: true
+  local_dynamics_availability: true
+  jacobian_metrics_3d_recording: true
+  jacobian_metrics_9d_recording: true
+  finite_time_response_3d_recording_horizon: true
+  finite_time_response_9d_recording_horizon: true
+  transition_q_proxy_3d_recording: true
+  transition_q_proxy_9d_recording: true
+  stochastic_reachability_3d_recording: true
+  stochastic_reachability_9d_recording: true

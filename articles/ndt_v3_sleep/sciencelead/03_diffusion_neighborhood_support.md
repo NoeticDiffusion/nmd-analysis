@@ -1,0 +1,33 @@
+# Diffusion neighborhood support audit — 2026-09-07
+
+**Scope:** Read-only audit of the accepted sub-99 HDF5 diffusion export and its producer implementation. The question is whether the local diffusion neighborhoods can be traced or reconstructed without changing estimator settings. This note does not reconstruct neighborhoods and does not qualify a stage-conditioned endpoint.
+
+## Verified source and producer
+
+The accepted source HDF5 is:
+
+`H:\SourceRepo2\NeuralManifoldDynamics\project\v3\ds005555_float64_verified_20260906\ds005555\neuralmanifolddynamics_ds005555_20260906_064207\sub-99_Sleep_acq-psg\sub-99_Sleep_acq-psg.h5`
+
+Its run manifest records NeuralManifoldDynamics git revision `eb0ff86bec842682c60f631a986cbaffc93e27d5`, Python 3.12.0, and the exact `cli.py all --dataset ds005555 --subject 99 --config project/v3/ds005555_float64_verified.yaml --n-jobs 1 --mem-budget-gb 4 --h5-mode subject --force-features` invocation. `git show` confirms that revision exists. The current worktree blobs for `mndm/src/mndm/dynamical_families/diffusion_geometry.py`, `mndm/src/mndm/dynamical_families/validity.py`, and `mndm/src/mndm/pipeline/dynamical_families_export.py` match the corresponding blobs at that revision, with SHA-1s `9d3295caaeb448e8cfbc7764bf88fe9f42a7b061`, `dd21737df8a2a3277874348eb6e4a9a91370d455`, and `bc9077ed049fbd2cf3281797ee798a33309dca35`. The run manifest does not contain an executed-source hash, and the producer worktree has unrelated uncommitted files, so the full executed source tree cannot be proven clean from the run record alone. The HDF5 SHA-256 is `3657FD599BBCDDB774AA8AE237CB017F0A566C3A21E0877F4B43634D0D98A427`; current SHA-256s of the three inspected files are `81E1785C4AA3A0AD52C2FD2593FC631F1A832F826F783309E3B993D55F3F35F7`, `7204548259CE4E7797CAF26A92280543607F4A5D6FEE3E4EC46E2C2FEF9CCB299`, and `3CF957A2A8D0D96EB631E0BEE7742F9DABEF87BC72E85C1D7CD1E0081297DA4F`. The inspected implementation paths are `mndm/src/mndm/dynamical_families/diffusion_geometry.py`, `mndm/src/mndm/dynamical_families/validity.py`, and `mndm/src/mndm/pipeline/dynamical_families_export.py`.
+
+The HDF5 group `/dynamical_families/diffusion/v1` is `mndm.diffusion_geometry.v1`, `computation_status=computed`, `measurement_validity=not_assessed`, `claim_status=no_biological_claim`, native grain `window`, parent grain `recording`, and repeated-measure status. Its stored settings are `neighborhood_k=20`, `min_samples=30`, `min_neighborhood_samples=10`, `max_gap_sec=null`, `max_dt_relative_deviation=0.05`, `psd_floor=1e-8`, raw increment covariance semantics, and no supplied drift. The summary reports 1,067 increment pairs, nominal dt 30 seconds, zero relative dt deviation, 1,068 valid timepoints, and support count 20 for every row.
+
+## What the producer actually uses
+
+The diffusion estimator obtains valid increment pairs from the supplied state/time/segment arrays. It uses source rows from within-segment positive-dt pairs and sets `increment_state = x[source_idx]`. For each finite state row it calls `chunked_nearest_neighbors(x[finite_idx], increment_state, k)`, then computes covariance from the selected raw increment residuals divided by nominal dt. The helper computes direct squared Euclidean distances on the supplied coordinates; it does not whiten or normalize them. The producer passes the subject-anchored 3D state as `float32`, while time is `float64`. In this run all rows are finite, the row-source table identifies one raw EDF file for all 1,068 rows, and the resulting valid/support series are all 1/20.
+
+The accepted HDF5 stores `/dynamical_families/diffusion/v1/series/support_count`, tensors, validity and scalar summaries, but no diffusion neighbor indices, distances, source increment indices, per-neighbor time steps, or per-neighbor stage labels. The top-level `/nn/indices` dataset has shape `(1068, 20)`, but the producer field guide identifies it as the k-nearest-neighbor indices used for local Jacobian estimation. It is not the diffusion membership output and must not be substituted for it. The transition-residual groups store sequential transition IDs and residuals, not the diffusion kNN membership.
+
+## Reconstruction status and support limitation
+
+The recorded settings and inputs are sufficient to specify a candidate producer-faithful recomputation without retuning: coordinate layer, k, finite-row policy, positive within-segment dt rule, nominal-dt normalization, and inspected source revision are available. The run's single raw-file row source also supports the one-segment interpretation used by the producer. However, the historical neighbor membership is not directly auditable from HDF5. Exact membership would depend on rerunning the pinned estimator with the exact stored coordinate array, code revision and numerical environment, including its `np.argpartition` tie behavior; the HDF5 does not record a tie policy or distances. A rerun would be a separate bounded reconstruction experiment, not evidence already contained in the export.
+
+The diffusion estimator does not consume sleep-stage labels. Its neighborhoods and increment pool therefore span the global recording according to the coordinate/time contract. The global pool includes nine finite rows whose recorded stage code is 8 (PSG-disconnection/unknown); because neighbor IDs are not stored, the actual selected-neighbor unknown-stage membership cannot be determined from this artifact. The all-valid diffusion series does not establish that any neighborhood or increment support is stage-pure. Timestamp alignment and the article's three-window label-boundary diagnostic cannot close this gap.
+
+## Recommendation
+
+Keep diffusion values as window-native, recording-parent global-state geometry diagnostics with `stage_purity_status=not_assessed`. Before any stage-conditioned diffusion claim, run a separately pinned support reconstruction that exports neighbor IDs/distances, source increment IDs, per-neighbor dt and validity, stage labels, tie handling, and gap/segment membership, then audit the full estimator support against stage intervals. Do not retune k, metric, masks, or support thresholds during that experiment, and do not infer these fields from `/nn/indices` or from the scalar diffusion output.
+
+**Verdict:** The current artifact is adequate for global descriptive availability, but diffusion neighborhood provenance is incomplete for stage-conditioned interpretation. A candidate membership reconstruction requires a pinned producer-faithful rerun, followed by comparison of reproduced diffusion values and support counts with the stored series; only then could any historical-membership claim be considered.
+
+

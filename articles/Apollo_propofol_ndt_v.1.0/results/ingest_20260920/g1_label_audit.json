@@ -1,0 +1,44 @@
+{
+  "gate": "G1",
+  "status": "labels_joined",
+  "datainfo_path": "J:\\repos\\nmd-analysis\\articles\\Apollo_propofol_ndt_v.1.0\\metadata\\datainfo.mat",
+  "datainfo_sha256": "ea8824f3ca9bd2eef0cdee3a7e1402dcc9e599f9688290cc382ae8e1a21f5608",
+  "default_datainfo_path": "J:\\repos\\nmd-analysis\\articles\\Apollo_propofol_ndt_v.1.0\\metadata\\datainfo.mat",
+  "label_source": "Cambridge Apollo datainfo.mat column 2 (1=baseline, 2=mild sedation, 3=moderate sedation, 4=recovery); not inferred from H5 run/acq order; moderate sedation is not automatically unresponsiveness",
+  "legacy_alias_map": {
+    "1": "awake",
+    "2": "sedated",
+    "3": "unresponsive",
+    "4": "recovery"
+  },
+  "n_datainfo_rows": 80,
+  "n_unparsed_names": 0,
+  "unparsed_names": [],
+  "duplicate_keys": [],
+  "note": "H5 condition=sedation is not a protocol phase. Missing labels stay missing. nmd_analysis.propofol_depth.ORDER_TO_CONDITION maps order 3 to 'unresponsive'; the Cambridge table encodes moderate sedation there. Package columns depth_window_start/stop/score are remapped to concentration, mean RT, and n_correct_responses. Article G1 parses names such as '02-2010-anest 20100210 135.003' as subject + acq.run; the date token is kept as metadata and is not a join key. The package name parser is not used as the join source.",
+  "package_column_remap": {
+    "depth_window_start": "measured_concentration_ug_per_l",
+    "depth_window_stop": "mean_reaction_time_ms",
+    "depth_score": "n_correct_responses"
+  },
+  "mat_keys": [
+    "datainfo"
+  ],
+  "n_mat_rows": 80,
+  "n_subjects": 20,
+  "depth_order_counts": {
+    "1": 20,
+    "2": 20,
+    "3": 20,
+    "4": 20
+  },
+  "n_recordings": 80,
+  "n_matched": 80,
+  "n_unmatched": 0,
+  "n_subjects_with_baseline_and_first_sedation": 20,
+  "subjects_missing_primary_phases": [],
+  "h5_condition_values": [
+    "sedation"
+  ],
+  "confirmatory_contrasts": false
+}

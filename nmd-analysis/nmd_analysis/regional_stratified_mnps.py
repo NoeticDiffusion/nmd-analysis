@@ -166,6 +166,7 @@ def compute_windowed_features(
     entropy = np.zeros(n_windows)
     lf_power = np.zeros(n_windows)
     modularity_proxy = np.zeros(n_windows)
+    off_diagonal_mask = ~np.eye(n_regions, dtype=bool) if n_regions >= 2 else None
 
     for i in range(n_windows):
         start = i * s_samp
@@ -182,8 +183,7 @@ def compute_windowed_features(
             std[std < 1e-12] = 1e-12
             segment_z = segment_z / std
             corr = segment_z @ segment_z.T / w_samp
-            mask = ~np.eye(n_regions, dtype=bool)
-            modularity_proxy[i] = np.mean(corr[mask])
+            modularity_proxy[i] = np.mean(corr[off_diagonal_mask])
         else:
             modularity_proxy[i] = 0.0
 

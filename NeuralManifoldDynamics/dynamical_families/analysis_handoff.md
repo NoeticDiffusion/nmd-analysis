@@ -13,7 +13,11 @@ Type C primitive.
 
 Dynamical families are **not** Jacobian-derived `mndm.dynamics`. Do not
 extend `local_dynamics/readers.py` silently for `/dynamical_families/`.
-There is no analysis reader for `a_hat` / `A_bD` yet.
+Update 2026-09-05: analysis readers for `a_hat` / `A_bD` and a bounded
+cross-fit chart-velocity candidate are now implemented in the separate
+`nmd_analysis.dynamical_families` package. This handoff remains the scientific
+baseline; M3 qualification, empirical M4 and utility M5 remain open.
+See [v3 analysis setup](v3_analysis_setup.md) and [M3 design](m3_design.md).
 
 ```text
 INGEST  frozen C1 consume-external-b + a_hat identity

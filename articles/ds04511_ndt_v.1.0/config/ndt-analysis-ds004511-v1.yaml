@@ -1,0 +1,33 @@
+# Article-local collection pin for the 2026-09-21 ds004511 dynamical-families export.
+# Used only by ds04511_collect.py. No confirmatory task contrasts.
+dataset: ds004511
+description: "ds004511 NDT v1 collection; MNPS dynamical families, no analyze/contrasts"
+coordinate_contract: subject_anchored
+input:
+  h5_root: "data/raw/neuralmanifolddynamics_ds004511_20260921_050009"
+output:
+  directory: "articles/ds04511_ndt_v.1.0/results/ingest_20260921"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+runtime:
+  fail_on_missing_input: true
+  skip_disabled_analyses: true
+  continue_on_analysis_error: false
+  workers: 4
+flags:
+  confirmatory_contrasts: false
+analyses:
+  global_mnps_3d: true
+  dynamical_families_availability: true
+expected_source:
+  n_h5: 134
+  n_subjects: 45
+  n_rest: 45
+  n_cognitive_control: 45
+  n_gambling: 44
+  pinned_relative: "sub-S200116_ses-01_cognitive_control_run-01/sub-S200116_ses-01_cognitive_control_run-01.h5"
+  pinned_sha256: "bcdafda337f7ad0e1e9e41378de41ee2e90118a358132bd328e74aae06a0109f"
+  confirmatory_contrasts: false

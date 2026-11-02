@@ -62,6 +62,12 @@ Configs come in two families (see
 
 ## Documentation
 
+NMD v3 family extraction and a sleep support audit are available via
+`nmd-analysis v3-audit`. See the
+[v3 setup and measurement boundaries](NeuralManifoldDynamics/dynamical_families/v3_analysis_setup.md).
+This adds analysis compatibility; it does not certify empirical drift or
+biological validity of the new measurements.
+
 Full documentation is hosted on Read the Docs:
 <https://nmd-analysis.readthedocs.io>.
 

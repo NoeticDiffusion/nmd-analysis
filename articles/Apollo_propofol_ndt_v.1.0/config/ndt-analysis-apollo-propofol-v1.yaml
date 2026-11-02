@@ -1,0 +1,54 @@
+# Article-local extraction config for the 2026-09-18 Apollo propofol export.
+# Used only by nmd-analysis run / v3-audit. No condition contrasts.
+dataset: Sedation-RestingState
+description: "Apollo propofol NDT v1 collection; MNPS 3.0.1 dynamical families, no analyze/contrasts"
+coordinate_contract: subject_anchored
+input:
+  h5_root: "data/raw/neuralmanifolddynamics_Sedation-RestingState_20260918_075713"
+output:
+  directory: "articles/Apollo_propofol_ndt_v.1.0/results/ingest_20260920/extraction"
+  filename_pattern: "{dataset}_{analysisType}_{timestamp}.parquet"
+  timestamp_format: "%Y%m%d_%H%M%S"
+  parquet:
+    compression: snappy
+    index: false
+runtime:
+  fail_on_missing_input: true
+  skip_disabled_analyses: true
+  continue_on_analysis_error: false
+  workers: 4
+flags:
+  sleep_data_contrast: false
+analyses:
+  global_mnps_3d: true
+  global_mnps_9d: true
+  dynamical_families_availability: true
+  diffusion_geometry_recording: true
+  diffusion_geometry_window: true
+  diffusion_increment_covariance_recording: true
+  destination_recording: true
+  resilience_recording: true
+  chart_drift_recording: true
+  chart_drift_realized_velocity_window: true
+  chart_drift_conditional_mean_window: true
+  chart_drift_lag_diagnostics_window: true
+  one_step_recording: true
+  history_predictive_gain_recording: true
+  history_conditioned_operator_recording: true
+  amplification_window: true
+  turning_window: true
+  local_dynamics_availability: true
+  jacobian_metrics_3d_recording: true
+  jacobian_metrics_9d_recording: true
+  finite_time_response_3d_recording_horizon: true
+  finite_time_response_9d_recording_horizon: true
+  transition_q_proxy_3d_recording: true
+  transition_q_proxy_9d_recording: true
+  stochastic_reachability_3d_recording: true
+  stochastic_reachability_9d_recording: true
+expected_source:
+  n_h5: 80
+  n_subjects: 20
+  pinned_relative: "sub-002_sedation_rest_run-003_acq-135/sub-002_sedation_rest_run-003_acq-135.h5"
+  pinned_sha256: "1635513f690ae01807a9495d920052ddc2a2c9a568d3b8a76bb04139bca993ba"
+  confirmatory_contrasts: false

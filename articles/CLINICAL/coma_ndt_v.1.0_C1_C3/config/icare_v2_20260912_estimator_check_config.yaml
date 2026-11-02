@@ -1,0 +1,46 @@
+# Smoke-test bundle for checking whether ingest's response to
+# handover/ingest_jacobian_estimator_quality_handover.md (Savitzky-Golay
+# derivative instead of raw one-step finite difference; requested
+# 2026-09-11) improves the Jacobian fit-fidelity gate pass rate and E_perp
+# drift-proxy quality. Same 140-subject population as the part2-confirmatory
+# bundle (20260911_123135; verified zero subject-ID difference), re-ingested
+# with an updated MNPS derivative config (`derivative.method=sav_gol`,
+# `window=7`, `polyorder=3`, `derivative_robust.enabled=true`).
+bundle_id: "20260912_094010"
+dataset_id: physionet_icare_2_1
+confirmatory_status: estimator_check_smoke
+coordinate_contract: subject_anchored
+
+paths:
+  raw_root: "J:/repos/nmd-analysis/data/raw/neuralmanifolddynamics_physionet_icare_2_1_20260912_094010"
+  output_root: "J:/repos/nmd-analysis/articles/CLINICAL/coma_ndt_v.1.0/results/estimator_check_20260912"
+  smoke_output_root: "J:/repos/nmd-analysis/articles/CLINICAL/coma_ndt_v.1.0/results/estimator_check_20260912_smoke"
+
+cohort:
+  good_cpc: 1
+  poor_cpc: 5
+  good_label: CPC1
+  poor_label: CPC5
+
+timing:
+  primary_scheme: primary_12h
+  hourly_scheme: hourly_12h
+  primary_window: "0_12h"
+  assignment: run_midpoint_from_anchor_hours
+
+reachability:
+  k: 25
+  method: ridge
+  ridge_alpha: 0.001
+  super_window_size: 3
+  horizons: [1, 2, 4]
+  jitter: 1.0e-6
+  eps: 1.0e-12
+
+diffusion:
+  epsilon: 1.0e-12
+
+statistics:
+  bh_alpha: 0.05
+  min_group_n: 2
+  min_testable_group_n: 10

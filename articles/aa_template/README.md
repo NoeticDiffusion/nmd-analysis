@@ -21,7 +21,7 @@ aa_template/
   peer_review/                        adversarial self-review notes (pr_NN.md)
   sciencelead/                        science-lead verdicts (NNN.md)
   results/                            pipeline result CSVs / outputs
-  src/                                analysis scripts
+  src/                                contrast, coverage, and robustness scripts + YAML configs
   old_template/                       legacy templates (untouched)
 ```
 
@@ -44,6 +44,101 @@ Compile the renamed manuscript or any supplement with Typst, e.g.:
 ```
 typst compile "Walking-State Geometry Separates Parkinson Disease from Controls.typ"
 ```
+
+## Starting a contrast analysis
+
+`src/contrast_analysis.py` is a small, configuration-driven starting point for
+condition contrasts. Copy the template folder, then edit
+`src/contrast_config.yaml` before running it:
+
+```bash
+python src/contrast_analysis.py --config src/contrast_config.yaml
+```
+
+The input is a CSV or Parquet table in long format, with one row per
+`unit_id`, `condition`, and `measure`, and a numeric `value` column. Configure
+the dataset folder and file, input column names, optional exact-match filters,
+measures, and one or more comparisons in the YAML file. Paths in that file are
+resolved relative to the YAML file. Each comparison states its design as
+`paired` or `independent`; the reported direction is always
+`condition_b - condition_a`.
+
+Repeated rows for the same unit, condition, and measure are rejected. Choose
+and document any recording/session reduction upstream using the study's
+predefined measurement rules. Missing or non-finite values remain missing and
+are counted; paired summaries use only complete unit pairs. Outputs include a
+descriptive summary, a paired unit-level table, and a provenance manifest.
+The script does not select inferential estimators, compute p-values or
+confidence intervals, or scientifically qualify the results. Add those steps
+only after the article has specified its contrast, support, missingness,
+estimator, and interpretation rules.
+
+## Auditing data coverage
+
+Run `src/coverage_audit.py` with the same configuration to list missing
+unit-condition-measure rows, rows with missing values, duplicate rows, and
+observations outside an expected inventory:
+
+```bash
+python src/coverage_audit.py --config src/contrast_config.yaml
+```
+
+For a complete expected-support check, set
+`coverage.expected_inventory_file` to a CSV or Parquet file containing one row
+per expected `unit_id` and `condition` assignment. Include the configured
+measure column when expected measures differ by assignment; otherwise the
+script expects every configured measure for each assignment. Paired designs
+need both expected conditions listed for every unit. Keep the inventory
+consistent with the same cohort/session filters as the data. For example:
+
+| subject_id | condition |
+| --- | --- |
+| sub-01 | control |
+| sub-01 | intervention |
+| sub-02 | control |
+| sub-02 | intervention |
+
+The audit writes `coverage_summary.csv`, `coverage_issues.csv`,
+`coverage_unexpected.csv`, and `coverage_manifest.json` under the configured
+results folder. The manifest marks coverage complete only when an expected
+inventory was supplied and every expected cell is present exactly once with a
+finite value.
+
+Without an inventory, the audit checks missing condition-measure cells for
+observed units (both conditions for paired designs) and missing values in
+observed rows. It cannot detect units absent from the input entirely. The
+coverage manifest records this limitation and does not mark the audit as fully
+complete. Add `--fail-on-incomplete` in a pipeline or manual check to require a
+complete inventory-backed audit; it returns a non-zero exit code when the
+inventory is absent or any expected cell is missing, duplicated, or unexpected.
+
+## Comparing robustness variants
+
+`src/robustness_compare.py` compares a primary contrast result table with one or
+more sensitivity result tables configured in `src/robustness_config.yaml`:
+
+```bash
+python src/robustness_compare.py --config src/robustness_config.yaml
+```
+
+Each variant must be computed separately using an article-specific, documented
+change to support, preprocessing, or estimator specification. The comparison
+reports effect deltas, whether non-zero effect signs agree, configured support
+count changes, and unmatched result keys. The example config also compares the
+exact included unit set from `paired_unit_differences.csv`; edit or remove the
+`unit_support` section and its input paths when the analysis is independent or
+uses another unit-level format. It does not generate variants, set a robustness
+threshold, calculate inferential statistics, or decide that an effect is
+robust. Use a fresh output folder or pass `--overwrite` to replace previous
+comparison files.
+
+Patterns used by existing articles include fixed-duration or balanced-support
+recomputations, alternative scaling or feature subsets, participant exclusion
+or leave-one-out checks, and outlier handling. Implement each variant using
+the article's existing measurement and analysis rules, export a result table
+with the configured keys/effect/support columns, then list that table here.
+Some checks (for example model refits or surface changes) need article-specific
+recomputation; this script only compares their exported results.
 
 The `#bibliography("references.bib", style: "apa")` call at the end of each file requires `references.bib` to be present in the same folder (it is, in this template).
 

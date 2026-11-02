@@ -21,8 +21,11 @@ process noise).
 This folder does **not** implement cohort statistics, cross-fit drift
 estimators, or biological claims. See `analysis_handoff.md`.
 
-Python readers for these groups do not exist yet in `nmd_analysis`.
-Do not extend `local_dynamics/readers.py` as a silent substitute.
+Python readers now live in the separate `nmd_analysis.dynamical_families`
+package. They are registered with `nmd-analysis run`; `nmd-analysis v3-audit`
+adds a descriptive support/missingness report for the exact extraction.
+See [v3 analysis setup](v3_analysis_setup.md). These readers do not qualify
+the estimators biologically or implement the full M3 benchmark programme.
 
 Capabilities ingest can already serialize (opt-in, fail-closed):
 

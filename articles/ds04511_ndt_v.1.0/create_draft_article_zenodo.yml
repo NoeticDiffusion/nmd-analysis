@@ -1,0 +1,110 @@
+# Zenodo draft manifest for this article folder.
+# python -m zenodo deposit ds04511_ndt_v1 --dry-run
+
+id: ds04511_ndt_v1
+aliases:
+  - ds04511_ndt_v.1.0
+  - ds004511 NDT v1.0
+  - Task Contrasts Dissociate Across Neural-Dynamics Estimators
+
+name: "Task Contrasts Dissociate Across Estimators in ds004511"
+subtitle: "Chart-Jacobian, one-step, and reachability estimates are distinct objects"
+
+description: >-
+  <p>This article presents an exploratory within-subject reanalysis of the
+  OpenNeuro ds004511 EEG dataset under Noetic Diffusion Theory (NDT). The
+  analysis asks whether Rest, cognitive control (CC), and gambling (GG) task
+  contrasts agree across explicitly non-interchangeable summaries of a
+  subject-anchored neural chart. The frozen export contains 134 recordings from
+  45 participants: 45 Rest, 45 CC, and 44 GG recordings.</p>
+  <p>The measurement contract uses the canonical MNPS [m,d,e] chart and its
+  stratified 9D definition with subject-anchored coordinates. The article
+  reports chart occupancy, Meta-Noetic Jacobian (MNJ) quantities, four L1 local
+  law measures, chart-Jacobian spectral abscissa, identified lag-1 one-step L2
+  and L3 quantities, and certificate-derived L4 reachability amplitudes. These
+  are treated as distinct estimators rather than interchangeable labels.</p>
+  <p>GG minus Rest increased chart-Jacobian alpha (median difference 0.01248,
+  paired <em>d</em><sub>z</sub> = 1.42, <em>n</em> = 44, BH <em>q</em> =
+  5.61e-10). The direction persisted after re-aggregating every recording over
+  the same first 400 seconds. The independently identified one-step L3
+  generator-proxy spectral abscissa did not show a positive counterpart
+  (<em>d</em><sub>z</sub> = -0.328, <em>n</em> = 32, <em>q</em> = 0.178), while
+  identified L2 and L3 rotation summaries decreased. The complete L1 family is
+  reported without significance-based row selection; local chart-drift norm
+  effects were large and remained positive in the deterministic 400-second
+  sensitivity, whereas several diffusion effects attenuated.</p>
+  <p>A separate exploratory estimator-by-task interaction analysis on 121
+  recordings with common production support found positive GG-Rest and GG-CC
+  interactions after estimator-specific, outcome-blind robust standardization.
+  This estimand is normalization-dependent and does not compare raw endpoint
+  units. A frozen subject-level concordance diagnostic found weak or negative
+  Spearman associations between standardized chart and L3 task contrasts
+  (GG-Rest rho = -0.383; 12/32 same-sign pairs). Reachability amplitude contrasts remain duration-limited because task
+  duration ranges do not overlap and L4 is exported only as recording-level
+  scalars. The degenerate effective-dimension readout is retained as QC and is
+  not interpreted as a dimension result.</p>
+  <p>The findings establish an estimator-specific dissociation in one frozen
+  export, not a biological mechanism, causal task effect, clinical biomarker,
+  consciousness measure, or confirmatory result. Public supplements document
+  the measurement contract, complete endpoint families, missingness, robustness
+  analyses, and reproducibility boundaries.</p>
+
+keywords:
+  custom:
+    - Noetic Diffusion Theory
+    - neural state geometry
+    - EEG
+    - within-subject task contrasts
+    - subject-anchored coordinates
+    - Meta-Noetic Phase Space
+    - chart-Jacobian spectral abscissa
+    - one-step dynamics
+    - reachability
+    - L1 local law
+    - estimator dissociation
+    - reproducible exploratory analysis
+  mesh:
+    - mesh:D004569 # Electroencephalography
+    - mesh:D008962 # Models, Theoretical
+    - mesh:D017711 # Nonlinear Dynamics
+    - mesh:D013269 # Stochastic Processes
+    - mesh:D015203 # Reproducibility of Results
+    - mesh:D001931 # Brain Mapping
+  euroscivoc:
+    - euroscivoc:1005 # Computational neuroscience
+    - euroscivoc:1007 # Cognitive neuroscience
+    - euroscivoc:1055 # Dynamical systems
+    - euroscivoc:1059 # Mathematical model
+    - euroscivoc:357 # Statistics and probability
+    - euroscivoc:1061 # Numerical analysis
+    - euroscivoc:1215 # Signal processing
+
+files:
+  manuscript: Task Contrasts Dissociate Across Neural-Dynamics Estimators.typ
+  supplements:
+    pattern: "^S[1-5]_.*\\.typ$"
+  include_compiled: true
+  include_source: false
+  extra:
+    - references.bib
+  exclude:
+    - "^template_eLife\\.typ$"
+    - "^manuscript\\.pdf$"
+    - "^S6_.*$"
+
+zenodo:
+  record_id: null
+  version_doi: null
+  concept_doi: null
+  deposition_id: null
+
+metadata:
+  publication_type: preprint
+  version: "1.0"
+  notes: >-
+    Exploratory NDT v1.0 reanalysis of the frozen neuralmanifolddynamics
+    ds004511 export dated 2026-09-21. Public package contains the manuscript
+    and S1-S5 supplements; S6 is an internal changelog and is excluded. The
+    analysis is not confirmatory and does not establish a biological mechanism,
+    causal task effect, clinical biomarker, or consciousness measure. L4
+    duration dependence and partial lag-1 support remain explicit limitations.

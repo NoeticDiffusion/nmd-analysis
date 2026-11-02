@@ -16,6 +16,9 @@
   article-type: "Supplement",
 )
 
+#import "langell_citations.typ": langell-cite
+#show cite: langell-cite
+
 = Intent
 
 This supplement holds claim-ledger detail that does not belong in the
@@ -141,5 +144,14 @@ identity, and the micro--meso--macro chain remains mostly dashed.
   decoder PASS versus discrete-flow STOP is the same lesson on a different
   chart. Closed gates stay closed.
 ]
+
+#show bibliography: it => {
+  show "(2026a). Directional Access": [(2026e). Directional Access]
+  show "(2026b). Thalamic Reticular": [(2026f). Thalamic Reticular]
+  show "(2026c). Convergent residual": [(2026g). Convergent residual]
+  show "(2026d). Context-Conditioned": [(2026h). Context-Conditioned]
+  show "(2026e). Slow Branch-Level": [(2026i). Slow Branch-Level]
+  it
+}
 
 #bibliography("references.bib", style: "apa")
